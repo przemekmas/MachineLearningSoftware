@@ -1,0 +1,21 @@
+﻿<Page x:Class="ObjectRecognitionSoftware.Views.StartPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ObjectRecognitionSoftware"
+      xmlns:resx="clr-namespace:ObjectRecognitionSoftware.Properties"
+      mc:Ignorable="d" 
+      d:DesignWidth="800" d:DesignHeight="600" 
+      Title="StartPage">
+
+    <Viewbox Stretch="Uniform">
+        <Canvas Width="800" Height="600">
+            <Rectangle Fill="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stroke="Black" Height="580" Width="780" Canvas.Left="10" Canvas.Top="10"/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="28" FontStyle="Italic" Text="{x:Static resx:StartPageResource.Title}" Margin="30"/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Text="{x:Static resx:StartPageResource.Paragraph1}" Width="750" TextWrapping="Wrap" Margin="30,90,0,0"/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Text="{x:Static resx:StartPageResource.Paragraph2}" Width="750" TextWrapping="Wrap" Margin="30,250,0,0"/>
+        </Canvas>
+    </Viewbox>
+
+</Page>
