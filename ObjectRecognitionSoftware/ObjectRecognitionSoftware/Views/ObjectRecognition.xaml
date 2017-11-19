@@ -8,15 +8,17 @@
         mc:Ignorable="d"
         d:DesignWidth="800" d:DesignHeight="600" 
         Title="Object Recognition">
-    
+
     <Viewbox Stretch="Uniform">
         <Canvas Width="800" Height="600">
             <Rectangle Fill="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stroke="Black" Height="580" Width="780" Canvas.Left="10" Canvas.Top="10"/>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="28" FontStyle="Italic" Text="{x:Static resx:ObjectRecognitionResource.Title}" Margin="30"/>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="28" FontStyle="Italic"  Margin="30"/>
             <TextBlock x:Name="InceptionInformationText1" Canvas.Left="30" Canvas.Top="69"/>
-            <Button x:Name="ChooseImageButton1" Content="Choose Image" Canvas.Left="30" Canvas.Top="551" Width="111" Click="ChooseImageButton1_Click"/>
-            <TextBlock x:Name="ChooseImageLabel1" Canvas.Left="156" TextWrapping="Wrap" Canvas.Top="551"/>
-            <Image x:Name="ChooseImage1" Height="440" Canvas.Left="30" Canvas.Top="106" Width="731"/>
+            <Button x:Name="ChooseImageButton1" Content="Choose Image" Canvas.Left="30" Canvas.Top="530" Width="111" Click="ChooseImageButton1_Click"/>
+            <TextBlock x:Name="ChooseImageLabel1" Canvas.Left="30" TextWrapping="Wrap" Canvas.Top="560"/>
+            <Image x:Name="ChooseImage1" Height="415" Canvas.Left="30" Canvas.Top="106" Width="731"/>
+            <Button x:Name="ChooseInceptionGraphButton1" Content="Choose Inception Graph" Canvas.Left="432" Canvas.Top="530" Width="157" Click="ChooseInceptionGraphButton1_Click"/>
+            <Button x:Name="ChooseOutputLabelButton1" Content="Choose Output Labels" Canvas.Left="604" Canvas.Top="530" Width="148" Click="ChooseOutputLabelButton1_Click"/>
         </Canvas>
     </Viewbox>
 

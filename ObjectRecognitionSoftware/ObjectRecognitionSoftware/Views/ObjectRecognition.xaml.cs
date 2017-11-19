@@ -25,26 +25,24 @@ namespace ObjectRecognitionSoftware.Views
     /// </summary>
     public partial class ObjectRecognition : Page, IResourceItemEntity
     {
-        private LoadingDialogBox loadingDialogBox;
+        private LoadingDialogBox m_LoadingDialogBox;
+        private string m_InceptionGraphFileLocation;
+        private string m_OutputLabelsFileLocation;
 
         public ObjectRecognition()
         {
             InitializeComponent();
-            loadingDialogBox = new LoadingDialogBox();
-        }
-        public string Name
-        {
-            get { return "Object Recognition"; }
+            m_LoadingDialogBox = new LoadingDialogBox();
         }
 
-        public Page Page
-        {
-            get { return this; }
-        }
+        public string Name => "Object Recognition";
+
+        public Page Page => this;
 
         private void Recognise(string fileName)
         {
             var imageSource = new BitmapImage(new Uri(fileName));
+            Inception inceptionGraph;
 
             ChooseImageLabel1.Text = fileName;
             ChooseImage1.Source = imageSource;
@@ -59,7 +57,16 @@ namespace ObjectRecognitionSoftware.Views
 
             //Uncomment the following code to use a retrained model to recognize followers, if you deployed the models with the application
             //For ".pb" and ".txt" bundled with the application, set the url to null
-            Inception inceptionGraph = new Inception(null, new string[] {"optimized_graph.pb", "output_labels.txt"}, null, "Mul", "final_result");
+
+            if(m_InceptionGraphFileLocation != null && m_OutputLabelsFileLocation != null)
+            {
+                inceptionGraph = new Inception(null, new string[] { m_InceptionGraphFileLocation, m_OutputLabelsFileLocation }, null, "Mul", "final_result");
+            }
+            else
+            {
+                inceptionGraph = new Inception(null, new string[] { "optimized_graph.pb", "output_labels.txt" }, null, "Mul", "final_result");
+            }
+            
             Tensor imageTensor = ImageIO.ReadTensorFromImageFile(fileName, 299, 299, 128.0f, 1.0f / 128.0f);
 
             float[] probability = inceptionGraph.Recognize(imageTensor);
@@ -82,6 +89,16 @@ namespace ObjectRecognitionSoftware.Views
             InceptionInformationText1.Text = resStr;
             DisposeObjects(inceptionGraph, imageTensor);
         }
+        
+        private void SetOutputLabels(string filename)
+        {
+            m_OutputLabelsFileLocation = filename;
+        }
+
+        private void SetInceptionGraph(string filename)
+        {
+            m_InceptionGraphFileLocation = filename;
+        }
 
         private void DisposeObjects(Inception graph, Tensor tensor)
         {
@@ -91,17 +108,53 @@ namespace ObjectRecognitionSoftware.Views
 
         private void ChooseImageButton1_Click(object sender, RoutedEventArgs e)
         {
+            OpenWindowsDialog(option.chooseImage);
+        }
+
+        private void ChooseInceptionGraphButton1_Click(object sender, RoutedEventArgs e)
+        {
+            OpenWindowsDialog(option.chooseInceptionGraph);
+        }
+        
+        private void ChooseOutputLabelButton1_Click(object sender, RoutedEventArgs e)
+        {
+            OpenWindowsDialog(option.chooseOutputLabels);
+        }
+
+        private void OpenWindowsDialog(option option)
+        {
             var fileDialog = new OpenFileDialog();
             fileDialog.ShowDialog();
 
             var filename = fileDialog.FileName;
             ChooseImageLabel1.Text = filename;
+
             if (!string.IsNullOrEmpty(filename))
-            {                
-                loadingDialogBox.Show();
-                Recognise(filename);
-                loadingDialogBox.Hide();
+            {
+                m_LoadingDialogBox.Show();
+
+                if (option == option.chooseImage)
+                {
+                    Recognise(filename);
+                }
+                else if (option == option.chooseInceptionGraph)
+                {
+                    SetInceptionGraph(filename);
+                }
+                else if(option == option.chooseOutputLabels)
+                {
+                    SetOutputLabels(filename);
+                }
+                
+                m_LoadingDialogBox.Hide();
             }
+        }
+        
+        enum option
+        {
+            chooseInceptionGraph,
+            chooseOutputLabels,
+            chooseImage
         }
     }
 }

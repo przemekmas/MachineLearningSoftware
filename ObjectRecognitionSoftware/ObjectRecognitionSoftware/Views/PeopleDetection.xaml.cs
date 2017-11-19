@@ -36,16 +36,10 @@ namespace ObjectRecognitionSoftware
             TfInvoke.CheckLibraryLoaded();
             loadingDialogBox = new LoadingDialogBox();
         }
-        
-        public string Name
-        {
-            get { return "People Detection"; }
-        }
 
-        public Page Page
-        {
-            get { return this; }
-        }
+        public string Name => "People Detection";
+
+        public Page Page => this;
 
         private void DetectImage(string fileName)
         {
