@@ -13,5 +13,12 @@ namespace ObjectRecognitionSoftware
     /// </summary>
     public partial class App : Application
     {
+        public void ChangeTheme(string uri)
+        {
+            Uri dictionaryUri = new Uri(uri, UriKind.Relative);
+            ResourceDictionary resourceDict = Application.LoadComponent(dictionaryUri) as ResourceDictionary;
+            Application.Current.Resources.MergedDictionaries.Clear();
+            Application.Current.Resources.MergedDictionaries.Add(resourceDict);
+        }
     }
 }

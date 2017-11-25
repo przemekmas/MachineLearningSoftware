@@ -59,6 +59,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Entities\IResourceItemEntity.cs" />
+    <Compile Include="Entities\ThemeConstantsEntity.cs" />
+    <Compile Include="Entities\ThemeEntity.cs" />
     <Compile Include="Properties\LoadingDialogBoxResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -91,6 +93,9 @@
     <Compile Include="Views\ObjectRecognition.xaml.cs">
       <DependentUpon>ObjectRecognition.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ChangeTheme.xaml.cs">
+      <DependentUpon>ChangeTheme.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PeopleDetection.xaml.cs">
       <DependentUpon>PeopleDetection.xaml</DependentUpon>
     </Compile>
@@ -117,11 +122,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ChangeTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\PeopleDetection.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\StartPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Themes\TensorFlowTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Themes\BlueTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Themes\BlackTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
