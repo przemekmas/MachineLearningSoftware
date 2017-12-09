@@ -1,4 +1,5 @@
-﻿using ObjectRecognitionSoftware.Entities;
+﻿using ObjectRecognitionSoftware.Common;
+using ObjectRecognitionSoftware.Entities;
 using System;
 using System.Reflection;
 using System.Windows;

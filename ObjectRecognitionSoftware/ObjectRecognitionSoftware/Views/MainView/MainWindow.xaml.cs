@@ -88,30 +88,17 @@ namespace ObjectRecognitionSoftware
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
         }
-
-        private void CloseMainWindow(object sender, ExecutedRoutedEventArgs e)
-        {
-            SystemCommands.CloseWindow(this);
-        }
-
-        private void MaximizeMainWindow(object sender, ExecutedRoutedEventArgs e)
-        {
-            SystemCommands.MaximizeWindow(this);
-        }
-
-        private void MinimiseMainWindow(object sender, ExecutedRoutedEventArgs e)
-        {
-            SystemCommands.MinimizeWindow(this);
-        }
-
+        
         private void OnClickMaximiseWindow(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine(SystemCommands.MaximizeWindowCommand);
-            if(SystemCommands.MaximizeWindowCommand.Equals(""))
+            if(this.WindowState == WindowState.Maximized)
             {
-
+                this.WindowState = WindowState.Normal;
             }
-            SystemCommands.MaximizeWindow(this);
+            else
+            {
+                this.WindowState = WindowState.Maximized;
+            }
         }
 
         private void OnClickMinimiseWindow(object sender, RoutedEventArgs e)
