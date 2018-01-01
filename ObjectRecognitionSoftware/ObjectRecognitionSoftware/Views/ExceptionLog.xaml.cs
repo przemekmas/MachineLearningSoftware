@@ -1,6 +1,9 @@
 ﻿using ObjectRecognitionSoftware.Entities;
 using ObjectRecognitionSoftware.ViewModels;
 using System.Windows.Controls;
+using System.Windows.Shapes;
+using System;
+using ObjectRecognitionSoftware.Views.Controls.ButtonIcons;
 
 namespace ObjectRecognitionSoftware.Views
 {
@@ -12,6 +15,8 @@ namespace ObjectRecognitionSoftware.Views
         public Page Page => this;
 
         public string Name => "Exception Log";
+
+        public Control IconControl => new ExceptionLogIcon();
 
         private ExceptionLogViewModel viewmodel;
         

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Shapes;
 
 namespace ObjectRecognitionSoftware.Entities
 {
@@ -11,5 +12,6 @@ namespace ObjectRecognitionSoftware.Entities
     {
         string Name { get; }
         Page Page { get; }
+        Control IconControl { get; }
     }
 }

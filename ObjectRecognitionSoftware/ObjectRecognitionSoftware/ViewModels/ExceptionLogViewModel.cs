@@ -7,10 +7,10 @@ using System.Timers;
 
 namespace ObjectRecognitionSoftware.ViewModels
 {
-    public class ExceptionLogViewModel : INotifyPropertyChanged
+    public class ExceptionLogViewModel : NotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         private List<ExceptionEntity> m_ExceptionList;
+        private string m_ExceptionCount;
 
         public List<ExceptionEntity> ExceptionList
         {
@@ -21,22 +21,24 @@ namespace ObjectRecognitionSoftware.ViewModels
                 OnPropertyChanged(nameof(ExceptionList));
             }
         }
+
+        public string ExceptionCount
+        {
+            get { return m_ExceptionCount; }
+            set
+            {
+                m_ExceptionCount = value;
+                OnPropertyChanged(nameof(ExceptionCount));
+            }
+        }
         
         public ExceptionLogViewModel()
         {
             ExceptionList = ExceptionLogging.GetExceptions();
+            UpdateExceptionCount(ExceptionList.Count);
             InitiateTimer();
         }
-        
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(name));
-            }
-        }
-        
+                
         public void InitiateTimer()
         {
             var timerEvent = new TimerEvent();
@@ -48,7 +50,13 @@ namespace ObjectRecognitionSoftware.ViewModels
             if(ExceptionList.Count < ExceptionLogging.GetExceptions().Count)
             {
                 ExceptionList = ExceptionLogging.GetExceptions();
+                UpdateExceptionCount(ExceptionList.Count);
             }            
+        }
+
+        private void UpdateExceptionCount(int exceptionValue)
+        {
+            ExceptionCount = string.Format(Properties.ExceptionLogResource.ExceptionCount, exceptionValue);
         }
     }
 }

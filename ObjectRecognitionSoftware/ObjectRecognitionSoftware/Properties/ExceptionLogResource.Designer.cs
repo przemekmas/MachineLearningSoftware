@@ -61,6 +61,15 @@ namespace ObjectRecognitionSoftware.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exceptions {0}.
+        /// </summary>
+        public static string ExceptionCount {
+            get {
+                return ResourceManager.GetString("ExceptionCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exception Log.
         /// </summary>
         public static string Title {

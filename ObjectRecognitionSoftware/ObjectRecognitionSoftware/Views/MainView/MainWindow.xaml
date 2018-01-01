@@ -9,13 +9,13 @@
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
-        ResizeMode="NoResize"
+        ResizeMode="CanResizeWithGrip"
         Title="MainWindow" Height="600" Width="800"
         WindowStartupLocation="CenterScreen">
-    
+
     <Window.Resources>
         <Style x:Key="HoverOnCloseWindowButton1" TargetType="{x:Type Border}">
-            <Setter Property="Border.Background" Value="Black"/>
+            <Setter Property="Border.Background" Value="Transparent"/>
             <Style.Triggers>
                 <Trigger Property="Border.IsMouseOver" Value="True">
                 </Trigger>
@@ -37,7 +37,7 @@
                     <EventTrigger.Actions>
                         <BeginStoryboard>
                             <Storyboard>
-                                <ColorAnimation To="Black" 
+                                <ColorAnimation To="Transparent" 
                                     Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
                                     FillBehavior="HoldEnd" 
                                     Duration="0:0:0.100"/>
@@ -49,11 +49,11 @@
         </Style>
 
         <Style x:Key="HoverOnWindowButton1" TargetType="{x:Type Border}">
-            <Setter Property="Border.Background" Value="Black"/>
+            <Setter Property="Border.Background" Value="Transparent"/>
             <Style.Triggers>
                 <Trigger Property="Border.IsMouseOver" Value="True">
                 </Trigger>
-                
+
                 <EventTrigger RoutedEvent="MouseEnter">
                     <EventTrigger.Actions>
                         <BeginStoryboard>
@@ -71,7 +71,7 @@
                     <EventTrigger.Actions>
                         <BeginStoryboard>
                             <Storyboard>
-                                <ColorAnimation To="Black" 
+                                <ColorAnimation To="Transparent" 
                                     Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
                                     FillBehavior="HoldEnd" 
                                     Duration="0:0:0.100"/>
@@ -82,11 +82,70 @@
             </Style.Triggers>
         </Style>
 
+        <Style x:Key="ListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Border x:Name="Normal"
+                                Background="#FFCDCDCD"
+                                BorderBrush="#FF636363"
+                                BorderThickness="1"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch">
+                            </Border>
+                            <Border x:Name="Hover"
+                                Background="#99E7E7E7"
+                                BorderBrush="#99979797"
+                                BorderThickness="1"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Visibility="Collapsed">
+                            </Border>                            
+                            <Border x:Name="Highlight"
+                                Background="#99008BBF"
+                                BorderBrush="#99000000"
+                                BorderThickness="1"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Visibility="Collapsed">
+                            </Border>
+                            <ContentPresenter></ContentPresenter>
+                            <Border Height="1"
+                                BorderBrush="White"
+                                BorderThickness="0,1,0,0"
+                                Grid.Row="1">
+                            </Border>
+                        </Grid>                        
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Hover"
+                                    Property="Visibility"
+                                    Value="Visible">
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Highlight"
+                                    Property="Visibility"
+                                    Value="Visible">
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style x:Key="WindowButtons1" TargetType="{x:Type Button}">
             <Setter Property="Border.BorderThickness" Value="0"/>
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
-        
+
         <Style x:Key="ResourceItems1" TargetType="{x:Type Label}">
             <Setter Property="Foreground" Value="White"/>
         </Style>
@@ -94,20 +153,20 @@
     <Grid Style="{DynamicResource MainWindowStyle}">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Name="MainMenuGrid1" Width="150"/>
+            <ColumnDefinition Name="MainMenuGrid1" Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Row="0" Grid.ColumnSpan="3" Grid.Column="0" MouseLeftButtonDown="TopBorder_MouseDown" Style="{DynamicResource MainWindowStyle}">
-            <TextBlock Text="Object Class Recognition" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="White" TextAlignment="Center"/>
+            <TextBlock Text="Object Class Recognition" VerticalAlignment="Center" Foreground="White" TextAlignment="Left" Margin="32,7,94,7"/>
 
-            <Border Width="30" Height="30" HorizontalAlignment="Left" Margin="2,0,0,0">
+            <Border Width="25" Height="25" HorizontalAlignment="Left" Margin="2,0,0,0">
                 <Viewbox>
                     <Canvas Opacity="1" Width="350" Height="350">
                         <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="Gray" StrokeThickness="10" Stroke="White" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="M12.824261,28.57156 L12.824261,0.49999999 25.426987,8.75896 25.426987,22.87087 z M0.50000017,22.21989 L12.824261,28.57156 12.824261,0.49999999 0.50000017,8.52863 z" Canvas.Left="35.629" Canvas.Top="16.725" Height="312.511" Stretch="Fill" Width="278.705"/>
@@ -115,8 +174,8 @@
                 </Viewbox>
             </Border>
 
-            <StackPanel Orientation="Horizontal" Width="90" HorizontalAlignment="Right" Margin="0,0,2,0">
-                <Button Width="30" Height="30" Background="Transparent" BorderThickness="0" Click="OnClickMinimiseWindow" Style="{StaticResource WindowButtons1}">
+            <StackPanel Orientation="Horizontal" Height="30" HorizontalAlignment="Right" Margin="0,0,2,0">
+                <Button Width="25" Height="25" Background="Transparent" BorderThickness="0" Click="OnClickMinimiseWindow" Style="{StaticResource WindowButtons1}">
                     <Border Style="{StaticResource HoverOnWindowButton1}">
                         <Viewbox>
                             <Canvas Width="150" Height="150">
@@ -125,8 +184,8 @@
                         </Viewbox>
                     </Border>
                 </Button>
-                
-                <Button Width="30" Height="30" Background="Transparent" BorderThickness="0" Click="OnClickMaximiseWindow" Style="{StaticResource WindowButtons1}">
+
+                <Button Width="25" Height="25" Background="Transparent" BorderThickness="0" Click="OnClickMaximiseWindow" Style="{StaticResource WindowButtons1}">
                     <Border Style="{StaticResource HoverOnWindowButton1}">
                         <Viewbox>
                             <Canvas Width="150" Height="150">
@@ -136,7 +195,7 @@
                     </Border>
                 </Button>
 
-                <Button Width="30" Height="30" Background="Transparent" BorderThickness="0" Click="OnClickCloseWindow" Style="{StaticResource WindowButtons1}">
+                <Button Width="25" Height="25" Background="Transparent" BorderThickness="0" Click="OnClickCloseWindow" Style="{StaticResource WindowButtons1}">
                     <Border Style="{StaticResource HoverOnCloseWindowButton1}">
                         <Viewbox>
                             <Canvas Width="150" Height="150">
@@ -147,30 +206,39 @@
                 </Button>
             </StackPanel>
         </Grid>
-        
+
         <DockPanel Grid.Row="1" Grid.ColumnSpan="2" Margin="2,0,2,0">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
                     <MenuItem Header="_Open"/>
-                    <MenuItem Header="_Close"/>
                     <MenuItem Header="_Save"/>
+                    <MenuItem Header="_Close" Click="ExitSoftware_Click"/>
+                </MenuItem>
+                <MenuItem Header="_View">
+                    <MenuItem>
+
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="_Help">
                     <MenuItem Header="_About" Click="AboutSoftware_Click"/>
+                    <MenuItem Header="_Help"/>
                 </MenuItem>
             </Menu>
             <StackPanel></StackPanel>
         </DockPanel>
-        
+
         <Grid Grid.Row="2" Grid.Column="0" Name="MainMenuContentGrid1" Margin="2,0,0,2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Name="MainMenuGridColumn1" Width="130"/>
+                <ColumnDefinition Name="MainMenuGridColumn1" Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <ListBox Style="{DynamicResource MainMenuStyle}" Name="MainMenu1" Grid.Column="0" HorizontalAlignment="Left" Width="140" MaxWidth="140" SelectionChanged="ListBox_SelectionChanged" BorderBrush="Gray" BorderThickness="0">
-                
+            <ListBox Style="{DynamicResource MainMenuStyle}" HorizontalContentAlignment="Stretch" Name="MainMenu1" 
+                     Grid.Column="0" Width="140" MaxWidth="140" SelectionChanged="ListBox_SelectionChanged" 
+                     BorderThickness="0" HorizontalAlignment="Stretch" ItemContainerStyle="{StaticResource ListBoxItemStyle}">                
             </ListBox>
-            <Button Style="{DynamicResource MainMenuButtonStyle}" Name="HideMenuButton1" Content="Hide Menu ▲" HorizontalAlignment="Stretch" Grid.Column="1" Click="HideMenuButton1_Click" BorderBrush="White" Foreground="White" FontFamily="Arial">
+            <Button Style="{DynamicResource MainMenuButtonStyle}" Name="HideMenuButton1" Content="Hide Menu ▲" 
+                    HorizontalAlignment="Stretch" Grid.Column="1" Click="HideMenuButton1_Click" BorderBrush="White" 
+                    Foreground="White" FontFamily="Calibri" FontSize="12">
                 <Button.LayoutTransform>
                     <RotateTransform Angle="-90" />
                 </Button.LayoutTransform>
@@ -179,11 +247,47 @@
 
         <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Background="White" Margin="0,0,2,2">
             <TabControl Name="TabControl1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ColumnSpan="2">
+                <TabControl.Resources>
+                    <Style TargetType="TabItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="TabItem">
+                                    <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Black" CornerRadius="2,2,0,0" Margin="0,0,1,0">
+                                        <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                    </Border>
+                                    
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="Border" Property="Background" Value="#FF5F9CFF" />
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="False">
+                                            <Setter TargetName="Border" Property="Background" Value="White" />
+                                        </Trigger>                                        
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <Style TargetType="TabControl">
+                        <Setter Property="BorderBrush" Value="Gray"></Setter>
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFA4A4A4" Offset="0"/>
+                                    <GradientStop Color="White" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TabControl.Resources>
                 <TabItem Header="Start Menu">
                     <Frame Source="../StartPage.xaml" FontWeight="Light" />
                 </TabItem>
             </TabControl>
         </Border>
-        
     </Grid>
 </Window>

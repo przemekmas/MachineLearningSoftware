@@ -1,5 +1,7 @@
 ﻿using ObjectRecognitionSoftware.Entities;
 using ObjectRecognitionSoftware.ViewModels;
+using ObjectRecognitionSoftware.Views.Controls;
+using ObjectRecognitionSoftware.Views.DialogBoxes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,16 +25,20 @@ namespace ObjectRecognitionSoftware
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MainWindowViewModel viewModel;
+        private MainWindowViewModel m_ViewModel;
+        private HelpDialogBox m_HelpDialog;
+        private CloseSoftwareDialog m_CloseDialog;
+        private List<string> m_OpenPages;
 
         public MainWindow()
         {            
             InitializeComponent();
-            viewModel = new MainWindowViewModel();
-            this.DataContext = viewModel;
+            m_ViewModel = new MainWindowViewModel();
+            m_OpenPages = new List<string>();
+            this.DataContext = m_ViewModel;
             LoadPanels();
         }
-
+        
         private void OpenPage(string name)
         {
             var instances = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.GetInterfaces().Contains(typeof(IResourceItemEntity))
@@ -40,13 +46,15 @@ namespace ObjectRecognitionSoftware
 
             foreach (var instance in instances.OrderBy(i => i.Name))
             {
-                if(string.Equals(name, instance.Name))
+                if(string.Equals(name, instance.Name) && !m_OpenPages.Contains(instance.Name))
                 {
+                    m_OpenPages.Add(instance.Name);
                     var tabItems = TabControl1.Items.Count;
                     var tabItem = new TabItem();
                     var itemFrame = new Frame();
                     itemFrame.Content = instance.Page;
-                    
+
+                    tabItem.MouseDown += new MouseButtonEventHandler(TabItemMouse_Click);
                     tabItem.Content = itemFrame;
                     tabItem.Header = instance.Name;
                     TabControl1.Items.Insert(tabItems++, tabItem);
@@ -56,7 +64,7 @@ namespace ObjectRecognitionSoftware
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selectedItem = ((Label)MainMenu1.SelectedItem).Content.ToString();
+            var selectedItem = ((MainMenuButtonControl)MainMenu1.SelectedItem).TextBlock.Text.ToString();
             OpenPage(selectedItem);            
         }
 
@@ -108,12 +116,23 @@ namespace ObjectRecognitionSoftware
 
         private void OnClickCloseWindow(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            DisplayExitDialog();
         }
         
         private void AboutSoftware_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(Properties.MainWindowResource.SoftwareInformation);
+            DisplayHelpDialog();
+        }
+
+        private void TabItemMouse_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Middle &&
+                e.ButtonState == MouseButtonState.Pressed)
+            {
+                TabControl1.Items.Remove(sender);
+                var tabItem = sender as TabItem;
+                m_OpenPages.Remove(tabItem.Header.ToString());
+            }
         }
 
         private void LoadPanels()
@@ -123,10 +142,33 @@ namespace ObjectRecognitionSoftware
 
             foreach (var instance in instances.OrderBy(i => i.Name))
             {
-                var resources = new Label();
-                resources.Content = instance.Name;
+                var resources = new MainMenuButtonControl();
+                //resources.Width = 120;
+                resources.MinHeight = 40;
+                //resources.TextWrapping = TextWrapping.Wrap;
+                resources.Grid.Children.Add(instance.IconControl);
+                //resources.ControlPlaceholder = instance.IconControl;
+                resources.TextBlock.Text = instance.Name;
                 MainMenu1.Items.Add(resources);
             }
+        }
+
+        private void DisplayHelpDialog()
+        {
+            m_HelpDialog = new HelpDialogBox();
+            m_HelpDialog.ShowDialog();
+        }
+
+        private void DisplayExitDialog()
+        {
+            m_CloseDialog = new CloseSoftwareDialog();
+            m_CloseDialog.ShowDialog();
+        }
+
+        private void ExitSoftware_Click(object sender, RoutedEventArgs e)
+        {
+            m_CloseDialog = new CloseSoftwareDialog();
+            m_CloseDialog.ShowDialog();
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using ObjectRecognitionSoftware.Common;
 using ObjectRecognitionSoftware.Entities;
+using ObjectRecognitionSoftware.Views.Controls.ButtonIcons;
 using System;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Shapes;
 
 namespace ObjectRecognitionSoftware
 {
@@ -24,6 +26,8 @@ namespace ObjectRecognitionSoftware
         public string Name => "Change Theme";
 
         public Page Page => this;
+
+        public Control IconControl => new ThemeButtonIcon();
 
         private void ThemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

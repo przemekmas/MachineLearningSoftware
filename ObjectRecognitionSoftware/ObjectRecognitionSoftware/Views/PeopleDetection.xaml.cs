@@ -18,6 +18,9 @@ using System.Windows.Interop;
 using System.Drawing.Imaging;
 using ObjectRecognitionSoftware.Views.DialogBoxes;
 using ObjectRecognitionSoftware.Entities;
+using System.Threading;
+using System.Windows.Shapes;
+using ObjectRecognitionSoftware.Views.Controls.ButtonIcons;
 
 namespace ObjectRecognitionSoftware
 {
@@ -28,31 +31,36 @@ namespace ObjectRecognitionSoftware
     {
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
         private static extern bool DeleteObject(IntPtr hObject);
-        private LoadingDialogBox loadingDialogBox;
         
         public PeopleDetection()
         {
             InitializeComponent();
             TfInvoke.CheckLibraryLoaded();
-            loadingDialogBox = new LoadingDialogBox();
         }
 
         public string Name => "People Detection";
 
         public Page Page => this;
 
+        public Control IconControl => new PeopleDetectionIcon();
+
         private void DetectImage(string fileName)
         {
-            MultiboxGraph graph = new MultiboxGraph();
-            Tensor imageTensor = ImageIO.ReadTensorFromImageFile(fileName, 224, 224, 128.0f, 1.0f / 128.0f);
-            MultiboxGraph.Result result = graph.Detect(imageTensor);
+            var graph = new MultiboxGraph();
+            var imageTensor = ImageIO.ReadTensorFromImageFile(fileName, 224, 224, 128.0f, 1.0f / 128.0f);
+            var result = graph.Detect(imageTensor);
 
-            Bitmap bmp = new Bitmap(fileName);
+            var bmp = new Bitmap(fileName);
             MultiboxGraph.DrawResults(bmp, result, 0.1f);
-
-            ChooseImage1.Source = ConvertBitmap(bmp);
+            
+            Dispatcher.Invoke(() =>
+            {
+                ChooseImage1.Source = ConvertBitmap(bmp);
+                LoadingModalDialog.HideModal();
+            });
         }
-        public static BitmapImage ConvertBitmap(Bitmap bitmap)
+
+        private BitmapImage ConvertBitmap(Bitmap bitmap)
         {
             using (var memory = new MemoryStream())
             {
@@ -79,10 +87,13 @@ namespace ObjectRecognitionSoftware
             ChooseImageLabel1.Text = filename;
             if (!string.IsNullOrEmpty(filename))
             {
-                loadingDialogBox.Show();
-                DetectImage(filename);
-                loadingDialogBox.Hide();
+                LoadingModalDialog.ShowModal();
+                new Thread(() =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    DetectImage(filename);                    
+                }).Start();
             }            
-        }
+        }      
     }
 }

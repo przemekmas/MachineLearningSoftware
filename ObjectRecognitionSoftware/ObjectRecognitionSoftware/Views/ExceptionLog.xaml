@@ -13,9 +13,10 @@
         <Canvas Width="800" Height="600">
             <Rectangle Fill="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stroke="Black" Height="580" Width="780" Canvas.Left="10" Canvas.Top="10"/>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="28" FontStyle="Italic" Text="{x:Static resx:ExceptionLogResource.Title}" Margin="30"/>
-            <DataGrid ItemsSource="{Binding ExceptionList}" x:Name="ExceptionDataGrid"  Height="500" Canvas.Left="25" Canvas.Top="72" Width="750" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="665" Canvas.Top="50" Width="110" Text="{Binding ExceptionCount}"/>
+            <DataGrid ItemsSource="{Binding ExceptionList}" x:Name="ExceptionDataGrid" Height="500" Canvas.Left="25" Canvas.Top="72" Width="750" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn MinWidth="40" CanUserResize="False" CanUserReorder="False" CanUserSort="False"> 
+                    <DataGridTemplateColumn MinWidth="40" CanUserResize="False" CanUserReorder="False" CanUserSort="False">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Border Height="30" Width="30">

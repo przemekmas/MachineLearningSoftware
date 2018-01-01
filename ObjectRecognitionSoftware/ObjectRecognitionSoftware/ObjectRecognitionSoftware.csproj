@@ -59,6 +59,7 @@
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.106.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -73,14 +74,46 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\Controls\ButtonIcons\DefaultIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Controls\ButtonIcons\ObjectRecognitionIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Controls\ButtonIcons\ExceptionLogIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Controls\ButtonIcons\RetrainInceptionModelIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Controls\ButtonIcons\PeopleDetectionIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Controls\ButtonIcons\ThemeButtonIcon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\MainMenuButtonControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainView\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Common\CurrentDirectory.cs" />
     <Compile Include="Common\ExceptionLogging.cs" />
+    <Compile Include="Common\ExecuteCMDCommands.cs" />
     <Compile Include="Entities\ExceptionEntity.cs" />
     <Compile Include="Entities\IResourceItemEntity.cs" />
     <Compile Include="Entities\ITimerEvent.cs" />
+    <Compile Include="Entities\IUserModal.cs" />
+    <Compile Include="Entities\NotifyPropertyChanged.cs" />
     <Compile Include="Entities\ThemeConstantsEntity.cs" />
     <Compile Include="Entities\ThemeEntity.cs" />
     <Compile Include="Entities\TimerEvent.cs" />
@@ -109,6 +142,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PeopleDetectionResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Properties\RetrainInceptionModelResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RetrainInceptionModelResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\StartPageResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -116,8 +154,50 @@
     </Compile>
     <Compile Include="ViewModels\ExceptionLogViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="Views\DialogBoxes\LoadingDialogBox.xaml.cs">
-      <DependentUpon>LoadingDialogBox.xaml</DependentUpon>
+    <Compile Include="ViewModels\RetrainInceptionModelViewModel.cs" />
+    <Compile Include="Views\Controls\ButtonIcons\DefaultIcon.xaml.cs">
+      <DependentUpon>DefaultIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\ButtonIcons\ObjectRecognitionIcon.xaml.cs">
+      <DependentUpon>ObjectRecognitionIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\ButtonIcons\ExceptionLogIcon.xaml.cs">
+      <DependentUpon>ExceptionLogIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\ButtonIcons\RetrainInceptionModelIcon.xaml.cs">
+      <DependentUpon>RetrainInceptionModelIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\ButtonIcons\PeopleDetectionIcon.xaml.cs">
+      <DependentUpon>PeopleDetectionIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\ButtonIcons\ThemeButtonIcon.xaml.cs">
+      <DependentUpon>ThemeButtonIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\MainMenuButtonControl.xaml.cs">
+      <DependentUpon>MainMenuButtonControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Converters\BooleanInvertedConverter.cs" />
+    <Compile Include="Views\Converters\VisibilityConverter.cs" />
+    <Compile Include="Views\DialogBoxes\CloseSoftwareDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\DialogBoxes\CloseSoftwareDialog.Designer.cs">
+      <DependentUpon>CloseSoftwareDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogBoxes\HelpDialogBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\DialogBoxes\HelpDialogBox.Designer.cs">
+      <DependentUpon>HelpDialogBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogBoxes\InceptionModelHelpDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\DialogBoxes\InceptionModelHelpDialog.Designer.cs">
+      <DependentUpon>InceptionModelHelpDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogBoxes\LoadingDialogModal.xaml.cs">
+      <DependentUpon>LoadingDialogModal.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ExceptionLog.xaml.cs">
       <DependentUpon>ExceptionLog.xaml</DependentUpon>
@@ -131,10 +211,13 @@
     <Compile Include="Views\PeopleDetection.xaml.cs">
       <DependentUpon>PeopleDetection.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\RetrainInceptionModel.xaml.cs">
+      <DependentUpon>RetrainInceptionModel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\StartPage.xaml.cs">
       <DependentUpon>StartPage.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\DialogBoxes\LoadingDialogBox.xaml">
+    <Page Include="Views\DialogBoxes\LoadingDialogModal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -165,6 +248,10 @@
     <Page Include="Views\PeopleDetection.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\RetrainInceptionModel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\StartPage.xaml">
       <SubType>Designer</SubType>
@@ -221,9 +308,22 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\RetrainInceptionModelResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>RetrainInceptionModelResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\StartPageResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>StartPageResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\DialogBoxes\CloseSoftwareDialog.resx">
+      <DependentUpon>CloseSoftwareDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\DialogBoxes\HelpDialogBox.resx">
+      <DependentUpon>HelpDialogBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\DialogBoxes\InceptionModelHelpDialog.resx">
+      <DependentUpon>InceptionModelHelpDialog.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />
@@ -237,6 +337,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Images\HelpTensorFlowLogo.png" />
   </ItemGroup>
   <Import Project="..\Emgu.TF.Models\Emgu.TF.Models.projitems" Label="Shared" />
   <Import Project="..\Emgu.TF\Emgu.TF.projitems" Label="Shared" />

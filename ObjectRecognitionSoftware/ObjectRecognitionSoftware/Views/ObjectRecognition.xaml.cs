@@ -3,6 +3,7 @@ using Emgu.TF.Models;
 using Microsoft.Win32;
 using ObjectRecognitionSoftware.Entities;
 using ObjectRecognitionSoftware.ViewModels;
+using ObjectRecognitionSoftware.Views.Controls.ButtonIcons;
 using ObjectRecognitionSoftware.Views.DialogBoxes;
 using System;
 using System.Collections.Generic;
@@ -25,19 +26,19 @@ namespace ObjectRecognitionSoftware.Views
     /// </summary>
     public partial class ObjectRecognition : Page, IResourceItemEntity
     {
-        private LoadingDialogBox m_LoadingDialogBox;
         private string m_InceptionGraphFileLocation;
         private string m_OutputLabelsFileLocation;
 
         public ObjectRecognition()
         {
             InitializeComponent();
-            m_LoadingDialogBox = new LoadingDialogBox();
         }
 
         public string Name => "Object Recognition";
 
         public Page Page => this;
+
+        public Control IconControl => new ObjectRecognitionIcon();
 
         private void Recognise(string fileName)
         {
@@ -131,7 +132,6 @@ namespace ObjectRecognitionSoftware.Views
 
             if (!string.IsNullOrEmpty(filename))
             {
-                m_LoadingDialogBox.Show();
 
                 if (option == option.chooseImage)
                 {
@@ -146,10 +146,9 @@ namespace ObjectRecognitionSoftware.Views
                     SetOutputLabels(filename);
                 }
                 
-                m_LoadingDialogBox.Hide();
             }
         }
-        
+                
         enum option
         {
             chooseInceptionGraph,

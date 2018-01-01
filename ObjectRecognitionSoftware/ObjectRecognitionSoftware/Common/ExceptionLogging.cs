@@ -63,8 +63,9 @@ namespace ObjectRecognitionSoftware.Common
 
         public static void LogException(string exception)
         {
-            string sql = string.Format("INSERT INTO ExceptionLog VALUES((SELECT Id FROM ExceptionLog)+1, '{0}', '{1}')", exception, DateTime.Now);
+            string sql = string.Format("INSERT INTO ExceptionLog VALUES((SELECT Id FROM ExceptionLog)+1, @exception, '{0}')", DateTime.Now);
             SQLiteCommand command = new SQLiteCommand(sql, m_SqlConnection);
+            command.Parameters.Add(new SQLiteParameter("@exception", exception));
             command.ExecuteNonQuery();
         }
     }

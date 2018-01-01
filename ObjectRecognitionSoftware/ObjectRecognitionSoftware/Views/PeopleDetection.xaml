@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ObjectRecognitionSoftware"
       xmlns:resx="clr-namespace:ObjectRecognitionSoftware.Properties"
+      xmlns:controls="clr-namespace:ObjectRecognitionSoftware.Views.DialogBoxes"
       mc:Ignorable="d" 
       d:DesignWidth="800" d:DesignHeight="600" 
       Title="StartPage">
@@ -16,7 +17,7 @@
             <Button x:Name="ChooseImageButton1" Content="Choose Image" Canvas.Left="30" Canvas.Top="551" Width="111" Click="ChooseImageButton1_Click"/>
             <TextBlock x:Name="ChooseImageLabel1" Canvas.Left="156" TextWrapping="Wrap" Canvas.Top="551"/>
             <Image x:Name="ChooseImage1" Height="474" Canvas.Left="30" Canvas.Top="72" Width="731"/>
+            <controls:LoadingDialogModal x:Name="LoadingModalDialog"/>
         </Canvas>
     </Viewbox>
-
 </Page>
