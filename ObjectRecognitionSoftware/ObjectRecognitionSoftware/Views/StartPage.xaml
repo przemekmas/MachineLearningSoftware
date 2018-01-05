@@ -9,13 +9,24 @@
       d:DesignWidth="800" d:DesignHeight="600" 
       Title="StartPage">
 
-    <Viewbox Stretch="Uniform">
-        <Canvas Width="800" Height="600">
-            <Rectangle Fill="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stroke="Black" Height="580" Width="780" Canvas.Left="10" Canvas.Top="10"/>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="28" FontStyle="Italic" Text="{x:Static resx:StartPageResource.Title}" Margin="30"/>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Text="{x:Static resx:StartPageResource.Paragraph1}" Width="750" TextWrapping="Wrap" Margin="30,90,0,0"/>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Text="{x:Static resx:StartPageResource.Paragraph2}" Width="750" TextWrapping="Wrap" Margin="30,250,0,0"/>
-        </Canvas>
-    </Viewbox>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="230"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="22"  
+                   FontStyle="Italic" Text="{x:Static resx:StartPageResource.Title}" Margin="6,6,4,0" Grid.ColumnSpan="2" Width="300"/>
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                   FontSize="14" Width="Auto" TextWrapping="Wrap" Margin="10,11,10,0">
+            <Run Text="{x:Static resx:StartPageResource.Paragraph1}"></Run>
+            <Run Text="{x:Static resx:StartPageResource.Paragraph2}"></Run>
+        </TextBlock>
+    </Grid>
 </Page>

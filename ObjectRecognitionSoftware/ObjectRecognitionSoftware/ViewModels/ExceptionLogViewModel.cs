@@ -11,6 +11,7 @@ namespace ObjectRecognitionSoftware.ViewModels
     {
         private List<ExceptionEntity> m_ExceptionList;
         private string m_ExceptionCount;
+        private string m_ExceptionDetails;
 
         public List<ExceptionEntity> ExceptionList
         {
@@ -31,6 +32,16 @@ namespace ObjectRecognitionSoftware.ViewModels
                 OnPropertyChanged(nameof(ExceptionCount));
             }
         }
+
+        public string ExceptionDetails
+        {
+            get { return m_ExceptionDetails; }
+            set
+            {
+                m_ExceptionDetails = value;
+                OnPropertyChanged(nameof(ExceptionDetails));
+            }
+        }
         
         public ExceptionLogViewModel()
         {
@@ -43,6 +54,11 @@ namespace ObjectRecognitionSoftware.ViewModels
         {
             var timerEvent = new TimerEvent();
             timerEvent.InititateTimer(1000, OnUpdateEvent);
+        }
+
+        public void SetExceptionDetails(string exception)
+        {
+            ExceptionDetails = exception;
         }
 
         private void OnUpdateEvent(Object source, ElapsedEventArgs e)

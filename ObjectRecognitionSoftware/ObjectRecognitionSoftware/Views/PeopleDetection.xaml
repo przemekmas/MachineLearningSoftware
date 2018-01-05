@@ -10,14 +10,24 @@
       d:DesignWidth="800" d:DesignHeight="600" 
       Title="StartPage">
 
-    <Viewbox Stretch="Uniform">
-        <Canvas Width="800" Height="600">
-            <Rectangle Fill="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stroke="Black" Height="580" Width="780" Canvas.Left="10" Canvas.Top="10"/>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="28" FontStyle="Italic" Text="{x:Static resx:PeopleDetectionResource.Title}" Margin="30"/>
-            <Button x:Name="ChooseImageButton1" Content="Choose Image" Canvas.Left="30" Canvas.Top="551" Width="111" Click="ChooseImageButton1_Click"/>
-            <TextBlock x:Name="ChooseImageLabel1" Canvas.Left="156" TextWrapping="Wrap" Canvas.Top="551"/>
-            <Image x:Name="ChooseImage1" Height="474" Canvas.Left="30" Canvas.Top="72" Width="731"/>
-            <controls:LoadingDialogModal x:Name="LoadingModalDialog"/>
-        </Canvas>
-    </Viewbox>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="130"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="22"  
+                   FontStyle="Italic" Margin="6,6,4,0" Width="300"
+                   Text="{x:Static resx:PeopleDetectionResource.Title}"/>
+        <Button Grid.Row="2" x:Name="ChooseImageButton1" Content="Choose Image" Click="ChooseImageButton1_Click" Margin="10"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" x:Name="ChooseImageLabel1" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap"/>
+        <Image HorizontalAlignment="Left" x:Name="ChooseImage1" Grid.Row="1" Grid.ColumnSpan="2" Margin="10"/>
+        <controls:LoadingDialogModal Grid.ColumnSpan="2" Grid.RowSpan="3" x:Name="LoadingModalDialog"/>
+    </Grid>
 </Page>

@@ -26,5 +26,11 @@ namespace ObjectRecognitionSoftware.Views
             viewmodel = new ExceptionLogViewModel();
             this.DataContext = viewmodel;
         }
+
+        private void ExceptionDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedException = ExceptionDataGrid.SelectedItem as ExceptionEntity;
+            viewmodel.SetExceptionDetails(selectedException.Exception);
+        }
     }
 }

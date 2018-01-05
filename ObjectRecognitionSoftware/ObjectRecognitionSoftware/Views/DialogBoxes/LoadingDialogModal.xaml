@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:ObjectRecognitionSoftware.Views.DialogBoxes"
         xmlns:resx="clr-namespace:ObjectRecognitionSoftware.Properties"
         mc:Ignorable="d"
-        Height="600" 
-        Width="800"
+        Height="Auto" 
+        Width="Auto"
         Background="Transparent"
         Visibility="Hidden">
 
@@ -20,7 +20,7 @@
         </Storyboard>        
     </UserControl.Resources>
 
-    <Border Background="#CC000000" Width="800" x:Name="MainModal" Opacity="0">
+    <Border Background="#CC000000" x:Name="MainModal" Opacity="0">
         <Border Width="230" Height="130" CornerRadius="2" Background="White" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel VerticalAlignment="Center">
                 <TextBlock Text="{x:Static resx:LoadingDialogBoxResource.LoadingMessage}" FontSize="20" TextAlignment="Center"/>
