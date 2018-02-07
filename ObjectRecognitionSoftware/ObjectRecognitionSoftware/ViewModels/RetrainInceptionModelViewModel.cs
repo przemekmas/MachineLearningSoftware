@@ -16,11 +16,18 @@ namespace ObjectRecognitionSoftware.ViewModels
 {
     public class RetrainInceptionModelViewModel : NotifyPropertyChanged
     {
-        StringBuilder textLogBuilder = new StringBuilder();
+        #region Fields
+
+        private StringBuilder textLogBuilder = new StringBuilder();
         private string m_TextBoxLog;
         private bool m_PythonInstalled;
         private string m_PythonInstallationLabel;
+
+        #endregion
+
         public string imageDirectory;
+
+        #region Properties
 
         public string TextBoxLog
         {
@@ -51,12 +58,46 @@ namespace ObjectRecognitionSoftware.ViewModels
                 OnPropertyChanged(nameof(PythonInstalled)); 
             }
         }
-        
+
+        #endregion
+
+        #region Constructor
+
         public RetrainInceptionModelViewModel()
         {
             IsPythonInstalled();
             ExecuteCMDCommands.outputHandler = OutputHandler;
         }
+
+        #endregion
+
+        #region Public Methods
+
+        public void InstallRequiredPackages()
+        {
+            //Need to set the path variable for python pip
+            SetPythonEnvironmentPath();
+            InstallUpdateTensorFlow();
+        }
+
+        public void BuildTensorFlow()
+        {
+            if (!string.IsNullOrEmpty(imageDirectory))
+            {
+                new Thread(() =>
+                {
+                    var assetsFolder = CurrentDirectory.GetPythonDirectory();
+                    var commands = new List<string>() { string.Format("cd {0}", assetsFolder),
+                        string.Format(@"python Retrain.py --output_graph=retrained_graph.pb --output_labels=retrained_labels.txt --image_dir={0}", imageDirectory) };
+
+                    ExecuteCMDCommands.RunMultipleCommands(commands);
+                }).Start();
+            }
+        }
+
+        #endregion
+
+        #region Private Methods
 
         private void IsPythonInstalled()
         {
@@ -97,35 +138,13 @@ namespace ObjectRecognitionSoftware.ViewModels
 
             TextBoxLog += textLogBuilder.ToString();
         }
-
-        public void InstallRequiredPackages()
-        {
-            //Need to set the path variable for python pip
-            SetPythonEnvironmentPath();
-            InstallUpdateTensorFlow();
-        }
-
+                
         private void SetPythonEnvironmentPath()
         {
             string pythonDirectory = CurrentDirectory.GetCurrentAppDataDirectory();
 
         }
-
-        public void BuildTensorFlow()
-        {
-            if (!string.IsNullOrEmpty(imageDirectory))
-            {
-                new Thread(() =>
-                {
-                    var assetsFolder = CurrentDirectory.GetPythonDirectory();
-                    var commands = new List<string>() { string.Format("cd {0}", assetsFolder),
-                        string.Format(@"python Retrain.py --output_graph=retrained_graph.pb --output_labels=retrained_labels.txt --image_dir={0}", imageDirectory) };
-
-                    ExecuteCMDCommands.RunMultipleCommands(commands);
-                }).Start();
-            }
-        }
-
+        
         private void InstallUpdateTensorFlow()
         {
             new Thread(() =>
@@ -147,5 +166,7 @@ namespace ObjectRecognitionSoftware.ViewModels
                 TextBoxLog += string.Format("{0} \n", e.Data);
             }
         }
+
+        #endregion
     }
 }

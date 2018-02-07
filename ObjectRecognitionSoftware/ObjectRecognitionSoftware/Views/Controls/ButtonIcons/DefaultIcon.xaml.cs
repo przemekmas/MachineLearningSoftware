@@ -11,11 +11,6 @@ namespace ObjectRecognitionSoftware.Views.Controls.ButtonIcons
         public DefaultIcon()
         {
             InitializeComponent();
-        }
-
-        public Path GetPath()
-        {
-            return IconPath;
-        }
+        }        
     }
 }

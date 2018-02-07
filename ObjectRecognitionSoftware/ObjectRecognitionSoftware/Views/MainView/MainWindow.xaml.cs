@@ -1,4 +1,5 @@
-﻿using ObjectRecognitionSoftware.Entities;
+﻿using ObjectRecognitionSoftware.Common;
+using ObjectRecognitionSoftware.Entities;
 using ObjectRecognitionSoftware.ViewModels;
 using ObjectRecognitionSoftware.Views.Controls;
 using ObjectRecognitionSoftware.Views.DialogBoxes;
@@ -169,6 +170,11 @@ namespace ObjectRecognitionSoftware
         {
             m_CloseDialog = new CloseSoftwareDialog();
             m_CloseDialog.ShowDialog();
+        }
+
+        private void OnClickTensorflowWebsite(object sender, RoutedEventArgs e)
+        {
+            HyperlinkNavigation.NavigateTo("https://www.tensorflow.org/");
         }
     }
 }

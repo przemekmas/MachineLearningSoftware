@@ -73,7 +73,7 @@
             this.CopyrightLabel1.Name = "CopyrightLabel1";
             this.CopyrightLabel1.Size = new System.Drawing.Size(313, 23);
             this.CopyrightLabel1.TabIndex = 3;
-            this.CopyrightLabel1.Text = "Copyright © 2017 Przemyslaw Maslowski";
+            this.CopyrightLabel1.Text = "Copyright © 2018 Przemyslaw Maslowski";
             this.CopyrightLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // OkButton1

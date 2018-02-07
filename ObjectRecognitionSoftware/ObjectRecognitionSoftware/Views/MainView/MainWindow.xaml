@@ -224,6 +224,7 @@
                 <MenuItem Header="_Help">
                     <MenuItem Header="_About" Click="AboutSoftware_Click"/>
                     <MenuItem Header="_Help"/>
+                    <MenuItem Header="_TensorFlow" Click="OnClickTensorflowWebsite"/>
                 </MenuItem>
             </Menu>
             <StackPanel></StackPanel>
@@ -235,7 +236,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <ListBox Style="{DynamicResource MainMenuStyle}" HorizontalContentAlignment="Stretch" Name="MainMenu1" 
-                     Grid.Column="0" Width="140" MaxWidth="140" SelectionChanged="ListBox_SelectionChanged" 
+                     Grid.Column="0" Width="140" MaxWidth="140" SelectionChanged="ListBox_SelectionChanged"
                      BorderThickness="0" HorizontalAlignment="Stretch" ItemContainerStyle="{StaticResource ListBoxItemStyle}">
             </ListBox>
             <Button Style="{DynamicResource MainMenuButtonStyle}" Name="HideMenuButton1" Content="Hide Menu ▲" 

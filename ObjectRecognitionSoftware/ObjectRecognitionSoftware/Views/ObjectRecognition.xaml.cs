@@ -65,7 +65,7 @@ namespace ObjectRecognitionSoftware.Views
             }
             else
             {
-                inceptionGraph = new Inception(null, new string[] { "optimized_graph.pb", "output_labels.txt" }, null, "Mul", "final_result");
+                inceptionGraph = new Inception(null, new string[] { "optimized_graph.pb", "output_labels.txt" }, "https://github.com/emgucv/models/raw/master/inception_flower_retrain/", "Mul", "final_result");
             }
             
             Tensor imageTensor = ImageIO.ReadTensorFromImageFile(fileName, 299, 299, 128.0f, 1.0f / 128.0f);
