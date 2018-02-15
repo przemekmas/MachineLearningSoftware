@@ -319,7 +319,7 @@ namespace Emgu.TF
             }
 #else
                 //Use absolute path for Windows Desktop
-                fullPath = Path.Combine(loadDirectory, fullPath);
+                fullPath = Path.GetFullPath(Path.Combine(fullPath, @"..\..\..\..\..\Emgu.TF\lib\x64Platform\tfextern.dll"));
 
                 bool fileExist = File.Exists(fullPath);
                 if (!fileExist)

@@ -28,8 +28,8 @@ namespace Emgu.TF
       /// The List of the opencv modules
       /// </summary>
 	  public static List<String> TensorflowModuleList = new List<String>
-	  {       
-        ExternLibrary
+	  {
+          ExternLibrary
       };
 
 	  
