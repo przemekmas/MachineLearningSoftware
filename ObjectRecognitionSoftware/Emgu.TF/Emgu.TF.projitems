@@ -183,12 +183,12 @@
         </AndroidNativeLibrary>
       </ItemGroup>
     </When>
-    <!-- Windows Form Application -->
+    <!-- Windows WPF Application -->
     <When Condition="'$(EmguLinkTarget)'=='' AND ('$(TargetFrameworkVersion)'=='v2.0' OR '$(TargetFrameworkVersion)'=='v3.0' OR '$(TargetFrameworkVersion)'=='v3.5' OR '$(TargetFrameworkVersion)'=='v4.0' OR '$(TargetFrameworkVersion)'=='v4.5' OR '$(TargetFrameworkVersion)'=='v4.5.1' OR '$(TargetFrameworkVersion)'=='v4.5.2' OR '$(TargetFrameworkVersion)'=='v4.6' OR '$(TargetFrameworkVersion)'=='v4.6.1')">
       <PropertyGroup>
         <EmguLinkTarget>WindowsForms</EmguLinkTarget>
         <EmguBuildX64 Condition="'$(Platform)'=='AnyCPU' OR '$(Platform)'=='x64'">True</EmguBuildX64>
-        <EmguNativeFileX64>$(EmguTFDir)..\lib\x64\tfextern.dll</EmguNativeFileX64>
+        <EmguNativeFileX64>$(EmguTFDir)\lib\x64\tfextern.dll</EmguNativeFileX64>
         <EmguErrorMessage Condition="'$(EmguBuildX64)'=='True' AND !Exists('$(EmguNativeFileX64)')">This package do not contain necessary binary for $(EmguLinkTarget). X64 is targeted, but file $(EmguNativeFileX64) is missing.</EmguErrorMessage>
         <EmguDeployMessage Condition="'$(EmguBuildX64)'=='True' AND Exists('$(EmguNativeFileX64)')">$(EmguDeployMessage)x64 </EmguDeployMessage>
       </PropertyGroup>
