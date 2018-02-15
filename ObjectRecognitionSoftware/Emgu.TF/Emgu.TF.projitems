@@ -11,6 +11,9 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)*.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)lib\x64\tfextern.dll" />
+  </ItemGroup>
   <PropertyGroup>
     <TFBinaryDir>$(MSBuildThisFileDirectory)..\lib</TFBinaryDir>
     <EmguTFDir>$(MSBuildThisFileDirectory)</EmguTFDir>
