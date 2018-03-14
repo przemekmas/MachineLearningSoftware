@@ -18,6 +18,8 @@ namespace ObjectRecognitionSoftware.Views
 
         public Control IconControl => new ExceptionLogIcon();
 
+        public bool IsVisible => true;
+
         private ExceptionLogViewModel viewmodel;
         
         public ExceptionLog()

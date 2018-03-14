@@ -1,23 +1,10 @@
 ﻿using ObjectRecognitionSoftware.Common;
-using ObjectRecognitionSoftware.Entities;
 using ObjectRecognitionSoftware.ViewModels;
 using ObjectRecognitionSoftware.Views.Controls;
 using ObjectRecognitionSoftware.Views.DialogBoxes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ObjectRecognitionSoftware
 {
@@ -29,53 +16,28 @@ namespace ObjectRecognitionSoftware
         private MainWindowViewModel m_ViewModel;
         private HelpDialogBox m_HelpDialog;
         private CloseSoftwareDialog m_CloseDialog;
-        private List<string> m_OpenPages;
-
+        private MainWindowFunctions m_MainWindowFunctions;
+        
         public MainWindow()
-        {            
+        {
             InitializeComponent();
             m_ViewModel = new MainWindowViewModel();
-            m_OpenPages = new List<string>();
             this.DataContext = m_ViewModel;
-            LoadPanels();
+            m_MainWindowFunctions = MainWindowFunctions.Instance;
+            m_MainWindowFunctions.TabControl = TabControl;
+            m_MainWindowFunctions.LoadPanels(MainMenu1);
         }
         
-        private void OpenPage(string name)
-        {
-            var instances = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.GetInterfaces().Contains(typeof(IResourceItemEntity))
-                                && t.GetConstructor(Type.EmptyTypes) != null).Select(t => Activator.CreateInstance(t) as IResourceItemEntity);
-
-            foreach (var instance in instances.OrderBy(i => i.Name))
-            {
-                if(string.Equals(name, instance.Name) && !m_OpenPages.Contains(instance.Name))
-                {
-                    m_OpenPages.Add(instance.Name);
-                    var tabItems = TabControl1.Items.Count;
-                    var tabItem = new TabItem();
-                    var itemFrame = new Frame();
-                    itemFrame.Content = instance.Page;
-
-                    tabItem.MouseDown += new MouseButtonEventHandler(TabItemMouse_Click);
-                    tabItem.Content = itemFrame;
-                    tabItem.Header = instance.Name;
-                    TabControl1.Items.Insert(tabItems++, tabItem);
-                }                
-            }
-        }
-
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selectedItem = ((MainMenuButtonControl)MainMenu1.SelectedItem).TextBlock.Text.ToString();
-            OpenPage(selectedItem);            
+            m_MainWindowFunctions.OpenPage(selectedItem);            
         }
 
         private void HideMenuButton1_Click(object sender, RoutedEventArgs e)
         {
             double mainMenuWidth1 = MainMenu1.Width;
             var mainMenuGridColumn1 = MainMenuGridColumn1.Width;
-            
-            //var showStyle = this.FindResource("ShowMainMenuButtons") as Style;
-            //var hideStyle = this.FindResource("HideMainMenuButtons") as Style;
 
             if (mainMenuWidth1 > 0)
             {
@@ -124,36 +86,7 @@ namespace ObjectRecognitionSoftware
         {
             DisplayHelpDialog();
         }
-
-        private void TabItemMouse_Click(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Middle &&
-                e.ButtonState == MouseButtonState.Pressed)
-            {
-                TabControl1.Items.Remove(sender);
-                var tabItem = sender as TabItem;
-                m_OpenPages.Remove(tabItem.Header.ToString());
-            }
-        }
-
-        private void LoadPanels()
-        {
-            var instances = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.GetInterfaces().Contains(typeof(IResourceItemEntity))
-                                && t.GetConstructor(Type.EmptyTypes) != null).Select(t => Activator.CreateInstance(t) as IResourceItemEntity);
-
-            foreach (var instance in instances.OrderBy(i => i.Name))
-            {
-                var resources = new MainMenuButtonControl();
-                //resources.Width = 120;
-                resources.MinHeight = 40;
-                //resources.TextWrapping = TextWrapping.Wrap;
-                resources.Grid.Children.Add(instance.IconControl);
-                //resources.ControlPlaceholder = instance.IconControl;
-                resources.TextBlock.Text = instance.Name;
-                MainMenu1.Items.Add(resources);
-            }
-        }
-
+        
         private void DisplayHelpDialog()
         {
             m_HelpDialog = new HelpDialogBox();

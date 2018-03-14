@@ -29,6 +29,8 @@ namespace ObjectRecognitionSoftware.Views
 
         public string Name => "Retrain Inception Model";
 
+        public bool IsVisible => true;
+
         public System.Windows.Controls.Control IconControl => new RetrainInceptionModelIcon();
 
         private void InstallButton_Click(object sender, RoutedEventArgs e)

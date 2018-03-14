@@ -29,6 +29,8 @@ namespace ObjectRecognitionSoftware
 
         public Control IconControl => new ThemeButtonIcon();
 
+        public bool IsVisible => true;
+
         private void ThemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             m_SelectedTheme = ThemeComboBox.SelectedValue.ToString();

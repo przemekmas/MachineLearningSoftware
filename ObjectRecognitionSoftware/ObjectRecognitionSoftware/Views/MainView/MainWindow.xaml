@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:ObjectRecognitionSoftware"
         xmlns:viewmodels="clr-namespace:ObjectRecognitionSoftware.ViewModels"
         xmlns:views="clr-namespace:ObjectRecognitionSoftware.Views"
+        xmlns:controls="clr-namespace:ObjectRecognitionSoftware.Views.Controls"
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -13,9 +14,35 @@
         Title="MainWindow" Height="600" Width="800"
         WindowStartupLocation="CenterScreen"
         BorderBrush="Black"
-        BorderThickness="1">
-    
+        BorderThickness="1"
+        MinWidth="550"
+        MinHeight="450">
+
     <Window.Resources>
+        <Style x:Key="TabItem" TargetType="TabItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Black" CornerRadius="2,2,0,0" Margin="0,0,1,0">
+                            <ContentPresenter x:Name="ContentSite"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    ContentSource="Header"
+                                    Margin="10,2"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#FF5F9CFF" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="White" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="HoverOnCloseWindowButton1" TargetType="{x:Type Border}">
             <Setter Property="Border.Background" Value="Transparent"/>
             <Style.Triggers>
@@ -166,17 +193,23 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Row="0" Grid.ColumnSpan="3" Grid.Column="0" MouseLeftButtonDown="TopBorder_MouseDown" Style="{DynamicResource MainWindowStyle}">
-            <TextBlock Text="Object Class Recognition" VerticalAlignment="Center" Foreground="White" TextAlignment="Left" Margin="32,7,94,7"/>
-
-            <Border Width="25" Height="25" HorizontalAlignment="Left" Margin="2,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="90"/>
+            </Grid.ColumnDefinitions>
+            
+            <Border Grid.Column="0" Width="25" Height="25" HorizontalAlignment="Left" Margin="2,0,0,0">
                 <Viewbox>
                     <Canvas Opacity="1" Width="350" Height="350">
                         <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="Gray" StrokeThickness="10" Stroke="White" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="M12.824261,28.57156 L12.824261,0.49999999 25.426987,8.75896 25.426987,22.87087 z M0.50000017,22.21989 L12.824261,28.57156 12.824261,0.49999999 0.50000017,8.52863 z" Canvas.Left="35.629" Canvas.Top="16.725" Height="312.511" Stretch="Fill" Width="278.705"/>
                     </Canvas>
                 </Viewbox>
             </Border>
-
-            <StackPanel Orientation="Horizontal" Height="30" HorizontalAlignment="Right" Margin="0,0,2,0">
+            <TextBlock Grid.Column="1" Text="Object Class Recognition" VerticalAlignment="Center" Foreground="White" TextAlignment="Left"/>            
+            <controls:MainWindowSearchButtonControl x:Name="SearchBox" Grid.Column="2" HorizontalAlignment="Right" Margin="0,2,0,2"></controls:MainWindowSearchButtonControl>            
+            <StackPanel Grid.Column="3" Orientation="Horizontal" Height="30" HorizontalAlignment="Right" Margin="0,0,0,0">
                 <Button Width="25" Height="25" Background="Transparent" BorderThickness="0" Click="OnClickMinimiseWindow" Style="{StaticResource WindowButtons1}">
                     <Border Style="{StaticResource HoverOnWindowButton1}">
                         <Viewbox>
@@ -250,38 +283,9 @@
         </Grid>
 
         <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Background="White">
-            <TabControl Name="TabControl1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ColumnSpan="2">
-                <TabControl.Resources>
-                    <Style TargetType="TabItem">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="TabItem">
-                                    <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Black" CornerRadius="2,2,0,0" Margin="0,0,1,0">
-                                        <ContentPresenter x:Name="ContentSite"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        ContentSource="Header"
-                                        Margin="10,2"/>
-                                    </Border>
-
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsSelected" Value="True">
-                                            <Setter TargetName="Border" Property="Background" Value="#FF5F9CFF" />
-                                        </Trigger>
-                                        <Trigger Property="IsSelected" Value="False">
-                                            <Setter TargetName="Border" Property="Background" Value="White" />
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                    <Style TargetType="TabControl">
-                        <Setter Property="BorderBrush" Value="Gray"></Setter>
-                        <Setter Property="Background" Value="#FFF1F1F1"/>
-                    </Style>
-                </TabControl.Resources>
-                <TabItem Header="Start Menu">
+            <TabControl Name="TabControl" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ColumnSpan="2">      
+                
+                <TabItem Header="Start Page" Style="{StaticResource TabItem}">
                     <Frame Source="../StartPage.xaml" FontWeight="Light" />
                 </TabItem>
             </TabControl>

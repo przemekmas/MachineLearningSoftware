@@ -6,9 +6,14 @@
       xmlns:local="clr-namespace:ObjectRecognitionSoftware"
       xmlns:resx="clr-namespace:ObjectRecognitionSoftware.Properties"
       xmlns:controls="clr-namespace:ObjectRecognitionSoftware.Views.DialogBoxes"
+      xmlns:converters="clr-namespace:ObjectRecognitionSoftware.Views.Converters"
       mc:Ignorable="d" 
       d:DesignWidth="800" d:DesignHeight="600" 
       Title="StartPage">
+
+    <Page.Resources>
+        <converters:VisibilityConverter x:Key="VisibilityConverter"/>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -26,8 +31,8 @@
                    FontStyle="Italic" Margin="6,6,4,0" Width="300"
                    Text="{x:Static resx:PeopleDetectionResource.Title}"/>
         <Button Grid.Row="2" x:Name="ChooseImageButton1" Content="Choose Image" Click="ChooseImageButton1_Click" Margin="10"/>
-        <TextBlock Grid.Row="2" Grid.Column="1" x:Name="ChooseImageLabel1" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap"/>
-        <Image HorizontalAlignment="Left" x:Name="ChooseImage1" Grid.Row="1" Grid.ColumnSpan="2" Margin="10"/>
-        <controls:LoadingDialogModal Grid.ColumnSpan="2" Grid.RowSpan="3" x:Name="LoadingModalDialog"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" x:Name="ChooseImageLabel1" Text="{Binding ImageSourceDirectory}" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap"/>
+        <Image HorizontalAlignment="Left" x:Name="ChooseImage1" Source="{Binding ImageSource}" Grid.Row="1" Grid.ColumnSpan="2" Margin="10"/>
+        <controls:LoadingDialogModal Grid.ColumnSpan="2" Grid.RowSpan="3" x:Name="LoadingModalDialog" Visibility="{Binding IsModalVisible, Converter={StaticResource VisibilityConverter}}"/>
     </Grid>
 </Page>

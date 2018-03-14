@@ -21,6 +21,7 @@ namespace ObjectRecognitionSoftware.ViewModels
         private StringBuilder textLogBuilder = new StringBuilder();
         private string m_TextBoxLog;
         private bool m_PythonInstalled;
+        private bool m_IsModalVisible;
         private string m_PythonInstallationLabel;
 
         #endregion
@@ -56,6 +57,16 @@ namespace ObjectRecognitionSoftware.ViewModels
             {
                 m_PythonInstalled = value;
                 OnPropertyChanged(nameof(PythonInstalled)); 
+            }
+        }
+
+        public bool IsModalVisible
+        {
+            get { return m_IsModalVisible; }
+            set
+            {
+                m_IsModalVisible = value;
+                OnPropertyChanged(nameof(IsModalVisible));
             }
         }
 

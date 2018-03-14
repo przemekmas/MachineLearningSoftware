@@ -75,7 +75,7 @@
                       StrokeThickness="0.4" StrokeMiterLimit="4" StrokeLineJoin="Round" Width="20" Height="20"/>
             </StackPanel>
         </Button>
-
-        <controls:LoadingDialogModal Grid.ColumnSpan="3" Grid.RowSpan="4" x:Name="LoadingModalDialog"/>
+        <controls:LoadingDialogModal Grid.ColumnSpan="3" Grid.RowSpan="4" x:Name="LoadingModalDialog" 
+                                     Visibility="{Binding IsModalVisible, Converter={StaticResource VisibilityConverter}}"/>
     </Grid>
 </Page>

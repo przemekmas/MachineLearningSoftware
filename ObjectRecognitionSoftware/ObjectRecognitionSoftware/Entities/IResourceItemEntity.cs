@@ -13,5 +13,6 @@ namespace ObjectRecognitionSoftware.Entities
         string Name { get; }
         Page Page { get; }
         Control IconControl { get; }
+        bool IsVisible { get; }
     }
 }

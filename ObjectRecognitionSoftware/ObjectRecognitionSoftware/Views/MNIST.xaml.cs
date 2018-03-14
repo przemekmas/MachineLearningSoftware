@@ -30,6 +30,8 @@ namespace ObjectRecognitionSoftware
         public Page Page => this;
 
         public Control IconControl => new DefaultIcon();
+
+        public bool IsVisible => true;
         
         private void PreviousButtonClick1(object sender, RoutedEventArgs e)
         {

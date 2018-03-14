@@ -30,7 +30,7 @@ namespace Emgu.TF.Models
             Buffer modelBuffer = Buffer.FromString(model);
 
             using (ImportGraphDefOptions options = new ImportGraphDefOptions())
-                ImportGraphDef(modelBuffer, options, status);
+            ImportGraphDef(modelBuffer, options, status);
         }
 
         public String[] Labels

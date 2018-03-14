@@ -43,6 +43,15 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.7.1.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.7.1\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="NScrape, Version=0.3.0.0, Culture=neutral, PublicKeyToken=3eeedf0868bb1580, processorArchitecture=MSIL">
+      <HintPath>..\packages\NScrape.0.3.0.0\lib\net45\NScrape.dll</HintPath>
+    </Reference>
+    <Reference Include="Sprache, Version=2.0.0.52, Culture=neutral, PublicKeyToken=3eeedf0868bb1580, processorArchitecture=MSIL">
+      <HintPath>..\packages\NScrape.0.3.0.0\lib\net45\Sprache.dll</HintPath>
+    </Reference>
     <Reference Include="SQLite.NET">
       <HintPath>..\Assets\SQLite.NET.dll</HintPath>
     </Reference>
@@ -75,6 +84,22 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\Controls\ButtonIcons\WebIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Controls\MainWindowSearchButtonControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\MainWindowTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SearchPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\MNIST.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -114,13 +139,17 @@
     <Compile Include="Common\CurrentDirectory.cs" />
     <Compile Include="Common\ExceptionLogging.cs" />
     <Compile Include="Common\ExecuteCMDCommands.cs" />
+    <Compile Include="Common\OnlineSearchResults.cs" />
     <Compile Include="Common\HyperlinkNavigation.cs" />
+    <Compile Include="Common\MainWindowFunctions.cs" />
     <Compile Include="Entities\DigitImage.cs" />
     <Compile Include="Entities\ExceptionEntity.cs" />
+    <Compile Include="Entities\FileDialogOption.cs" />
     <Compile Include="Entities\IResourceItemEntity.cs" />
     <Compile Include="Entities\ITimerEvent.cs" />
     <Compile Include="Entities\IUserModal.cs" />
     <Compile Include="Entities\NotifyPropertyChanged.cs" />
+    <Compile Include="Entities\SearchResultEntity.cs" />
     <Compile Include="Entities\ThemeConstantsEntity.cs" />
     <Compile Include="Entities\ThemeEntity.cs" />
     <Compile Include="Entities\TimerEvent.cs" />
@@ -164,16 +193,37 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RetrainInceptionModelResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Properties\SearchPageResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SearchPageResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\StartPageResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StartPageResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\SearchPageViewModel.cs" />
+    <Compile Include="ViewModels\ObjectRecognitionViewModel.cs" />
+    <Compile Include="ViewModels\PeopleDetectionViewModel.cs" />
     <Compile Include="ViewModels\MNISTViewModel.cs" />
     <Compile Include="ViewModels\ExceptionLogViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\RetrainInceptionModelViewModel.cs" />
+    <Compile Include="Views\Controls\ButtonIcons\WebIcon.xaml.cs">
+      <DependentUpon>WebIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\MainWindowSearchButtonControl.xaml.cs">
+      <DependentUpon>MainWindowSearchButtonControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\MainWindowTab.xaml.cs">
+      <DependentUpon>MainWindowTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\ViewModels\MainMenuSearchButtonViewModel.cs" />
     <Compile Include="Views\Converters\ArrayPixelConverter.cs" />
+    <Compile Include="Views\SearchPage.xaml.cs">
+      <DependentUpon>SearchPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MNIST.xaml.cs">
       <DependentUpon>MNIST.xaml</DependentUpon>
     </Compile>
@@ -341,6 +391,10 @@
     <EmbeddedResource Include="Properties\RetrainInceptionModelResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>RetrainInceptionModelResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\SearchPageResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SearchPageResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\StartPageResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
