@@ -1,4 +1,4 @@
-# Object Class Recognition/Training With Tensorflow
+# Object Class Recognition/Training with Tensorflow
 
 The purpose of this repository is to provide software which allows to understand and use object recognition and training by the use of the Tensorflow framework. The open source software has been created for windows and it has been written within C#. However, the Tensorflow framework works best with python which is why most the tutorials on the internet will be using Linux and python with the use of the Tensorflow framework.
 
@@ -14,7 +14,7 @@ The purpose of this repository is to provide software which allows to understand
 
 ### Additional Notes
 
-* Please keep in mind that this is not the offical Tensorflow software and it has been created for educational purposes.
+* Please keep in mind that this is not the official Tensorflow software and it has been created for educational purposes.
 * The software is constantly improving. So, if there are any issues, bugs or any other improvements that can be made to the software, please let me know.
 
 ### References
