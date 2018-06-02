@@ -12,14 +12,14 @@ namespace ObjectRecognitionSoftware
     /// </summary>
     public partial class PeopleDetection : Page, IResourceItemEntity
     {
-        private PeopleDetectionViewModel m_ViewModel;
+        private PeopleDetectionViewModel _viewModel;
         
         public PeopleDetection()
         {
             InitializeComponent();
             TfInvoke.CheckLibraryLoaded();
-            m_ViewModel = new PeopleDetectionViewModel();
-            DataContext = m_ViewModel;
+            _viewModel = new PeopleDetectionViewModel();
+            DataContext = _viewModel;
         }
 
         public string Name => "People Detection";
@@ -32,7 +32,7 @@ namespace ObjectRecognitionSoftware
 
         private void ChooseImageButton1_Click(object sender, RoutedEventArgs e)
         {
-            m_ViewModel.ChooseImage();            
+            _viewModel.ChooseImage();            
         }  
     }
 }

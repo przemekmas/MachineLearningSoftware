@@ -70,15 +70,6 @@ namespace ObjectRecognitionSoftware.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Build TensorFlow.
-        /// </summary>
-        public static string BuildTensorFlowButton {
-            get {
-                return ResourceManager.GetString("BuildTensorFlowButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Choose Folder.
         /// </summary>
         public static string ChooseImagesFolderButton {
@@ -102,6 +93,15 @@ namespace ObjectRecognitionSoftware.Properties {
         public static string PythonInstallLabel {
             get {
                 return ResourceManager.GetString("PythonInstallLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Retrain Model.
+        /// </summary>
+        public static string RetrainButton {
+            get {
+                return ResourceManager.GetString("RetrainButton", resourceCulture);
             }
         }
         

@@ -1,48 +1,40 @@
 ﻿using Emgu.TF.Models;
-using ObjectRecognitionSoftware.Entities;
+using ObjectRecognitionSoftware.Common;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
 
 namespace ObjectRecognitionSoftware.ViewModels
 {
-    public class PeopleDetectionViewModel : NotifyPropertyChanged
+    public class PeopleDetectionViewModel : BaseViewModel
     {
-        private BitmapImage m_ImageSource;
-        private string m_ImageSourceDirectory;
-        private bool m_IsModalVisible;
+        private BitmapImage _imageSource;
+        private string _imageSourceDirectory;
 
         public BitmapImage ImageSource
         {
-            get { return m_ImageSource; }
+            get { return _imageSource; }
             set
             {
-                m_ImageSource = value;
+                _imageSource = value;
                 OnPropertyChanged(nameof(ImageSource));
             }
         }
 
         public string ImageSourceDirectory
         {
-            get { return m_ImageSourceDirectory; }
+            get { return _imageSourceDirectory; }
             set
             {
-                m_ImageSourceDirectory = value;
+                _imageSourceDirectory = value;
                 OnPropertyChanged(nameof(ImageSourceDirectory));
             }
         }
 
-        public bool IsModalVisible
+        public PeopleDetectionViewModel()
         {
-            get { return m_IsModalVisible; }
-            set
-            {
-                m_IsModalVisible = value;
-                OnPropertyChanged(nameof(IsModalVisible));
-            }
+            ImageSource = BitmapConverter.ConvertBitmap(Properties.Resources.ImagePlaceholder);
         }
 
         public void ChooseImage()
@@ -67,26 +59,8 @@ namespace ObjectRecognitionSoftware.ViewModels
 
             var bmp = new Bitmap(fileName);
             MultiboxGraph.DrawResults(bmp, result, 0.1f);
-            ImageSource = ConvertBitmap(bmp);
+            ImageSource = BitmapConverter.ConvertBitmap(bmp);
             IsModalVisible = false;
-        }
-
-        private BitmapImage ConvertBitmap(Bitmap bitmap)
-        {
-            using (var memory = new MemoryStream())
-            {
-                bitmap.Save(memory, ImageFormat.Png);
-                memory.Position = 0;
-
-                var bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.StreamSource = memory;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.EndInit();
-                bitmapImage.Freeze();
-
-                return bitmapImage;
-            }
-        }       
+        }              
     }
 }

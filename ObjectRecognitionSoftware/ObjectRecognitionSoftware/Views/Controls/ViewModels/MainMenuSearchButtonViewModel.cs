@@ -5,23 +5,19 @@ namespace ObjectRecognitionSoftware.Views.Controls.ViewModels
 {
     public class MainMenuSearchButtonViewModel : NotifyPropertyChanged
     {
-        private string m_SearchPageName = "Search";
-        private MainWindowFunctions m_MainWindowFunctions;
+        private string _searchPageName = "Search";
+        private MainWindowFunctions _mainWindowFunctions;
 
         public MainMenuSearchButtonViewModel()
         {
-            m_MainWindowFunctions = MainWindowFunctions.Instance;
+            _mainWindowFunctions = MainWindowFunctions.Instance;
         }
 
         public void Search(string input)
         {
-            if (string.IsNullOrEmpty(input))
+            if (!string.IsNullOrEmpty(input))
             {
-
-            }
-            else
-            {
-                m_MainWindowFunctions.OpenPage(m_SearchPageName, input);
+                _mainWindowFunctions.OpenPage(_searchPageName, input);
             }
         }       
     }

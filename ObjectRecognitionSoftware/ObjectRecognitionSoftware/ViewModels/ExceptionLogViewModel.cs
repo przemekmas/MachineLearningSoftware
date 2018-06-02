@@ -1,53 +1,51 @@
 ﻿using ObjectRecognitionSoftware.Common;
 using ObjectRecognitionSoftware.Entities;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Timers;
 
 namespace ObjectRecognitionSoftware.ViewModels
 {
-    public class ExceptionLogViewModel : NotifyPropertyChanged
+    public class ExceptionLogViewModel : BaseViewModel
     {
-        private List<ExceptionEntity> m_ExceptionList;
-        private string m_ExceptionCount;
-        private string m_ExceptionDetails;
+        private ObservableCollection<ExceptionEntity> _exceptionList;
+        private string _exceptionCount;
+        private string _exceptionDetails;
 
-        public List<ExceptionEntity> ExceptionList
+        public ObservableCollection<ExceptionEntity> ExceptionList
         {
-            get { return m_ExceptionList; }
+            get { return _exceptionList; }
             set
             {
-                m_ExceptionList = value;
+                _exceptionList = value;
                 OnPropertyChanged(nameof(ExceptionList));
             }
         }
 
         public string ExceptionCount
         {
-            get { return m_ExceptionCount; }
+            get { return _exceptionCount; }
             set
             {
-                m_ExceptionCount = value;
+                _exceptionCount = value;
                 OnPropertyChanged(nameof(ExceptionCount));
             }
         }
 
         public string ExceptionDetails
         {
-            get { return m_ExceptionDetails; }
+            get { return _exceptionDetails; }
             set
             {
-                m_ExceptionDetails = value;
+                _exceptionDetails = value;
                 OnPropertyChanged(nameof(ExceptionDetails));
             }
         }
         
         public ExceptionLogViewModel()
         {
-            ExceptionList = ExceptionLogging.GetExceptions();
-            UpdateExceptionCount(ExceptionList.Count);
-            InitiateTimer();
+            Task.Run(() => SetExceptions());
         }
                 
         public void InitiateTimer()
@@ -73,6 +71,13 @@ namespace ObjectRecognitionSoftware.ViewModels
         private void UpdateExceptionCount(int exceptionValue)
         {
             ExceptionCount = string.Format(Properties.ExceptionLogResource.ExceptionCount, exceptionValue);
+        }
+
+        private void SetExceptions()
+        {
+            ExceptionList = ExceptionLogging.GetExceptions();
+            UpdateExceptionCount(ExceptionList.Count);
+            InitiateTimer();
         }
     }
 }

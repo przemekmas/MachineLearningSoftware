@@ -18,11 +18,11 @@ namespace ObjectRecognitionSoftware.Views.Converters
             {
                 return new SolidColorBrush(Colors.White);
             }
-            else if(array[newPos] == 1)
+            else if (array[newPos] == 1)
             {
                 return new SolidColorBrush(Colors.Black);
             }
-            else if(array[newPos] == 2)
+            else if (array[newPos] == 2)
             {
                 return new SolidColorBrush(Colors.Gray);
             }

@@ -3,44 +3,41 @@ using ObjectRecognitionSoftware.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ObjectRecognitionSoftware.ViewModels
 {
-    public class SearchPageViewModel : NotifyPropertyChanged
+    public class SearchPageViewModel : BaseViewModel
     {
-        private string m_SearchResultText;
-        private string m_NoSearchResults = "No Search Results For \"{0}\"";
-        private string m_SearchResults = "Displaying Search Results For \"{0}\"";
-        private MainWindowFunctions m_MainWindowFunctions;
-        private List<SearchResultEntity> m_SearchResult = new List<SearchResultEntity>();
+        private string _searchResultText;
+        private string _noSearchResults = "No Search Results For \"{0}\"";
+        private string _searchResults = "Displaying Search Results For \"{0}\"";
+        private MainWindowFunctions _mainWindowFunctions;
+        private List<SearchResultEntity> _searchResult = new List<SearchResultEntity>();
 
         public string SearchResultText
         {
-            get { return m_SearchResultText; }
+            get { return _searchResultText; }
             set
             {
-                m_SearchResultText = value;
+                _searchResultText = value;
                 OnPropertyChanged(nameof(SearchResultText));
             }
         }
 
         public List<SearchResultEntity> SearchResult
         {
-            get { return m_SearchResult; }
+            get { return _searchResult; }
             set
             {
-                m_SearchResult = value;
+                _searchResult = value;
                 OnPropertyChanged(nameof(SearchResult));
             }
         }
 
         public SearchPageViewModel()
         {
-            m_MainWindowFunctions = MainWindowFunctions.Instance;
+            _mainWindowFunctions = MainWindowFunctions.Instance;
         }
 
         public void DisplaySearchResults(string input)
@@ -53,7 +50,7 @@ namespace ObjectRecognitionSoftware.ViewModels
         {
             if (clickedResult.IsPage)
             {
-                m_MainWindowFunctions.OpenPage(clickedResult.Heading);
+                _mainWindowFunctions.OpenPage(clickedResult.Heading);
             }
             else
             {
@@ -69,7 +66,7 @@ namespace ObjectRecognitionSoftware.ViewModels
             
             if (instances != null)
             {
-                SearchResultText = string.Format(m_SearchResults, input);
+                SearchResultText = string.Format(_searchResults, input);
                 foreach (var instance in instances)
                 {
                     SearchResult.Add(new SearchResultEntity()
@@ -83,7 +80,7 @@ namespace ObjectRecognitionSoftware.ViewModels
             }
             else
             {
-                SearchResultText = string.Format(m_NoSearchResults, input);
+                SearchResultText = string.Format(_noSearchResults, input);
             }
         }
         

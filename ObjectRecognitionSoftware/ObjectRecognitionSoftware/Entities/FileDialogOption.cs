@@ -2,8 +2,8 @@
 {
     public enum FileDialogOption
     {
-        chooseInceptionGraph,
-        chooseOutputLabels,
-        chooseImage
+        ChooseInceptionGraph,
+        ChooseOutputLabels,
+        ChooseImage
     }
 }

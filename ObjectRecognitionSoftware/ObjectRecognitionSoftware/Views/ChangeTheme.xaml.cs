@@ -1,11 +1,8 @@
-﻿using ObjectRecognitionSoftware.Common;
-using ObjectRecognitionSoftware.Entities;
+﻿using ObjectRecognitionSoftware.Entities;
 using ObjectRecognitionSoftware.Views.Controls.ButtonIcons;
 using System;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Shapes;
 
 namespace ObjectRecognitionSoftware
 {
@@ -14,8 +11,8 @@ namespace ObjectRecognitionSoftware
     /// </summary>
     public partial class ChangeTheme : Page, IResourceItemEntity
     {
-        private App m_CurrentApplication;
-        private string m_SelectedTheme;
+        private App _currentApplication;
+        private string _selectedTheme;
 
         public ChangeTheme()
         {
@@ -33,23 +30,24 @@ namespace ObjectRecognitionSoftware
 
         private void ThemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            m_SelectedTheme = ThemeComboBox.SelectedValue.ToString();
+            _selectedTheme = ThemeComboBox.SelectedValue.ToString();
+            LoadProperties(false, true);
         }
 
         private void LoadAllThemes()
         {
-            LoadProperties(true);
+            LoadProperties(true, false);
         }
 
         private void ApplyThemeButton_Click(object sender, RoutedEventArgs e)
         {
-            if(m_SelectedTheme != null)
+            if(_selectedTheme != null)
             {
-                LoadProperties(false);
+                LoadProperties(false, false);
             }
         }
 
-        private void LoadProperties(bool action)
+        private void LoadProperties(bool action, bool isMock)
         {
             var instance = new ThemeConstantsEntity();
             foreach (var prop in typeof(ThemeConstantsEntity).GetProperties())
@@ -58,20 +56,35 @@ namespace ObjectRecognitionSoftware
                 {
                     var value = prop.GetValue(instance, null) as ThemeEntity;
 
-                    if (action == true)
+                    if (isMock)
                     {
-                        ThemeComboBox.Items.Add(value.themeName);
+                        if (string.Equals(_selectedTheme, value.ThemeName, StringComparison.OrdinalIgnoreCase))
+                        {
+                            ChangeMockTheme(value.ThemeSource);
+                        }
+                    }
+                    else if (action == true)
+                    {
+                        ThemeComboBox.Items.Add(value.ThemeName);
                     }
                     else
                     {
-                        if(string.Equals(m_SelectedTheme, value.themeName, StringComparison.OrdinalIgnoreCase))
+                        if(string.Equals(_selectedTheme, value.ThemeName, StringComparison.OrdinalIgnoreCase))
                         {
-                            m_CurrentApplication = (App)Application.Current;
-                            m_CurrentApplication.ChangeTheme(value.themeSource);
+                            _currentApplication = (App)Application.Current;
+                            _currentApplication.ChangeTheme(value.ThemeSource);
                         }
                     }
                 }
             }
+        }
+
+        private void ChangeMockTheme(string uri)
+        {
+            Uri dictionaryUri = new Uri(uri, UriKind.Relative);
+            ResourceDictionary resourceDict = Application.LoadComponent(dictionaryUri) as ResourceDictionary;
+            Resources.MergedDictionaries.Clear();
+            Resources.MergedDictionaries.Add(resourceDict);
         }
     }
 }

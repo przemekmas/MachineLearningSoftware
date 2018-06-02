@@ -11,9 +11,9 @@ namespace ObjectRecognitionSoftware.Common
 {
     public class MainWindowFunctions : NotifyPropertyChanged
     {
-        private static MainWindowFunctions m_Instance;
-        private TabControl m_TabControl;
-        private List<string> m_OpenPages = new List<string>();
+        private static MainWindowFunctions _instance;
+        private TabControl _tabControl;
+        private List<string> _openPages = new List<string>();
 
         public MainWindowFunctions()
         {
@@ -24,20 +24,20 @@ namespace ObjectRecognitionSoftware.Common
         {
             get
             {
-                if (m_Instance == null)
+                if (_instance == null)
                 {
-                    m_Instance = new MainWindowFunctions();
+                    _instance = new MainWindowFunctions();
                 }
-                return m_Instance;
+                return _instance;
             }
         }
 
         public TabControl TabControl
         {
-            get { return m_TabControl; }
+            get { return _tabControl; }
             set
             {
-                m_TabControl = value;
+                _tabControl = value;
                 OnPropertyChanged(nameof(TabControl));
             }
         }
@@ -63,7 +63,7 @@ namespace ObjectRecognitionSoftware.Common
                                 && t.GetConstructor(Type.EmptyTypes) != null).Select(t => Activator.CreateInstance(t) as IResourceItemEntity).FirstOrDefault(t => string.Equals(t.Name, name));
             }
             
-            m_OpenPages.Add(instance.Name);
+            _openPages.Add(instance.Name);
             var tabItems = TabControl.Items.Count;
             tabItems = tabItems++;
             var tabItem = new MainWindowTab(TabControl);
@@ -99,7 +99,7 @@ namespace ObjectRecognitionSoftware.Common
             {
                 TabControl.Items.Remove(sender);
                 var tabItem = sender as MainWindowTab;
-                m_OpenPages.Remove(tabItem.Header.ToString());
+                _openPages.Remove(tabItem.Header.ToString());
             }
         }
     }

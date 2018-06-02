@@ -1,5 +1,4 @@
 ﻿using System.Windows.Controls;
-using System.Windows.Shapes;
 
 namespace ObjectRecognitionSoftware.Views.Controls.ButtonIcons
 {

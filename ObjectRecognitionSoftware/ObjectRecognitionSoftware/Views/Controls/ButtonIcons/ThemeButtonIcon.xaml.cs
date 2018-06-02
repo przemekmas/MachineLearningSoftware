@@ -1,5 +1,4 @@
 ﻿using System.Windows.Controls;
-using System.Windows.Shapes;
 
 namespace ObjectRecognitionSoftware.Views.Controls.ButtonIcons
 {
@@ -11,11 +10,6 @@ namespace ObjectRecognitionSoftware.Views.Controls.ButtonIcons
         public ThemeButtonIcon()
         {
             InitializeComponent();
-        }
-
-        public Path GetPath()
-        {
-            return IconPath;
         }
     }
 }

@@ -4,58 +4,58 @@ namespace ObjectRecognitionSoftware.Entities
 {
     public class SearchResultEntity : NotifyPropertyChanged
     {
-        private string m_Heading;
-        private string m_Description;
-        private string m_Url;
-        private bool m_IsPage;
-        private Control m_Icon;
+        private string _heading;
+        private string _description;
+        private string _url;
+        private bool _isPage;
+        private Control _icon;
         
         public string Heading
         {
-            get { return m_Heading; }
+            get { return _heading; }
             set
             {
-                m_Heading = value;
+                _heading = value;
                 OnPropertyChanged(nameof(Heading));
             }
         }
 
         public string Description
         {
-            get { return m_Description; }
+            get { return _description; }
             set
             {
-                m_Description = value;
+                _description = value;
                 OnPropertyChanged(nameof(Description));
             }
         }
 
         public Control Icon
         {
-            get { return m_Icon; }
+            get { return _icon; }
             set
             {
-                m_Icon = value;
+                _icon = value;
                 OnPropertyChanged(nameof(Icon));
             }
         }
 
         public string Url
         {
-            get { return m_Url; }
+            get { return _url; }
             set
             {
-                m_Url = value;
+                _url = value;
                 OnPropertyChanged(nameof(Url));
             }
         }
 
         public bool IsPage
         {
-            get { return m_IsPage; }
+            get { return _isPage; }
             set
             {
-                m_IsPage = value;
+                _isPage = value;
                 OnPropertyChanged(nameof(IsPage));
             }
         }

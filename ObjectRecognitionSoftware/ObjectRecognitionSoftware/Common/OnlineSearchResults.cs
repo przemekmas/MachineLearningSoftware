@@ -1,5 +1,4 @@
 ﻿// The code below has been taken and refactored from the following website http://blog.zaletskyy.com/how-to-parse-google-search-results
-using System;
 using System.Text;
 using System.IO;
 using System.Net;
@@ -14,8 +13,6 @@ namespace ObjectRecognitionSoftware.Common
 {
     public static class OnlineSearchResults
     {
-        static HtmlDocument htmlSnippet = new HtmlDocument();
-
         public static List<SearchResultEntity> GetSearchResults (string textSearch)
         {
             var searchResults = new List<SearchResultEntity>();

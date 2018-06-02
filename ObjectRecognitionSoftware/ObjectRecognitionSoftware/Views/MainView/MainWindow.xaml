@@ -3,10 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ObjectRecognitionSoftware"
-        xmlns:viewmodels="clr-namespace:ObjectRecognitionSoftware.ViewModels"
-        xmlns:views="clr-namespace:ObjectRecognitionSoftware.Views"
         xmlns:controls="clr-namespace:ObjectRecognitionSoftware.Views.Controls"
+        xmlns:custombuttons="clr-namespace:ObjectRecognitionSoftware.Views.Controls.CustomButtons"
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -19,165 +17,11 @@
         MinHeight="450">
 
     <Window.Resources>
-        <Style x:Key="TabItem" TargetType="TabItem">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="TabItem">
-                        <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Black" CornerRadius="2,2,0,0" Margin="0,0,1,0">
-                            <ContentPresenter x:Name="ContentSite"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"
-                                    ContentSource="Header"
-                                    Margin="10,2"/>
-                        </Border>
-
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="#FF5F9CFF" />
-                            </Trigger>
-                            <Trigger Property="IsSelected" Value="False">
-                                <Setter TargetName="Border" Property="Background" Value="White" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="HoverOnCloseWindowButton1" TargetType="{x:Type Border}">
-            <Setter Property="Border.Background" Value="Transparent"/>
-            <Style.Triggers>
-                <Trigger Property="Border.IsMouseOver" Value="True">
-                </Trigger>
-
-                <EventTrigger RoutedEvent="MouseEnter">
-                    <EventTrigger.Actions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation To="#f04747" 
-                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
-                                    FillBehavior="HoldEnd" 
-                                    Duration="0:0:0.100"/>
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger.Actions>
-                </EventTrigger>
-
-                <EventTrigger RoutedEvent="MouseLeave">
-                    <EventTrigger.Actions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation To="Transparent" 
-                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
-                                    FillBehavior="HoldEnd" 
-                                    Duration="0:0:0.100"/>
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger.Actions>
-                </EventTrigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="HoverOnWindowButton1" TargetType="{x:Type Border}">
-            <Setter Property="Border.Background" Value="Transparent"/>
-            <Style.Triggers>
-                <Trigger Property="Border.IsMouseOver" Value="True">
-                </Trigger>
-
-                <EventTrigger RoutedEvent="MouseEnter">
-                    <EventTrigger.Actions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation To="White" 
-                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
-                                    FillBehavior="HoldEnd" 
-                                    Duration="0:0:0.100"/>
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger.Actions>
-                </EventTrigger>
-
-                <EventTrigger RoutedEvent="MouseLeave">
-                    <EventTrigger.Actions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation To="Transparent" 
-                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
-                                    FillBehavior="HoldEnd" 
-                                    Duration="0:0:0.100"/>
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger.Actions>
-                </EventTrigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="ListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
-            <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Border x:Name="Normal"
-                                Background="#FFCDCDCD"
-                                BorderBrush="#FF636363"
-                                BorderThickness="1"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch">
-                            </Border>
-                            <Border x:Name="Hover"
-                                Background="#99E7E7E7"
-                                BorderBrush="#99979797"
-                                BorderThickness="1"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                Visibility="Collapsed">
-                            </Border>
-                            <Border x:Name="Highlight"
-                                Background="#99008BBF"
-                                BorderBrush="#99000000"
-                                BorderThickness="1"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                Visibility="Collapsed">
-                            </Border>
-                            <ContentPresenter></ContentPresenter>
-                            <Border Height="1"
-                                BorderBrush="White"
-                                BorderThickness="0,1,0,0"
-                                Grid.Row="1">
-                            </Border>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Hover"
-                                    Property="Visibility"
-                                    Value="Visible">
-                                </Setter>
-                            </Trigger>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Highlight"
-                                    Property="Visibility"
-                                    Value="Visible">
-                                </Setter>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key="WindowButtons1" TargetType="{x:Type Button}">
-            <Setter Property="Border.BorderThickness" Value="0"/>
-            <Setter Property="BorderThickness" Value="0"/>
-        </Style>
-
-        <Style x:Key="ResourceItems1" TargetType="{x:Type Label}">
-            <Setter Property="Foreground" Value="White"/>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="MainWindowDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
     
     <Grid Style="{DynamicResource MainWindowStyle}">
@@ -207,8 +51,18 @@
                     </Canvas>
                 </Viewbox>
             </Border>
-            <TextBlock Grid.Column="1" Text="Object Class Recognition" VerticalAlignment="Center" Foreground="White" TextAlignment="Left"/>            
-            <controls:MainWindowSearchButtonControl x:Name="SearchBox" Grid.Column="2" HorizontalAlignment="Right" Margin="0,2,0,2"></controls:MainWindowSearchButtonControl>            
+
+            <TextBlock Grid.Column="1" Text="Object Class Recognition" VerticalAlignment="Center" Foreground="White" TextAlignment="Left"/>
+
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <controls:MainWindowSearchButtonControl x:Name="SearchBox" Grid.Column="1" HorizontalAlignment="Right" Margin="0,2,0,2"/>
+                <custombuttons:GithubButtonControl Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,5,0"/>
+            </Grid>
+            
             <StackPanel Grid.Column="3" Orientation="Horizontal" Height="30" HorizontalAlignment="Right" Margin="0,0,0,0">
                 <Button Width="25" Height="25" Background="Transparent" BorderThickness="0" Click="OnClickMinimiseWindow" Style="{StaticResource WindowButtons1}">
                     <Border Style="{StaticResource HoverOnWindowButton1}">
@@ -230,7 +84,7 @@
                     </Border>
                 </Button>
 
-                <Button Width="25" Height="25" Background="Transparent" BorderThickness="0" Click="OnClickCloseWindow" Style="{StaticResource WindowButtons1}">
+                <Button Width="25" Height="25" Background="Transparent" BorderThickness="0" Command="{Binding DisplayExitDialogCommand}" Style="{StaticResource WindowButtons1}">
                     <Border Style="{StaticResource HoverOnCloseWindowButton1}">
                         <Viewbox>
                             <Canvas Width="150" Height="150">
@@ -247,17 +101,16 @@
                 <MenuItem Header="_File">
                     <MenuItem Header="_Open"/>
                     <MenuItem Header="_Save"/>
-                    <MenuItem Header="_Close" Click="ExitSoftware_Click"/>
+                    <MenuItem Header="_Close" Command="{Binding DisplayExitDialogCommand}"/>
                 </MenuItem>
                 <MenuItem Header="_View">
-                    <MenuItem>
-
-                    </MenuItem>
+                    <MenuItem Header="Show Menu" IsCheckable="True" IsChecked="True" Click="OnClickShowMenu" x:Name="ShowOrHideMenuItem"/>
                 </MenuItem>
                 <MenuItem Header="_Help">
-                    <MenuItem Header="_About" Click="AboutSoftware_Click"/>
+                    <MenuItem Header="_About" Command="{Binding DisplayHelpDialogCommand}"/>
+                    <MenuItem Header="_Python" Command="{Binding DisplayPythonWebsiteCommand}"/>
                     <MenuItem Header="_Help"/>
-                    <MenuItem Header="_TensorFlow" Click="OnClickTensorflowWebsite"/>
+                    <MenuItem Header="_TensorFlow" Command="{Binding DisplayTensorFlowWebsiteCommand}"/>
                 </MenuItem>
             </Menu>
             <StackPanel></StackPanel>
@@ -270,10 +123,9 @@
             </Grid.ColumnDefinitions>
             <ListBox Style="{DynamicResource MainMenuStyle}" HorizontalContentAlignment="Stretch" Name="MainMenu1" 
                      Grid.Column="0" Width="140" MaxWidth="140" SelectionChanged="ListBox_SelectionChanged"
-                     BorderThickness="0" HorizontalAlignment="Stretch" ItemContainerStyle="{StaticResource ListBoxItemStyle}">
-            </ListBox>
+                     BorderThickness="0" HorizontalAlignment="Stretch" ItemContainerStyle="{StaticResource ListBoxItemStyle}"/>
             <Button Style="{DynamicResource MainMenuButtonStyle}" Name="HideMenuButton1" Content="Hide Menu ▲" 
-                    HorizontalAlignment="Stretch" Grid.Column="1" Click="HideMenuButton1_Click" BorderBrush="#FFCFCFCF" 
+                    HorizontalAlignment="Stretch" Grid.Column="1" Click="HideMenuButton1_Click"
                     Foreground="White" FontFamily="Calibri" FontSize="12"
                     TextOptions.TextFormattingMode="Display">
                 <Button.LayoutTransform>
@@ -283,8 +135,7 @@
         </Grid>
 
         <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Background="White">
-            <TabControl Name="TabControl" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ColumnSpan="2">      
-                
+            <TabControl Name="TabControl" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ColumnSpan="2">
                 <TabItem Header="Start Page" Style="{StaticResource TabItem}">
                     <Frame Source="../StartPage.xaml" FontWeight="Light" />
                 </TabItem>

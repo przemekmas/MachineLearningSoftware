@@ -23,8 +23,8 @@ namespace ObjectRecognitionSoftware.Views.DialogBoxes
 
         private void OkButton1_Click(object sender, System.EventArgs e)
         {
-            this.Dispose();
-            this.Close();
+            Dispose();
+            Close();
         }
     }
 }

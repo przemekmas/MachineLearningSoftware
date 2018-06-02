@@ -10,25 +10,25 @@ namespace ObjectRecognitionSoftware.Views.Controls
     /// </summary>
     public partial class MainWindowSearchButtonControl : UserControl
     {
-        private MainMenuSearchButtonViewModel m_ViewModel;
+        private MainMenuSearchButtonViewModel _viewModel;
 
         public MainWindowSearchButtonControl()
         {
             InitializeComponent();
-            m_ViewModel = new MainMenuSearchButtonViewModel();
-            this.DataContext = m_ViewModel;
+            _viewModel = new MainMenuSearchButtonViewModel();
+            this.DataContext = _viewModel;
         }
         
         private void SearchButtonClick(object sender, RoutedEventArgs e)
         {
-            m_ViewModel.Search(TextBoxSearchInput.Text);
+            _viewModel.Search(TextBoxSearchInput.Text);
         }
 
         private void TextBoxSearchInput_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                m_ViewModel.Search(TextBoxSearchInput.Text);
+                _viewModel.Search(TextBoxSearchInput.Text);
             }
         }
     }

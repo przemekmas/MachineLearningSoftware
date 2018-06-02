@@ -1,5 +1,4 @@
 ﻿using ObjectRecognitionSoftware.Entities;
-using System;
 using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Media.Animation;
@@ -30,16 +29,20 @@ namespace ObjectRecognitionSoftware.Views.DialogBoxes
 
         public void StartAnimation()
         {
-            var storyboard = this.FindResource("StartModalAnimation") as Storyboard;
-            Storyboard.SetTarget(storyboard, MainModal);
-            storyboard.Begin();
+            if (FindResource("StartModalAnimation") is Storyboard storyboard)
+            {
+                Storyboard.SetTarget(storyboard, MainModal);
+                storyboard.Begin();
+            }            
         }
 
         public void EndAnimation()
         {
-            var storyboard = this.FindResource("EndModalAnimation") as Storyboard;
-            Storyboard.SetTarget(storyboard, MainModal);
-            storyboard.Begin();
+            if (FindResource("EndModalAnimation") is Storyboard storyboard)
+            {
+                Storyboard.SetTarget(storyboard, MainModal);
+                storyboard.Begin();
+            }            
         }
     }
 }

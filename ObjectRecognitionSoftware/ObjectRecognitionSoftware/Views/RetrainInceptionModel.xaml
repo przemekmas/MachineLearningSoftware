@@ -7,12 +7,12 @@
       xmlns:resx="clr-namespace:ObjectRecognitionSoftware.Properties"
       xmlns:converter="clr-namespace:ObjectRecognitionSoftware.Views.Converters"
       xmlns:controls="clr-namespace:ObjectRecognitionSoftware.Views.DialogBoxes"
+      xmlns:generalControls="clr-namespace:ObjectRecognitionSoftware.Views.Controls"
       mc:Ignorable="d" 
       d:DesignWidth="800" d:DesignHeight="600" 
       Title="RetrainInceptionModel">
 
     <Page.Resources>
-        <converter:BooleanInvertedConverter x:Key="BooleanInvertedConverter"/>
         <converter:VisibilityConverter x:Key="VisibilityConverter"/>
     </Page.Resources>
 
@@ -34,20 +34,7 @@
                    FontStyle="Italic" Text="{x:Static resx:RetrainInceptionModelResource.Title}" Margin="6,6,4,0" Grid.ColumnSpan="3" Width="300"/>
         <TextBlock Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" TextWrapping="Wrap" Width="Auto" Margin="5"
                     Text="{x:Static resx:RetrainInceptionModelResource.MainInformation}" FontSize="12" FontFamily="Calibri"/>
-        
-        <Path Grid.Column="2" Grid.Row="1" Visibility="{Binding PythonInstalled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource VisibilityConverter}}"
-              HorizontalAlignment="Right" Margin="5" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="#FF00AC00" StrokeThickness="0.26079351" 
-              Stroke="#FF000000" Height="18" Stretch="Fill" Width="18"
-              VerticalAlignment="Top"
-              Data="m 97.920701 258.028 c -0.431874 -0.0573 -2.080859 -0.23152 -3.664404 -0.38731 C 80.483789 256.28573 66.168055 251.7121 53.81703 244.72104 20.991804 226.14094 0.96812349 191.91337 0.94766551 154.34857 0.93589326 132.72033 7.8335193 111.44437 20.526414 93.957234 24.051549 89.100608 26.854076 85.865014 31.67949 81.080686 40.037042 72.794291 48.378777 66.783811 58.524227 61.738213 70.230469 55.916389 81.090326 52.759875 94.870136 51.173952 c 5.114623 -0.588644 16.222494 -0.582182 21.364394 0.01243 13.27846 1.535531 23.72373 4.520564 35.08172 10.025608 25.17537 12.202117 44.10826 33.529801 53.17345 59.89931 3.78298 11.00419 5.40032 20.86462 5.43418 33.13057 0.0214 7.75006 -0.15628 10.0875 -1.30327 17.144 -4.85753 29.8848 -23.06247 56.43264 -49.4864 72.16491 -12.58356 7.492 -25.71576 11.94955 -41.27841 14.01142 -2.99951 0.3974 -17.83538 0.74405 -19.935099 0.4658 z m 14.708779 -11.8128 c 31.26103 -2.54226 58.91094 -20.20903 74.01373 -47.29069 5.36416 -9.61878 8.78299 -19.78845 10.62963 -31.61898 0.80159 -5.1354 1.00361 -16.78078 0.38915 -22.43236 -1.3102 -12.05055 -4.97615 -23.82494 -10.6356 -34.15967 C 182.2145 101.92649 175.27115 93.079662 168.19866 86.724235 153.55845 73.568359 136.8696 65.860712 117.1588 63.151783 113.01581 62.582397 102.40194 62.367971 97.723679 62.759146 65.60822 65.444495 37.096345 84.593653 22.684356 113.15708 c -5.164573 10.23579 -8.182166 20.50445 -9.477894 32.25263 -0.490488 4.4472 -0.41842 14.66477 0.13543 19.20145 1.104642 9.04838 3.065592 16.65454 6.365174 24.6894 11.003687 26.79528 34.366075 47.05044 62.509063 54.19528 2.447292 0.62131 5.873668 1.36761 7.61415 1.65843 2.729351 0.45605 4.304388 0.6432 9.791749 1.16346 2.196532 0.20825 9.936072 0.14725 13.007452 -0.10253 z m -54.800192 -46.82482 -32.500074 -32.28606 4.101371 -4.4251 c 2.25575 -2.4338 9.383192 -10.18662 15.838756 -17.22848 6.455563 -7.04186 11.822975 -12.76804 11.92757 -12.72483 0.219152 0.0905 10.953491 11.47416 30.679719 32.53555 l 1.437837 1.53515 9.296364 -12.05897 c 10.001449 -12.9736 12.576989 -16.31188 18.024479 -23.36236 1.93241 -2.50103 4.64144 -6.00897 6.02009 -7.79543 1.37865 -1.78645 4.08594 -5.29438 6.0162 -7.79542 1.93027 -2.50103 4.4106 -5.71665 5.51184 -7.14581 11.06352 -14.357941 15.47979 -20.019961 15.66432 -20.082988 0.23424 -0.08 35.62593 31.871158 35.62593 32.162638 0 0.0955 -1.09435 1.45074 -2.43187 3.01171 -1.33753 1.56097 -5.08214 5.93681 -8.32136 9.72408 -5.92756 6.93048 -11.49959 13.44444 -34.78573 40.66615 -6.96847 8.14622 -15.27406 17.85153 -18.45685 21.56735 -3.18279 3.71582 -9.48431 11.0825 -14.00337 16.37039 -14.300458 16.73339 -16.79651 19.61849 -16.972985 19.61849 -0.09467 0 -14.797189 -14.52872 -32.672237 -32.28606 z"/>
-        <Path Grid.Column="2" Grid.Row="1" Visibility="{Binding PythonInstalled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanInvertedConverter}}"
-              HorizontalAlignment="Right" Margin="5" Fill="#FFDF433B" Height="18" StrokeStartLineCap="Flat" Stretch="Fill" OpacityMask="Black"
-              StrokeEndLineCap="Flat" Stroke="Black" StrokeThickness="0.27731007" StrokeMiterLimit="4" StrokeLineJoin="Round" Width="18"  
-              VerticalAlignment="Top"
-              Data="M27.461344,13.7 C27.461344,21.189724 21.344952,27.261345 13.8,27.261345 C6.2550474,27.261345 0.13865503,21.189724 0.13865503,13.7 C0.13865503,6.210276 6.2550474,0.13865503 13.8,0.13865503 C21.344952,0.13865503 27.461344,6.210276 27.461344,13.7 z M7.4940229,20.1745 C6.9701344,19.67608 6.5308252,19.24508 6.5177821,19.21675 6.5047201,19.18835 7.6551213,18.07634 9.07419,16.74551 10.493258,15.41469 11.654319,14.28153 11.654319,14.22738 11.654319,14.17328 10.48492,12.99402 9.055654,11.6069 L6.4569906,9.08486 7.3443393,8.24827 C7.8323796,7.78814 8.2898922,7.37767 8.3610301,7.33614 8.494196,7.25834 8.5349217,7.29434 12.309547,10.82083 13.065003,11.52663 13.713652,12.1041 13.750984,12.1041 13.788324,12.1041 14.990171,11.01125 16.42176,9.67553 L19.024654,7.24698 19.286447,7.46526 C19.430431,7.58534 19.888222,7.99795 20.303757,8.38219 L21.059275,9.08081 18.955457,11.12152 C17.798361,12.24392 16.688442,13.3068 16.488982,13.4835 16.289516,13.66019 16.053159,13.90657 15.963746,14.03101 L15.801176,14.25726 18.410472,16.71893 21.019769,19.18062 20.330109,19.87763 C19.950799,20.26099 19.501977,20.68487 19.332727,20.81959 L19.025003,21.06456 16.525429,18.70863 C15.150664,17.41286 13.957375,16.30515 13.873674,16.24706 13.711268,16.13431 13.967834,15.90915 9.639661,19.96317 L8.446546,21.08072 z"/>
-        
-        <TextBlock Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,5,30,0" Text="{Binding PythonInstallationLabel}"
-                   TextAlignment="Right" FontSize="12" FontFamily="Calibri"/>
+        <generalControls:PythonInstallationControl Grid.Column="2" Grid.Row="1"/>
         <RichTextBox Grid.ColumnSpan="3" Grid.Row="2" VerticalScrollBarVisibility="Auto" IsReadOnly="True" FontSize="12" FontFamily="Calibri">
             <FlowDocument>
                 <Paragraph>
@@ -58,23 +45,16 @@
 
         <StackPanel Grid.Row="3" Grid.ColumnSpan="3" HorizontalAlignment="Left" Orientation="Horizontal">
             <Button Content="{x:Static resx:RetrainInceptionModelResource.BeginInstallationButton}" Click="InstallButton_Click" 
-                    IsEnabled="{Binding PythonInstalled}" Height="20" Width="120" Margin="5"/>
-            <Button Content="{x:Static resx:RetrainInceptionModelResource.BuildTensorFlowButton}" 
-                    Width="120" Click="BuildButton_Click" IsEnabled="{Binding PythonInstalled}" Height="20"
+                    IsEnabled="{Binding IsPythonInstalled}" Height="20" Width="120" Margin="5"/>
+            <Button Content="{x:Static resx:RetrainInceptionModelResource.RetrainButton}" 
+                    Width="120" Click="BuildButton_Click" IsEnabled="{Binding IsPythonInstalled}" Height="20"
                     Margin="5"/>
             <Button Content="{x:Static resx:RetrainInceptionModelResource.ChooseImagesFolderButton}"
-                    Width="120" Click="ChooseImageFolderButton_Click" IsEnabled="{Binding PythonInstalled}" Height="20"
+                    Width="120" Click="ChooseImageFolderButton_Click" IsEnabled="{Binding IsPythonInstalled}" Height="20"
                     Margin="5"/>
         </StackPanel>
         
-        <Button Grid.Column="2" Grid.Row="3" HorizontalAlignment="Right" Margin="5" Width="25" Height="25" BorderBrush="{x:Null}" 
-                Background="{x:Null}" Click="OpenHelpDialog_Click">
-            <StackPanel>
-                <Path Data="M35.684157,20.000001 C35.684157,30.842542 27.778331,39.632159 18.026,39.632159 C8.2736687,39.632159 0.36784231,30.842542 0.36784231,20.000001 C0.36784231,9.157459 8.2736687,0.36784231 18.026,0.36784231 C27.778331,0.36784231 35.684157,9.157459 35.684157,20.000001 z M15.86573,26.737615 L15.508598,26.540435 15.428817,24.454076 C15.384938,23.306581 15.362696,21.822527 15.379394,21.156176 15.407777,20.023462 15.427032,19.925535 15.67531,19.651128 15.912089,19.389431 16.076388,19.341153 17.191426,19.205616 19.082777,18.975714 19.969781,18.408222 20.580372,17.037407 20.913857,16.288709 20.916602,16.269205 20.916602,14.644931 20.916602,13.08043 20.903873,12.978652 20.631483,12.3656 20.261955,11.533917 19.416877,10.676471 18.645918,10.350982 17.828369,10.005818 16.37224,9.9305806&#xA;15.27318,10.176717 14.815733,10.279162 13.99473,10.564646 13.448728,10.81113 12.307001,11.326538 12.14132,11.349746 11.980113,11.016827 11.805417,10.656051 11.737143,8.5889725 11.880678,8.0062619 11.996311,7.5368244 12.036954,7.4978342 12.849198,7.0771466 15.365647,5.7737961 19.101973,5.6384844 21.495118,6.7640305 23.59228,7.75037 24.822564,9.1774797 25.516218,11.428441 25.748436,12.182018 25.802137,12.581829 25.842165,13.855322 25.929027,16.61859&#xA;25.381316,18.365593 23.929747,19.955284 23.010709,20.961768 22.118819,21.498455 20.712525,21.89121 L19.794187,22.147687 19.727785,23.103527 C19.691261,23.629234 19.65615,24.516105 19.64975,25.074345 19.643263,25.640435 19.581196,26.214023 19.509415,26.371271 19.320153,26.785874 18.81768,26.921682 17.447313,26.928608 16.477578,26.933497 16.148573,26.893781 15.86573,26.737615 z M16.904547,34.800861 C16.187925,34.72466 15.753828,34.5352 15.449412,34.165773 15.06789,33.702775 14.973015,33.286341 14.972009,32.070364 14.970859,30.628923 15.083102,30.155795 15.534691,29.699416 15.660464,29.572309 15.903297,29.396519 16.074324,29.308775 L16.385278,29.149236 17.43549,29.149005 C18.381207,29.148774 18.512982,29.159789 18.759881,29.261089 19.501559,29.565328 19.808934,30.083206 19.926267,31.226266 20.032735,32.263466 19.950676,33.21348 19.707574,33.758259 19.531614,34.152567 19.168662,34.498945 18.784614,34.639064 18.61625,34.700495 18.25801,34.774253 17.988533,34.802976 17.447262,34.860667 17.465796,34.860702 16.904547,34.800898 z"
-                      Fill="#FF368EE0" Opacity="1" StrokeStartLineCap="Flat" Stretch="Fill" StrokeEndLineCap="Flat" Stroke="#FF000000" 
-                      StrokeThickness="0.4" StrokeMiterLimit="4" StrokeLineJoin="Round" Width="20" Height="20"/>
-            </StackPanel>
-        </Button>
+        <generalControls:InformationButtonControl Grid.Column="2" Grid.Row="3" HorizontalAlignment="Right" Command="{Binding OpenHelpDialog}"/>
         <controls:LoadingDialogModal Grid.ColumnSpan="3" Grid.RowSpan="4" x:Name="LoadingModalDialog" 
                                      Visibility="{Binding IsModalVisible, Converter={StaticResource VisibilityConverter}}"/>
     </Grid>

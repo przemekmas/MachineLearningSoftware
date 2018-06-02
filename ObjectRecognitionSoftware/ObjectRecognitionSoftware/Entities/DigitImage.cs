@@ -6,29 +6,29 @@ namespace ObjectRecognitionSoftware.Entities
 {
     public class DigitImage
     {
-        private byte[][] imagePixels;
-        private byte imageLabel;
-        private string emptyPixel = " ";
-        private string blackPixel = "0";
-        private string grayPixel = ".";
+        private byte[][] _imagePixels;
+        private byte _imageLabel;
+        private string _emptyPixel = " ";
+        private string _blackPixel = "0";
+        private string _grayPixel = ".";
 
         public DigitImage(byte[][] pixels, byte label)
         {
-            imagePixels = new byte[28][];
-            for (int i = 0; i < imagePixels.Length; ++i)
+            _imagePixels = new byte[28][];
+            for (int i = 0; i < _imagePixels.Length; ++i)
             {
-                imagePixels[i] = new byte[28];
+                _imagePixels[i] = new byte[28];
             }
 
             for (int i = 0; i < 28; ++i)
             {
                 for (int j = 0; j < 28; ++j)
                 {
-                    imagePixels[i][j] = pixels[i][j];
+                    _imagePixels[i][j] = pixels[i][j];
                 }
             }
 
-            imageLabel = label;
+            _imageLabel = label;
         }
 
         public override string ToString()
@@ -38,22 +38,22 @@ namespace ObjectRecognitionSoftware.Entities
             {
                 for (int j = 0; j < 28; ++j)
                 {
-                    if (imagePixels[i][j] == 0)
+                    if (_imagePixels[i][j] == 0)
                     {
-                        pixelChar += emptyPixel; // represents empty pixels
+                        pixelChar += _emptyPixel; // represents empty pixels
                     }
-                    else if (imagePixels[i][j] == 255)
+                    else if (_imagePixels[i][j] == 255)
                     {
-                        pixelChar += blackPixel; // represents black pixels
+                        pixelChar += _blackPixel; // represents black pixels
                     }
                     else
                     {
-                        pixelChar += grayPixel; // represents gray pixels
+                        pixelChar += _grayPixel; // represents gray pixels
                     }
                 }
                 pixelChar += "\n";
             }
-            pixelChar += imageLabel.ToString();
+            pixelChar += _imageLabel.ToString();
             return pixelChar;
         }
 
@@ -64,11 +64,11 @@ namespace ObjectRecognitionSoftware.Entities
             {
                 for (int j = 0; j < 28; ++j)
                 {
-                    if (imagePixels[i][j] == 0)
+                    if (_imagePixels[i][j] == 0)
                     {
                         pixelIntensity.Add(0); // represents empty pixels
                     }
-                    else if (imagePixels[i][j] == 255)
+                    else if (_imagePixels[i][j] == 255)
                     {
                         pixelIntensity.Add(1); // represents black pixels
                     }

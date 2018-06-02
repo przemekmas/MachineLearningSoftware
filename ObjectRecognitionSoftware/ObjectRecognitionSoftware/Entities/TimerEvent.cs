@@ -6,7 +6,7 @@ namespace ObjectRecognitionSoftware.Entities
     {
         public void InititateTimer(int interval, ElapsedEventHandler eventHandler)
         {
-            Timer timer = new Timer(interval);
+            var timer = new Timer(interval);
             timer.Elapsed += eventHandler;
             timer.Start();
         }

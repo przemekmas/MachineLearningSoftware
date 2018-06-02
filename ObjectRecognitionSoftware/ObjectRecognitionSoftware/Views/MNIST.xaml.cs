@@ -1,13 +1,8 @@
-﻿using ObjectRecognitionSoftware.Common;
-using ObjectRecognitionSoftware.Entities;
+﻿using ObjectRecognitionSoftware.Entities;
 using ObjectRecognitionSoftware.ViewModels;
 using ObjectRecognitionSoftware.Views.Controls.ButtonIcons;
-using System;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ObjectRecognitionSoftware
 {
@@ -16,13 +11,13 @@ namespace ObjectRecognitionSoftware
     /// </summary>
     public partial class MNIST : Page, IResourceItemEntity
     {
-        private MNISTViewModel viewModel;
+        private MNISTViewModel _viewModel;
 
         public MNIST()
         {
             InitializeComponent();
-            viewModel = new MNISTViewModel();
-            this.DataContext = viewModel;
+            _viewModel = new MNISTViewModel();
+            DataContext = _viewModel;
         }
 
         public string Name => "MNIST";
@@ -35,12 +30,12 @@ namespace ObjectRecognitionSoftware
         
         private void PreviousButtonClick1(object sender, RoutedEventArgs e)
         {
-            viewModel.PreviousDatasetImage();
+            _viewModel.PreviousDatasetImage();
         }
 
         private void NextButtonClick1(object sender, RoutedEventArgs e)
         {
-            viewModel.NextDatasetImage();
+            _viewModel.NextDatasetImage();
         }
     }
 }

@@ -2,23 +2,12 @@
 {
     public class ThemeConstantsEntity
     {
-        private ThemeEntity m_BlackTheme = new ThemeEntity() { themeName = "Black Theme", themeSource = "Views/Themes/BlackTheme.xaml" };
-        private ThemeEntity m_BlueTheme = new ThemeEntity() { themeName = "Blue Theme", themeSource = "Views/Themes/BlueTheme.xaml" };
-        private ThemeEntity m_TensorFlowTheme = new ThemeEntity() { themeName = "TensorFlow Theme", themeSource = "Views/Themes/TensorFlowTheme.xaml" };
+        public ThemeEntity BlackTheme { get; } = new ThemeEntity() { ThemeName = "Black Theme", ThemeSource = "Views/Themes/BlackTheme.xaml" };
 
-        public ThemeEntity BlackTheme
-        {
-            get { return m_BlackTheme; }
-        }
+        public ThemeEntity BlueTheme { get; } = new ThemeEntity() { ThemeName = "Blue Theme", ThemeSource = "Views/Themes/BlueTheme.xaml" };
 
-        public ThemeEntity BlueTheme
-        {
-            get { return m_BlueTheme; }
-        }
+        public ThemeEntity TensorFlowTheme { get; } = new ThemeEntity() { ThemeName = "TensorFlow Theme", ThemeSource = "Views/Themes/TensorFlowTheme.xaml" };
 
-        public ThemeEntity TensorFlowTheme
-        {
-            get { return m_TensorFlowTheme; }
-        }
+        public ThemeEntity GradientTheme { get; } = new ThemeEntity() { ThemeName = "Gradient Theme", ThemeSource = "Views/Themes/GradientTheme.xaml" };
     }
 }

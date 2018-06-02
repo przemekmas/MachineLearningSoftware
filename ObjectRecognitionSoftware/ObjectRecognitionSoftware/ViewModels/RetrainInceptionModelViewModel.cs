@@ -1,73 +1,44 @@
-﻿using Microsoft.Win32;
-using ObjectRecognitionSoftware.Common;
+﻿using ObjectRecognitionSoftware.Common;
 using ObjectRecognitionSoftware.Entities;
-using System;
+using ObjectRecognitionSoftware.Views.DialogBoxes;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Threading;
+using System.Windows.Input;
 
 namespace ObjectRecognitionSoftware.ViewModels
 {
-    public class RetrainInceptionModelViewModel : NotifyPropertyChanged
+    public class RetrainInceptionModelViewModel : BaseViewModel
     {
         #region Fields
 
-        private StringBuilder textLogBuilder = new StringBuilder();
-        private string m_TextBoxLog;
-        private bool m_PythonInstalled;
-        private bool m_IsModalVisible;
-        private string m_PythonInstallationLabel;
-
-        #endregion
-
+        private StringBuilder _textLogBuilder = new StringBuilder();
+        private string _textBoxLog;
         public string imageDirectory;
-
+        
+        #endregion
+        
         #region Properties
 
         public string TextBoxLog
         {
-            get { return m_TextBoxLog; }
+            get { return _textBoxLog; }
             set
             {
-                m_TextBoxLog = value;
+                _textBoxLog = value;
                 OnPropertyChanged(nameof(TextBoxLog));
             }
         }
-
-        public string PythonInstallationLabel
+        
+        public ICommand OpenHelpDialog
         {
-            get { return m_PythonInstallationLabel; }
-            set
-            {
-                m_PythonInstallationLabel = value;
-                OnPropertyChanged(nameof(PythonInstallationLabel));
-            }
+            get { return new CommandDelegate(DisplayHelpDialog, CanExecute); }
         }
 
-        public bool PythonInstalled
+        public bool IsPythonInstalled
         {
-            get { return m_PythonInstalled; }
-            set
-            {
-                m_PythonInstalled = value;
-                OnPropertyChanged(nameof(PythonInstalled)); 
-            }
-        }
-
-        public bool IsModalVisible
-        {
-            get { return m_IsModalVisible; }
-            set
-            {
-                m_IsModalVisible = value;
-                OnPropertyChanged(nameof(IsModalVisible));
-            }
+            get { return Python.IsPythonInstalled(); }
         }
 
         #endregion
@@ -76,32 +47,30 @@ namespace ObjectRecognitionSoftware.ViewModels
 
         public RetrainInceptionModelViewModel()
         {
-            IsPythonInstalled();
+            DisplayPythonVersion();
             ExecuteCMDCommands.outputHandler = OutputHandler;
         }
-
+        
         #endregion
 
         #region Public Methods
 
         public void InstallRequiredPackages()
-        {
-            //Need to set the path variable for python pip
-            SetPythonEnvironmentPath();
-            InstallUpdateTensorFlow();
+        {       
+            Python.InstallUpdateTensorFlow();
         }
 
-        public void BuildTensorFlow()
+        public void RetrainInceptionModel()
         {
             if (!string.IsNullOrEmpty(imageDirectory))
             {
                 new Thread(() =>
                 {
-                    var assetsFolder = CurrentDirectory.GetPythonDirectory();
+                    var assetsFolder = CurrentDirectory.GetPythonAssetsDirectory("RetrainInceptionModel");
                     var commands = new List<string>() { string.Format("cd {0}", assetsFolder),
                         string.Format(@"python Retrain.py --output_graph=retrained_graph.pb --output_labels=retrained_labels.txt --image_dir={0}", imageDirectory) };
 
-                    ExecuteCMDCommands.RunMultipleCommands(commands);
+                    ExecuteCMDCommands.RunMultipleCommands(commands, redirectOutput: true);
                 }).Start();
             }
         }
@@ -109,73 +78,23 @@ namespace ObjectRecognitionSoftware.ViewModels
         #endregion
 
         #region Private Methods
-
-        private void IsPythonInstalled()
-        {
-            var name = "Python";
-            var parentKey = Registry.LocalMachine.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Uninstall");
-            var nameList = parentKey.GetSubKeyNames();
-            
-            for (int i = 0; i < nameList.Length; i++)
-            {
-                var regKey = parentKey.OpenSubKey(nameList[i]);
-                try
-                {
-                    var registryDisplayName = (string)regKey.GetValue("DisplayName");
-                    var installationPath = (string)regKey.GetValue("InstallSource");
-                    var version = (string)regKey.GetValue("DisplayVersion");
-                    
-                    if (!string.IsNullOrEmpty(registryDisplayName) && registryDisplayName.Contains(name))
-                    {                        
-                        textLogBuilder.AppendLine(registryDisplayName);
-                        PythonInstalled = true;
-                    }                
-                }
-                catch (Exception ex)
-                {
-                    ExceptionLogging.LogException(ex.ToString());
-                }
-            }
-
-            if (!PythonInstalled)
-            {
-                textLogBuilder.AppendLine("Python is not installed please install python");
-                PythonInstallationLabel = "Python is not installed";
-            }
-            else
-            {
-                PythonInstallationLabel = "Python is installed";
-            }
-
-            TextBoxLog += textLogBuilder.ToString();
-        }
-                
-        private void SetPythonEnvironmentPath()
-        {
-            string pythonDirectory = CurrentDirectory.GetCurrentAppDataDirectory();
-
-        }
-        
-        private void InstallUpdateTensorFlow()
-        {
-            new Thread(() =>
-            {
-                ExecuteCMDCommands.RunMultipleCommands(
-                new List<string>() { "pip install tensorflow", "pip install --upgrade tensorflow" });            
-            }).Start();
-        }
-       
-        private string GetCurrentWindowsDirectory()
-        {
-            return ExecuteCMDCommands.GetCommandOutput("echo %CD:~0,3%");
-        }
-        
+             
         private void OutputHandler(object sender, DataReceivedEventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(e.Data))
             {
                 TextBoxLog += string.Format("{0} \n", e.Data);
             }
+        }
+
+        private void DisplayPythonVersion()
+        {
+            TextBoxLog += Python.GetCurrentPythonVersion();
+        }
+
+        private void DisplayHelpDialog(object obj)
+        {
+            new InceptionModelHelpDialog().ShowDialog();
         }
 
         #endregion

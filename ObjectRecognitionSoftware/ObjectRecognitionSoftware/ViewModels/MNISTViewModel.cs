@@ -4,25 +4,26 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace ObjectRecognitionSoftware.ViewModels
 {
-    public class MNISTViewModel : NotifyPropertyChanged
+    public class MNISTViewModel : BaseViewModel
     {
         #region Fields
 
-        private string m_DatasetInformation;
-        private string m_CompressedImageFileName = "t10k-images.idx3-ubyte.zip";
-        private string m_CompressedLabelsFileName = "t10k-labels.idx1-ubyte.zip";
-        private string m_ImageFileName = "t10k-images.idx3-ubyte";
-        private string m_LabelsFileName = "t10k-labels.idx1-ubyte";
-        private string m_ImagesDownloadLink = "http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz";
-        private string m_LabelsDownloadLink = "http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz";
-        private int m_DatasetPosition = 1;
-        private int m_LabelPosition = 0;
-        private int m_CorrespondingLabel;
-        private List<int> m_PixelArray;
+        private string _datasetInformation;
+        private string _compressedImageFileName = "t10k-images.idx3-ubyte.zip";
+        private string _compressedLabelsFileName = "t10k-labels.idx1-ubyte.zip";
+        private string _imageFileName = "t10k-images.idx3-ubyte";
+        private string _labelsFileName = "t10k-labels.idx1-ubyte";
+        private string _imagesDownloadLink = "http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz";
+        private string _labelsDownloadLink = "http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz";
+        private int _datasetPosition = 1;
+        private int _labelPosition = 0;
+        private int _correspondingLabel;
+        private List<int> _pixelArray;
 
         #endregion
 
@@ -30,30 +31,30 @@ namespace ObjectRecognitionSoftware.ViewModels
 
         public string DatasetInformation
         {
-            get { return m_DatasetInformation; }
+            get { return _datasetInformation; }
             set
             {
-                m_DatasetInformation = value;
+                _datasetInformation = value;
                 OnPropertyChanged(nameof(DatasetInformation));
             }
         }
 
         public List<int> PixelArray
         {
-            get { return m_PixelArray; }
+            get { return _pixelArray; }
             set
             {
-                m_PixelArray = value;
+                _pixelArray = value;
                 OnPropertyChanged(nameof(PixelArray));
             }
         }
 
         public int CorrespondingLabel
         {
-            get { return m_CorrespondingLabel; }
+            get { return _correspondingLabel; }
             set
             {
-                m_CorrespondingLabel = value;
+                _correspondingLabel = value;
                 OnPropertyChanged(nameof(CorrespondingLabel));
             }
         }
@@ -73,17 +74,17 @@ namespace ObjectRecognitionSoftware.ViewModels
 
         public void NextDatasetImage()
         {
-            m_DatasetPosition += 784;
-            m_LabelPosition++;
+            _datasetPosition += 784;
+            _labelPosition++;
             ReadMNISTDataset();
         }
 
         public void PreviousDatasetImage()
         {
-            if (m_DatasetPosition - 784 > 0)
+            if (_datasetPosition - 784 > 0)
             {
-                m_DatasetPosition -= 784;
-                m_LabelPosition--;
+                _datasetPosition -= 784;
+                _labelPosition--;
                 ReadMNISTDataset();
             }            
         }
@@ -116,8 +117,8 @@ namespace ObjectRecognitionSoftware.ViewModels
             {
                 try
                 {
-                    webClient.DownloadFile(m_ImagesDownloadLink, directories.CompressedImagesFileDir);
-                    webClient.DownloadFile(m_LabelsDownloadLink, directories.CompressedLabelsFileDir);
+                    webClient.DownloadFile(_imagesDownloadLink, directories.CompressedImagesFileDir);
+                    webClient.DownloadFile(_labelsDownloadLink, directories.CompressedLabelsFileDir);
                 }
                 catch(Exception e)
                 {
@@ -137,8 +138,8 @@ namespace ObjectRecognitionSoftware.ViewModels
                 var directories = GetDirectories();
                 var ifsLabels = new FileStream(directories.LabelsFileDir, FileMode.Open);
                 var ifsImages = new FileStream(directories.ImagesFileDir, FileMode.Open);
-                ifsLabels.Seek(m_LabelPosition, SeekOrigin.Begin);
-                ifsImages.Seek(m_DatasetPosition, SeekOrigin.Begin);
+                ifsLabels.Seek(_labelPosition, SeekOrigin.Begin);
+                ifsImages.Seek(_datasetPosition, SeekOrigin.Begin);
                 var brLabels = new BinaryReader(ifsLabels);
                 var brImages = new BinaryReader(ifsImages);
                 int magic1 = brImages.ReadInt32();
@@ -167,7 +168,8 @@ namespace ObjectRecognitionSoftware.ViewModels
                 var dImage = new DigitImage(pixels, lbl);
                 CorrespondingLabel = lbl;
                 PixelArray = dImage.GetImageArray();
-                DatasetInformation += dImage.ToString();
+                var formatEmptyLines = Regex.Replace(dImage.ToString(), @"^\s+$[\r\n]*", string.Empty, RegexOptions.Multiline);
+                DatasetInformation += string.Format("{0}\n\r", formatEmptyLines);
 
                 ifsImages.Close();
                 brImages.Close();
@@ -195,11 +197,11 @@ namespace ObjectRecognitionSoftware.ViewModels
 
         private DownloadDirectories GetDirectories()
         {
-            var directory = CurrentDirectory.NavigateToDirectory(@"..\..\Assets\MNISTDataset");
-            var compressedImagesFileDir = string.Format(@"{0}\{1}", directory, m_CompressedImageFileName);
-            var compressedLabelsFileDir = string.Format(@"{0}\{1}", directory, m_CompressedLabelsFileName);
-            var imagesFileDir = string.Format(@"{0}\{1}", directory, m_ImageFileName);
-            var labelsFileDir = string.Format(@"{0}\{1}", directory, m_LabelsFileName);
+            var directory = CurrentDirectory.NavigateToDirectory(@"Assets\MNISTDataset");
+            var compressedImagesFileDir = string.Format(@"{0}\{1}", directory, _compressedImageFileName);
+            var compressedLabelsFileDir = string.Format(@"{0}\{1}", directory, _compressedLabelsFileName);
+            var imagesFileDir = string.Format(@"{0}\{1}", directory, _imageFileName);
+            var labelsFileDir = string.Format(@"{0}\{1}", directory, _labelsFileName);
             
             return new DownloadDirectories()
             {

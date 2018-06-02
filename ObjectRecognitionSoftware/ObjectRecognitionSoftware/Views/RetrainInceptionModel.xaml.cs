@@ -1,12 +1,8 @@
-﻿using Microsoft.Win32;
-using ObjectRecognitionSoftware.Entities;
+﻿using ObjectRecognitionSoftware.Entities;
 using ObjectRecognitionSoftware.ViewModels;
-using ObjectRecognitionSoftware.Views.DialogBoxes;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
-using System.Windows.Shapes;
-using System;
 using ObjectRecognitionSoftware.Views.Controls.ButtonIcons;
 
 namespace ObjectRecognitionSoftware.Views
@@ -16,12 +12,12 @@ namespace ObjectRecognitionSoftware.Views
     /// </summary>
     public partial class RetrainInceptionModel : Page, IResourceItemEntity
     {
-        private RetrainInceptionModelViewModel viewmodel;
+        private RetrainInceptionModelViewModel _viewmodel;
 
         public RetrainInceptionModel()
         {
-            viewmodel = new RetrainInceptionModelViewModel();
-            this.DataContext = viewmodel;
+            _viewmodel = new RetrainInceptionModelViewModel();
+            DataContext = _viewmodel;
             InitializeComponent();
         }
 
@@ -35,12 +31,12 @@ namespace ObjectRecognitionSoftware.Views
 
         private void InstallButton_Click(object sender, RoutedEventArgs e)
         {
-            viewmodel.InstallRequiredPackages();
+            _viewmodel.InstallRequiredPackages();
         }
 
         private void BuildButton_Click(object sender, RoutedEventArgs e)
         {
-            viewmodel.BuildTensorFlow();
+            _viewmodel.RetrainInceptionModel();
         }
 
         private void ChooseImageFolderButton_Click(object sender, RoutedEventArgs e)
@@ -51,14 +47,9 @@ namespace ObjectRecognitionSoftware.Views
             var filename = fileDialog.SelectedPath;
             if (!string.IsNullOrEmpty(filename))
             {
-                viewmodel.imageDirectory = filename;
-                viewmodel.TextBoxLog += filename;
+                _viewmodel.imageDirectory = filename;
+                _viewmodel.TextBoxLog += filename;
             }
-        }
-
-        private void OpenHelpDialog_Click(object sender, RoutedEventArgs e)
-        {
-            new InceptionModelHelpDialog().ShowDialog();
         }
     }
 }

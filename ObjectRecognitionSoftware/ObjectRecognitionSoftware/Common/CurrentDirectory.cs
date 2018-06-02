@@ -11,16 +11,21 @@ namespace ObjectRecognitionSoftware.Common
             return Directory.GetCurrentDirectory();
         }
 
-        public static string GetPythonDirectory()
+        public static string GetPythonAssetsDirectory(string folder)
         {
             var currentPath = Directory.GetCurrentDirectory();
-            var newPath = Path.GetFullPath(Path.Combine(currentPath, @"..\..\Assets\PythonAssets"));
-            return newPath;
+            return Path.GetFullPath(Path.Combine(currentPath, string.Format(@"Assets\PythonAssets\{0}", folder)));
+        }
+
+        public static string GetPythonAssetsDirectory()
+        {
+            var currentPath = Directory.GetCurrentDirectory();
+            return Path.GetFullPath(Path.Combine(currentPath, @"\Assets\PythonAssets"));
         }
 
         public static string GetCurrentAppDataDirectory()
         {
-            return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         }
 
         public static string NavigateToDirectory(string directory)

@@ -7,17 +7,17 @@ namespace ObjectRecognitionSoftware.Views.Controls
     /// </summary>
     public partial class MainWindowTab : TabItem
     {
-        private TabControl m_MainTabControl;
+        private TabControl _mainTabControl;
 
         public MainWindowTab(TabControl mainTabControl)
         {
             InitializeComponent();
-            m_MainTabControl = mainTabControl;
+            _mainTabControl = mainTabControl;
         }
 
         private void CloseTabButton(object sender, System.Windows.RoutedEventArgs e)
         {
-            m_MainTabControl.Items.Remove(this);
+            _mainTabControl.Items.Remove(this);
         }
     }
 }

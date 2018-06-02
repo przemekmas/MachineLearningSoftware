@@ -1,0 +1,1 @@
+age, workclass, fnlwgt, education, education_num,marital_status, occupation, relationship, race, gender,capital_gain, capital_loss, hours_per_week, native_country,predicted_income_bracket,probability

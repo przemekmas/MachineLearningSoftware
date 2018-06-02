@@ -2,7 +2,6 @@
 using ObjectRecognitionSoftware.ViewModels;
 using ObjectRecognitionSoftware.Views.Controls.ButtonIcons;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace ObjectRecognitionSoftware
 {
@@ -11,13 +10,13 @@ namespace ObjectRecognitionSoftware
     /// </summary>
     public partial class SearchPage : Page, IResourceItemEntity
     {
-        private SearchPageViewModel m_ViewModel;
+        private SearchPageViewModel _viewModel;
 
         public SearchPage()
         {
             InitializeComponent();
-            m_ViewModel = new SearchPageViewModel();
-            this.DataContext = m_ViewModel;
+            _viewModel = new SearchPageViewModel();
+            this.DataContext = _viewModel;
         }
 
         public string Name => "Search";
@@ -28,12 +27,12 @@ namespace ObjectRecognitionSoftware
 
         public void SearchResult(string input)
         {
-            m_ViewModel.DisplaySearchResults(input);
+            _viewModel.DisplaySearchResults(input);
         }
         
         private void SelectedResult(object sender, SelectionChangedEventArgs e)
         {
-            m_ViewModel.NavigateTo(SearchResultList.SelectedItem as SearchResultEntity);
+            _viewModel.NavigateTo(SearchResultList.SelectedItem as SearchResultEntity);
         }
     }
 }

@@ -12,7 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)*.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)lib\x64\tfextern.dll" />
+    <None Include="$(MSBuildThisFileDirectory)lib\x64Platform\tfextern.dll" />
   </ItemGroup>
   <PropertyGroup>
     <TFBinaryDir>$(MSBuildThisFileDirectory)..\lib</TFBinaryDir>
@@ -198,7 +198,7 @@
       <ItemGroup Condition="'$(EmguBuildX64)'=='True' AND Exists('$(EmguNativeFileX64)')">
         <Content Include="$(EmguTFDir)..\lib\x64\*.dll">
           <Link>x64\%(RecursiveDir)%(Filename)%(Extension)</Link>
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
       </ItemGroup>
     </When>

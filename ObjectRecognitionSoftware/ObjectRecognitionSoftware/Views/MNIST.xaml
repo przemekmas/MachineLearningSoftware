@@ -22,7 +22,6 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="80"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -30,9 +29,9 @@
         <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="22" FontStyle="Italic" 
                    Margin="6,6,4,0" Width="300" Text="{x:Static resx:MNISTResource.Title}"/>
         <TextBlock Text="{x:Static resx:MNISTResource.Description}" HorizontalAlignment="Left" Margin="10,5,0,0" Grid.Row="1" VerticalAlignment="Top" Height="75" 
-                   Grid.ColumnSpan="3" Width="Auto" TextWrapping="Wrap"/>
-        <GroupBox Header="MNIST Dataset" HorizontalAlignment="Left" Height="Auto" Background="White" Margin="5,5,5,5" Grid.Row="2" 
-                  VerticalAlignment="Top" Width="Auto" Grid.ColumnSpan="2">
+                   Grid.ColumnSpan="2" Width="Auto" TextWrapping="Wrap"/>
+        <GroupBox Header="MNIST Dataset" HorizontalAlignment="Left" Background="White" Margin="5,5,5,5" Grid.Row="2" 
+                  VerticalAlignment="Stretch" Width="Auto" Grid.Column="0">
             <RichTextBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10" VerticalScrollBarVisibility="Auto">
                 <FlowDocument>
                     <Paragraph>
@@ -41,9 +40,9 @@
                 </FlowDocument>
             </RichTextBox>
         </GroupBox>
-        <GroupBox Grid.Column="2" Header="Pixel Array Visual Representation" HorizontalAlignment="Left" Height="Auto" Margin="5,5,5,5" Grid.Row="2" 
-                  VerticalAlignment="Top" Width="Auto" Background="White">
-            <Viewbox Stretch="Fill">
+        <GroupBox Grid.Column="2" Header="Pixel Array Visual Representation" HorizontalAlignment="Stretch" Margin="5,5,5,5" Grid.Row="2" 
+                  VerticalAlignment="Stretch" Background="White">
+            <Viewbox Stretch="Uniform">
                 <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="400" Height="450" Name="layer1">
                     <Canvas.RenderTransform>
                         <TranslateTransform X="0" Y="103"/>

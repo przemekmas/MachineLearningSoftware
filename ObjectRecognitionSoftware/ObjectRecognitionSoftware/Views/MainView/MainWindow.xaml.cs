@@ -1,7 +1,5 @@
-﻿using ObjectRecognitionSoftware.Common;
-using ObjectRecognitionSoftware.ViewModels;
+﻿using ObjectRecognitionSoftware.ViewModels;
 using ObjectRecognitionSoftware.Views.Controls;
-using ObjectRecognitionSoftware.Views.DialogBoxes;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -13,62 +11,45 @@ namespace ObjectRecognitionSoftware
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MainWindowViewModel m_ViewModel;
-        private HelpDialogBox m_HelpDialog;
-        private CloseSoftwareDialog m_CloseDialog;
-        private MainWindowFunctions m_MainWindowFunctions;
+        private MainWindowViewModel _viewModel;
         
         public MainWindow()
         {
             InitializeComponent();
-            m_ViewModel = new MainWindowViewModel();
-            this.DataContext = m_ViewModel;
-            m_MainWindowFunctions = MainWindowFunctions.Instance;
-            m_MainWindowFunctions.TabControl = TabControl;
-            m_MainWindowFunctions.LoadPanels(MainMenu1);
+            _viewModel = new MainWindowViewModel();
+            DataContext = _viewModel;
+            _viewModel.SetTabControl(TabControl);
+            _viewModel.SetMainMenu(MainMenu1);
         }
-        
+
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selectedItem = ((MainMenuButtonControl)MainMenu1.SelectedItem).TextBlock.Text.ToString();
-            m_MainWindowFunctions.OpenPage(selectedItem);            
+            _viewModel.OpenPage(selectedItem);                      
         }
 
         private void HideMenuButton1_Click(object sender, RoutedEventArgs e)
         {
-            double mainMenuWidth1 = MainMenu1.Width;
-            var mainMenuGridColumn1 = MainMenuGridColumn1.Width;
-
-            if (mainMenuWidth1 > 0)
-            {
-                MainMenu1.Width = 0;
-                HideMenuButton1.Content = "Show Menu ▼";        
-            }
-            else
-            {
-                MainMenu1.Width = 140;
-                HideMenuButton1.Content = "Hide Menu ▲";       
-            }
-
-            MainMenuGrid1.Width = GridLength.Auto;
-            MainMenuGridColumn1.Width = GridLength.Auto;
+            ShowOrHideMenu();
         }
 
         private void TopBorder_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
+            {
+                DragMove();
+            }                
         }
         
         private void OnClickMaximiseWindow(object sender, RoutedEventArgs e)
         {
-            if(this.WindowState == WindowState.Maximized)
+            if (WindowState == WindowState.Maximized)
             {
-                this.WindowState = WindowState.Normal;
+                WindowState = WindowState.Normal;
             }
             else
             {
-                this.WindowState = WindowState.Maximized;
+                WindowState = WindowState.Maximized;
             }
         }
 
@@ -77,38 +58,31 @@ namespace ObjectRecognitionSoftware
             SystemCommands.MinimizeWindow(this);
         }
 
-        private void OnClickCloseWindow(object sender, RoutedEventArgs e)
+        private void OnClickShowMenu(object sender, RoutedEventArgs e)
         {
-            DisplayExitDialog();
-        }
-        
-        private void AboutSoftware_Click(object sender, RoutedEventArgs e)
-        {
-            DisplayHelpDialog();
-        }
-        
-        private void DisplayHelpDialog()
-        {
-            m_HelpDialog = new HelpDialogBox();
-            m_HelpDialog.ShowDialog();
+            ShowOrHideMenu(); 
         }
 
-        private void DisplayExitDialog()
+        private void ShowOrHideMenu()
         {
-            m_CloseDialog = new CloseSoftwareDialog();
-            m_CloseDialog.ShowDialog();
-        }
+            double mainMenuWidth1 = MainMenu1.Width;
+            var mainMenuGridColumn1 = MainMenuGridColumn1.Width;
 
-        private void ExitSoftware_Click(object sender, RoutedEventArgs e)
-        {
-            m_CloseDialog = new CloseSoftwareDialog();
-            m_CloseDialog.ShowDialog();
-        }
+            if (mainMenuWidth1 > 0)
+            {
+                ShowOrHideMenuItem.IsChecked = false;
+                MainMenu1.Width = 0;
+                HideMenuButton1.Content = "Show Menu ▼";
+            }
+            else
+            {
+                ShowOrHideMenuItem.IsChecked = true;
+                MainMenu1.Width = 140;
+                HideMenuButton1.Content = "Hide Menu ▲";
+            }
 
-        private void OnClickTensorflowWebsite(object sender, RoutedEventArgs e)
-        {
-            HyperlinkNavigation.NavigateTo("https://www.tensorflow.org/");
+            MainMenuGrid1.Width = GridLength.Auto;
+            MainMenuGridColumn1.Width = GridLength.Auto;
         }
     }
 }
-

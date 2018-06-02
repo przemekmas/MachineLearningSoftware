@@ -12,8 +12,8 @@ namespace ObjectRecognitionSoftware.Views.DialogBoxes
 
         private void CloseButton1_Click(object sender, EventArgs e)
         {
-            this.Close();
-            this.Dispose();
+            Close();
+            Dispose();
         }
     }
 }

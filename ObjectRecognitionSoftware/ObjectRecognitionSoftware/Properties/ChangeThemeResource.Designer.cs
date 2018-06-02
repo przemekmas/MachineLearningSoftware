@@ -61,6 +61,15 @@ namespace ObjectRecognitionSoftware.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Live Theme Preview.
+        /// </summary>
+        public static string LivePreview {
+            get {
+                return ResourceManager.GetString("LivePreview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change Software Theme.
         /// </summary>
         public static string Title {

@@ -120,9 +120,6 @@
   <data name="BeginInstallationButton" xml:space="preserve">
     <value>Begin Installation</value>
   </data>
-  <data name="BuildTensorFlowButton" xml:space="preserve">
-    <value>Build TensorFlow</value>
-  </data>
   <data name="ChooseImagesFolderButton" xml:space="preserve">
     <value>Choose Folder</value>
   </data>
@@ -131,6 +128,9 @@
   </data>
   <data name="PythonInstallLabel" xml:space="preserve">
     <value>Python is installed</value>
+  </data>
+  <data name="RetrainButton" xml:space="preserve">
+    <value>Retrain Model</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Retrain Inception Model</value>

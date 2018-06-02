@@ -1,10 +1,6 @@
 ﻿using ObjectRecognitionSoftware.Common;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace ObjectRecognitionSoftware
@@ -17,9 +13,9 @@ namespace ObjectRecognitionSoftware
         public void ChangeTheme(string uri)
         {
             Uri dictionaryUri = new Uri(uri, UriKind.Relative);
-            ResourceDictionary resourceDict = Application.LoadComponent(dictionaryUri) as ResourceDictionary;
-            Application.Current.Resources.MergedDictionaries.Clear();
-            Application.Current.Resources.MergedDictionaries.Add(resourceDict);
+            ResourceDictionary resourceDict = LoadComponent(dictionaryUri) as ResourceDictionary;
+            Current.Resources.MergedDictionaries.Clear();
+            Current.Resources.MergedDictionaries.Add(resourceDict);
         }
 
         [STAThread]

@@ -7,25 +7,24 @@ namespace ObjectRecognitionSoftware.Common
     public static class ExecuteCMDCommands
     {
         public static DataReceivedEventHandler outputHandler;
-        private static Process m_Process = new Process();
-        private static StringBuilder m_CmdOutput = new StringBuilder();        
+        private static Process _process = new Process();
+        private static StringBuilder _cmdOutput = new StringBuilder();        
 
-        public static StringBuilder RunCommand(string arguments, bool readStream = true)
+        public static StringBuilder RunCommand(string arguments, bool readStream = true, bool isPythonEnvironment = false)
         {
-            m_Process.StartInfo = GetStartInformation(arguments);
-            m_Process.Start();
-            ReadOutput();
-            m_Process.WaitForExit();
-            return m_CmdOutput;
+            _process.StartInfo = GetStartInformation(arguments, isPythonEnvironment);
+            _process.Start();
+            _process.WaitForExit();
+            return _cmdOutput;
         }
 
-        public static StringBuilder RunMultipleCommands(List<string> commands)
+        public static StringBuilder RunMultipleCommands(List<string> commands, bool isPythonEnvironment = false, bool redirectOutput = false)
         {
-            m_Process.StartInfo = GetStartInformation(string.Empty);
-            m_Process.OutputDataReceived += new DataReceivedEventHandler(outputHandler);
-            m_Process.Start();
+            _process.StartInfo = GetStartInformation(string.Empty, isPythonEnvironment, redirectOutput);
+            _process.OutputDataReceived += new DataReceivedEventHandler(outputHandler);
+            _process.Start();
 
-            using (var writer = m_Process.StandardInput)
+            using (var writer = _process.StandardInput)
             {
                 if (writer.BaseStream.CanWrite)
                 {
@@ -36,41 +35,55 @@ namespace ObjectRecognitionSoftware.Common
                 }
             }
             
-            ReadOutput();
-            m_Process.WaitForExit();
-            return m_CmdOutput;
+            _process.WaitForExit();
+            return _cmdOutput;
         }
 
         private static void ReadOutput()
         {
-            m_Process.BeginOutputReadLine();
+            // Can only read output when it is not redirected
+            _process.BeginOutputReadLine();
         }
 
         public static string GetCommandOutput(string arguments)
         {             
-            m_Process.StartInfo = GetStartInformation(arguments);
-            m_Process.Start();
-            string output = m_Process.StandardOutput.ReadLine();
-            m_Process.Kill();
+            _process.StartInfo = GetStartInformation(arguments);
+            _process.Start();
+            string output = _process.StandardOutput.ReadLine();
+            _process.Kill();
             return output;
         }
 
         public static StringBuilder GetRealtimeCMD()
         {
-            return m_CmdOutput;
+            return _cmdOutput;
         }
 
-        private static ProcessStartInfo GetStartInformation(string arguments)
+        private static ProcessStartInfo GetStartInformation(string arguments, bool isPythonEnvironment = false, bool redirectOutput = false)
         {
             var startinfo = new ProcessStartInfo
             {
                 WindowStyle = ProcessWindowStyle.Hidden,
                 FileName = "cmd.exe",
                 RedirectStandardInput = true,
-                RedirectStandardOutput = true,
+                RedirectStandardOutput = false,
                 CreateNoWindow = true,
-                UseShellExecute = false
+                UseShellExecute = false,
             };
+
+            if (isPythonEnvironment)
+            {
+                var pythonScriptsPath = Python.GetLatestPythonScriptsDirectory();
+                if (!string.IsNullOrEmpty(pythonScriptsPath))
+                {
+                    startinfo.EnvironmentVariables["Path"] = pythonScriptsPath;
+                }               
+            }    
+            
+            if (redirectOutput)
+            {
+                startinfo.RedirectStandardOutput = true;
+            }
 
             if (!string.IsNullOrEmpty(arguments))
             {

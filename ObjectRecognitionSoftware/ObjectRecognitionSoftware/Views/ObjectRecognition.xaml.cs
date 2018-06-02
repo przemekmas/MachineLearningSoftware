@@ -11,13 +11,13 @@ namespace ObjectRecognitionSoftware.Views
     /// </summary>
     public partial class ObjectRecognition : Page, IResourceItemEntity
     {
-        private ObjectRecognitionViewModel m_ViewModel;
+        private ObjectRecognitionViewModel _viewModel;
 
         public ObjectRecognition()
         {
             InitializeComponent();
-            m_ViewModel = new ObjectRecognitionViewModel();
-            DataContext = m_ViewModel;
+            _viewModel = new ObjectRecognitionViewModel();
+            DataContext = _viewModel;
         }
 
         public string Name => "Object Recognition";
@@ -30,17 +30,17 @@ namespace ObjectRecognitionSoftware.Views
 
         private void ChooseImageButton1_Click(object sender, RoutedEventArgs e)
         {
-            m_ViewModel.OpenWindowsDialog(FileDialogOption.chooseImage);
+            _viewModel.OpenWindowsDialog(FileDialogOption.ChooseImage);
         }
 
         private void ChooseInceptionGraphButton1_Click(object sender, RoutedEventArgs e)
         {
-            m_ViewModel.OpenWindowsDialog(FileDialogOption.chooseInceptionGraph);
+            _viewModel.OpenWindowsDialog(FileDialogOption.ChooseInceptionGraph);
         }
         
         private void ChooseOutputLabelButton1_Click(object sender, RoutedEventArgs e)
         {
-            m_ViewModel.OpenWindowsDialog(FileDialogOption.chooseOutputLabels);
+            _viewModel.OpenWindowsDialog(FileDialogOption.ChooseOutputLabels);
         }
     }
 }

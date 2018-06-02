@@ -1,8 +1,6 @@
 ﻿using ObjectRecognitionSoftware.Entities;
 using ObjectRecognitionSoftware.ViewModels;
 using System.Windows.Controls;
-using System.Windows.Shapes;
-using System;
 using ObjectRecognitionSoftware.Views.Controls.ButtonIcons;
 
 namespace ObjectRecognitionSoftware.Views
@@ -20,19 +18,21 @@ namespace ObjectRecognitionSoftware.Views
 
         public bool IsVisible => true;
 
-        private ExceptionLogViewModel viewmodel;
+        private ExceptionLogViewModel _viewmodel;
         
         public ExceptionLog()
         {
             InitializeComponent();
-            viewmodel = new ExceptionLogViewModel();
-            this.DataContext = viewmodel;
+            _viewmodel = new ExceptionLogViewModel();
+            DataContext = _viewmodel;
         }
 
         private void ExceptionDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selectedException = ExceptionDataGrid.SelectedItem as ExceptionEntity;
-            viewmodel.SetExceptionDetails(selectedException.Exception);
+            if (ExceptionDataGrid.SelectedItem is ExceptionEntity selectedException)
+            {
+                _viewmodel.SetExceptionDetails(selectedException.Exception);
+            }
         }
     }
 }

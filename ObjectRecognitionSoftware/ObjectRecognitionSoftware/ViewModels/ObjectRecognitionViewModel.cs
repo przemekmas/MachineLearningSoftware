@@ -1,67 +1,72 @@
 ﻿using Emgu.TF;
 using Emgu.TF.Models;
+using ObjectRecognitionSoftware.Common;
 using ObjectRecognitionSoftware.Entities;
 using System;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
-using System.Windows.Threading;
 
 namespace ObjectRecognitionSoftware.ViewModels
 {
-    public class ObjectRecognitionViewModel : NotifyPropertyChanged
+    public class ObjectRecognitionViewModel : BaseViewModel
     {
-        private string m_InceptionGraphFileLocation;
-        private string m_OutputLabelsFileLocation;
-        private string m_InformationText;
-        private string m_ImageFileName;
-        private BitmapFrame m_FileSource;
-        private bool m_IsModalVisible;
+        #region
+
+        private string _inceptionGraphFileLocation;
+        private string _outputLabelsFileLocation;
+        private string _informationText;
+        private string _imageFileName;
+        private BitmapFrame _fileSource;
+
+        #endregion
+
+        #region Properties
 
         public BitmapFrame FileSource
         {
-            get { return m_FileSource; }
+            get { return _fileSource; }
             set
             {
-                m_FileSource = value;
+                _fileSource = value;
                 OnPropertyChanged(nameof(FileSource));
             }
         }
 
         public string InformationText
         {
-            get { return m_InformationText; }
+            get { return _informationText; }
             set
             {
-                m_InformationText = value;
+                _informationText = value;
                 OnPropertyChanged(nameof(InformationText));
             }
         }
 
         public string ImageFileName
         {
-            get { return m_ImageFileName; }
+            get { return _imageFileName; }
             set
             {
-                m_ImageFileName = value;
+                _imageFileName = value;
                 OnPropertyChanged(nameof(ImageFileName));
             }
         }
+        
+        #endregion
 
-        public bool IsModalVisible
+        #region Constructor
+
+        public ObjectRecognitionViewModel()
         {
-            get { return m_IsModalVisible; }
-            set
-            {
-                m_IsModalVisible = value;
-                OnPropertyChanged(nameof(IsModalVisible));
-            }
+            FileSource = BitmapFrame.Create(BitmapConverter.CreateBitmapSourceFromBitmap(Properties.Resources.ImagePlaceholder));
         }
 
-        #region Public Methods
+        #endregion
 
+        #region Public Methods
+        
         public void Recognise(string fileName)
         {
             var imageSource = new BitmapImage(new Uri(fileName));
@@ -81,9 +86,9 @@ namespace ObjectRecognitionSoftware.ViewModels
             //For ".pb" and ".txt" bundled with the application, set the url to null
             byte[] model = File.ReadAllBytes(@"C:\Users\Przem\Downloads\flowers.jpg");
 
-            if (m_InceptionGraphFileLocation != null && m_OutputLabelsFileLocation != null)
+            if (_inceptionGraphFileLocation != null && _outputLabelsFileLocation != null)
             {
-                inceptionGraph = new Inception(null, new string[] { m_InceptionGraphFileLocation, m_OutputLabelsFileLocation }, null, "Mul", "final_result");
+                inceptionGraph = new Inception(null, new string[] { _inceptionGraphFileLocation, _outputLabelsFileLocation }, null, "Mul", "final_result");
             }
             else
             {
@@ -125,16 +130,16 @@ namespace ObjectRecognitionSoftware.ViewModels
             if (!string.IsNullOrEmpty(filename))
             {
 
-                if (option == FileDialogOption.chooseImage)
+                if (option == FileDialogOption.ChooseImage)
                 {
                     IsModalVisible = true;                    
                     Task.Run(() => Recognise(filename));
                 }
-                else if (option == FileDialogOption.chooseInceptionGraph)
+                else if (option == FileDialogOption.ChooseInceptionGraph)
                 {
                     SetInceptionGraph(filename);
                 }
-                else if (option == FileDialogOption.chooseOutputLabels)
+                else if (option == FileDialogOption.ChooseOutputLabels)
                 {
                     SetOutputLabels(filename);
                 }
@@ -147,12 +152,12 @@ namespace ObjectRecognitionSoftware.ViewModels
         
         private void SetOutputLabels(string filename)
         {
-            m_OutputLabelsFileLocation = filename;
+            _outputLabelsFileLocation = filename;
         }
 
         private void SetInceptionGraph(string filename)
         {
-            m_InceptionGraphFileLocation = filename;
+            _inceptionGraphFileLocation = filename;
         }
         
         private void DisposeObjects(Inception graph, Tensor tensor)
