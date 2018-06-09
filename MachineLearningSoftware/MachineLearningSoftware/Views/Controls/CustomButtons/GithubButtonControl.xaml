@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="MachineLearningSoftware.Views.Controls.CustomButtons.GithubButtonControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="GithubButtonStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" BorderThickness="0" BorderBrush="Black" Background="Transparent">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    
+    <Button x:Name="GithubButton" Style="{StaticResource GithubButtonStyle}" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center"
+            Command="{Binding GithubButtonCommand}">
+        <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Width="20" Height="20">
+            <Canvas>
+                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="White" Height="20" Stretch="Fill" Width="20"
+                      Data="M 128.00106 0 C 57.317293 0 0 57.306694 0 128.00106 c 0 56.55422 36.6762 104.53448 87.534937 121.45984 6.397085 1.18488 8.745651 -2.77674 8.745651 -6.15757 0 -3.05229 -0.1187 -13.13543 -0.173811 -23.83115 -35.610019 7.74305 -43.124156 -15.10247 -43.124156 -15.10247 -5.822663 -14.79511 -14.212213 -18.72917 -14.212213 -18.72917 -11.61353 -7.94443 0.875413 -7.78122 0.875413 -7.78122 12.853521 0.90297 19.621544 13.19055 19.621544 13.19055 11.416403 19.56855 29.94421 13.91122 37.248503 10.64061 1.148847 -8.27297 4.466092 -13.9197 8.126712 -17.11612 -28.430781 -3.2367 -58.317761 -14.21222 -58.317761 -63.25866 0 -13.97481 5.00024 -25.393332 13.188425 -34.357306 -1.329017 -3.223979 -5.710321 -16.242832 1.239991 -33.87403 0 0 10.748715 -3.440183 35.209406 13.120595 10.210329 -2.836083 21.160409 -4.258364 32.038419 -4.307116 10.87801 0.04875 21.83657 1.471033 32.06597 4.307116 24.43102 -16.560778 35.1649 -13.120595 35.1649 -13.120595 6.96727 17.631198 2.58384 30.650051 1.25483 33.87403 8.20726 8.963974 13.17358 20.382496 13.17358 34.357306 0 49.16302 -29.94421 59.98805 -58.44706 63.15691 4.59115 3.97222 8.68206 11.76191 8.68206 23.70398 0 17.12673 -0.14837 30.91077 -0.14837 35.12674 0 3.40627 2.30405 7.39756 8.79228 6.14061 C 219.37043 232.49951 256 184.5362 256 128.00106 256 57.306694 198.69119 0 128.00106 0 Z"/>
+            </Canvas>
+        </Canvas>
+    </Button>
+</UserControl>

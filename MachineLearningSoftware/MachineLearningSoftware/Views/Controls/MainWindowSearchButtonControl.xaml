@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="MachineLearningSoftware.Views.Controls.MainWindowSearchButtonControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="20" d:DesignWidth="200">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary x:Name="ControlsDictionary" Source="Dictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Height="20" Width="200">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="175"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Border BorderThickness="0" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" CornerRadius="2"
+                Background="White" Grid.ColumnSpan="2" Width="200">
+            <TextBox x:Name="TextBoxSearchInput" TextWrapping="Wrap" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" Height="16" 
+                     Margin="2,2,25,2" KeyDown="TextBoxSearchInput_KeyDown"/>
+        </Border>
+        <Button Style="{StaticResource SearchButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="19" Grid.Column="1" Cursor="Hand" 
+                Click="SearchButtonClick"/>
+    </Grid>
+</UserControl>

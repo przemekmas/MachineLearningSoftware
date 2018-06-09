@@ -1,0 +1,143 @@
+﻿<Window x:Class="MachineLearningSoftware.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:MachineLearningSoftware.Views.Controls"
+        xmlns:custombuttons="clr-namespace:MachineLearningSoftware.Views.Controls.CustomButtons"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ResizeMode="CanResizeWithGrip"
+        Title="MainWindow" Height="600" Width="800"
+        WindowStartupLocation="CenterScreen"
+        BorderBrush="Black"
+        BorderThickness="1"
+        MinWidth="550"
+        MinHeight="450">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="MainWindowDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    
+    <Grid Style="{DynamicResource MainWindowStyle}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Name="MainMenuGrid1" Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.ColumnSpan="3" Grid.Column="0" MouseLeftButtonDown="TopBorder_MouseDown" Style="{DynamicResource MainWindowStyle}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="90"/>
+            </Grid.ColumnDefinitions>
+            
+            <Border Grid.Column="0" Width="25" Height="25" HorizontalAlignment="Left" Margin="2,0,0,0">
+                <Viewbox>
+                    <Canvas Opacity="1" Width="350" Height="350">
+                        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="Gray" StrokeThickness="10" Stroke="White" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="M12.824261,28.57156 L12.824261,0.49999999 25.426987,8.75896 25.426987,22.87087 z M0.50000017,22.21989 L12.824261,28.57156 12.824261,0.49999999 0.50000017,8.52863 z" Canvas.Left="35.629" Canvas.Top="16.725" Height="312.511" Stretch="Fill" Width="278.705"/>
+                    </Canvas>
+                </Viewbox>
+            </Border>
+
+            <TextBlock Grid.Column="1" Text="Machine Learning Software" VerticalAlignment="Center" Foreground="White" TextAlignment="Left"/>
+
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <controls:MainWindowSearchButtonControl x:Name="SearchBox" Grid.Column="1" HorizontalAlignment="Right" Margin="0,2,0,2"/>
+                <custombuttons:GithubButtonControl Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,5,0"/>
+            </Grid>
+            
+            <StackPanel Grid.Column="3" Orientation="Horizontal" Height="30" HorizontalAlignment="Right" Margin="0,0,0,0">
+                <Button Width="25" Height="25" Background="Transparent" BorderThickness="0" Click="OnClickMinimiseWindow" Style="{StaticResource WindowButtons1}">
+                    <Border Style="{StaticResource HoverOnWindowButton1}">
+                        <Viewbox>
+                            <Canvas Width="150" Height="150">
+                                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path41" Fill="#FF4D4D4D" StrokeThickness="0.11301354" Data="m -23.786549 191.26878 v 4.74926 h -34.07144 v -4.74926 z" Width="100.139" Height="10.967" Stretch="Fill" Canvas.Left="24.655" Canvas.Top="118.244"/>
+                            </Canvas>
+                        </Viewbox>
+                    </Border>
+                </Button>
+
+                <Button Width="25" Height="25" Background="Transparent" BorderThickness="0" Click="OnClickMaximiseWindow" Style="{StaticResource WindowButtons1}">
+                    <Border Style="{StaticResource HoverOnWindowButton1}">
+                        <Viewbox>
+                            <Canvas Width="150" Height="150">
+                                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="#FF4D4D4D" StrokeThickness="0.11301354" Data="M38.820701,43.13975 L38.820701,47.88901 4.749261,47.88901 4.749261,43.13975 z M38.820701,1.9895197E-13 L38.820701,4.74926 4.749261,4.74926 4.749261,1.9895197E-13 z M38.820701,1.9895197E-13 L43.569962,1.9895197E-13 43.569962,47.88901 38.820701,47.88901 z M-7.1054322E-15,1.9895197E-13 L4.749261,1.9895197E-13 4.749261,47.88901 -7.1054322E-15,47.88901 z" Height="108.288" Canvas.Left="21.584" Stretch="Fill" Canvas.Top="22.206" Width="102.712"/>
+                            </Canvas>
+                        </Viewbox>
+                    </Border>
+                </Button>
+
+                <Button Width="25" Height="25" Background="Transparent" BorderThickness="0" Command="{Binding DisplayExitDialogCommand}" Style="{StaticResource WindowButtons1}">
+                    <Border Style="{StaticResource HoverOnCloseWindowButton1}">
+                        <Viewbox>
+                            <Canvas Width="150" Height="150">
+                                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="#FF4D4D4D" StrokeThickness="0.42713779" Data="M 52.742188 52.476562 L 40.048828 65.167969 L 79.761719 104.88086 L 40.314453 144.32812 L 53.005859 157.01953 L 92.453125 117.57227 L 131.10547 156.22461 L 143.79883 143.5332 L 105.14453 104.87891 L 144.0625 65.962891 L 131.37109 53.271484 L 92.453125 92.1875 L 52.742188 52.476562 z " Canvas.Left="30.717" Height="98.784" Stretch="Fill" Width="90.632" Canvas.Top="25.108"/>
+                            </Canvas>
+                        </Viewbox>
+                    </Border>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <DockPanel Grid.Row="1" Grid.ColumnSpan="2">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_Close" Command="{Binding DisplayExitDialogCommand}"/>
+                </MenuItem>
+                <MenuItem Header="_View">
+                    <MenuItem Header="Show Menu" IsCheckable="True" IsChecked="True" Click="OnClickShowMenu" x:Name="ShowOrHideMenuItem"/>
+                </MenuItem>
+                <MenuItem Header="_Help">
+                    <MenuItem Header="_About" Command="{Binding DisplayHelpDialogCommand}"/>
+                    <MenuItem Header="_Python" Command="{Binding DisplayPythonWebsiteCommand}"/>
+                    <MenuItem Header="_Help"/>
+                    <MenuItem Header="_TensorFlow" Command="{Binding DisplayTensorFlowWebsiteCommand}"/>
+                </MenuItem>
+            </Menu>
+            <StackPanel></StackPanel>
+        </DockPanel>
+
+        <Grid Grid.Row="2" Grid.Column="0" Name="MainMenuContentGrid1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Name="MainMenuGridColumn1" Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ListBox Style="{DynamicResource MainMenuStyle}" HorizontalContentAlignment="Stretch" Name="MainMenu1" 
+                     Grid.Column="0" Width="140" MaxWidth="140" SelectionChanged="ListBox_SelectionChanged"
+                     BorderThickness="0" HorizontalAlignment="Stretch" ItemContainerStyle="{StaticResource ListBoxItemStyle}"/>
+            <Button Style="{DynamicResource MainMenuButtonStyle}" Name="HideMenuButton1" Content="Hide Menu ▲" 
+                    HorizontalAlignment="Stretch" Grid.Column="1" Click="HideMenuButton1_Click"
+                    Foreground="White" FontFamily="Calibri" FontSize="12"
+                    TextOptions.TextFormattingMode="Display">
+                <Button.LayoutTransform>
+                    <RotateTransform Angle="-90" />
+                </Button.LayoutTransform>
+            </Button>
+        </Grid>
+
+        <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Background="White">
+            <TabControl Name="TabControl" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ColumnSpan="2">
+                <TabItem Header="Start Page" Style="{StaticResource TabItem}">
+                    <Frame Source="../StartPage.xaml" FontWeight="Light" />
+                </TabItem>
+            </TabControl>
+        </Border>
+    </Grid>
+</Window>

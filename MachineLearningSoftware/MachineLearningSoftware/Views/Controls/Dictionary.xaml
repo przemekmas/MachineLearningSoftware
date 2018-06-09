@@ -1,0 +1,28 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:MachineLearningSoftware.Views.Controls">
+    <Style x:Key="SearchButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid Margin="2" Background="Transparent">
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                        <Path x:Name="SearchPath" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            Fill="#FFD3D3D3" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" SnapsToDevicePixels="True"
+                            Opacity="1" Stretch="Fill" Data="M 80.685272 91.0144 C 79.379208 90.367903 71.614776 83.071085 58.347469 70.021896 L 54.529665 66.26686 51.370187 67.734818 C 46.434779 70.027903 43.579294 70.716921 38.097522 70.937453 31.066775 71.220303 26.370588 70.1894 20.661352 67.109875 12.000042 62.438025 6.1074544 54.746957 3.6924214 44.961846 2.6575607 40.76885 2.6702999 33.14896 3.7187979 29.184906 6.9977872 16.788038 16.091367 7.5483796 28.344392 4.1637283 32.361475 3.0540898 40.945215 3.0682149 45.022415 4.191173 55.956679 7.2027311 65.909817 15.297509 68.729454 26.475247 l 0.240958 0.797688 0.291901 0.966333 0.202072 1.0204 0.200887 0.925393 c 0.309809 1.187539 0.665223 3.85247 0.755129 6.026785 0.08499 4.515918 -0.392701 7.305243 -1.552404 11.150897 -0.630721 1.811564 -1.633453 4.257875 -2.228293 5.436242 -0.594839 1.178372 -1.081525 2.30394 -1.081525 2.501268 0 0.197325 5.616765 5.947443 12.481697 12.77804 11.276775 11.220375 12.521539 12.574225 12.894429 14.024467 1.527925 5.942433 -4.92035 11.5493 -10.248983 8.91164 z M 43.950987 57.108171 c 5.96746 -2.295596 10.773853 -7.420478 12.72616 -13.569439 1.026922 -3.234382 1.251665 -8.096542 0.518382 -11.215 -1.740317 -7.401153 -8.03761 -13.814842 -15.43895 -15.72432 -2.808796 -0.724643 -7.445246 -0.724643 -10.254041 0 -4.885759 1.260481 -10.247311 5.155909 -12.686259 9.217184 -3.853326 6.416459 -4.256486 14.374347 -1.060398 20.930964 1.427433 2.928311 6.053728 7.682093 8.873677 9.118211 3.935995 2.004486 5.47146 2.323593 10.535714 2.189586 3.79195 -0.100339 5.035586 -0.273936 6.785715 -0.947186 z"/>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="SearchPath" Property="Fill" Value="#FF363636"/>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="SearchPath" Property="Fill" Value="Black"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
