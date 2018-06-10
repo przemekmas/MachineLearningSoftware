@@ -117,6 +117,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_F1CF9247807A4528AE02E3A8087231D7"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_FA2DFF84DF642DCC8DAA1F69E8D29318"
         "OwnerKey" = "8:_51904617CABEFB3F39676FEB40E457E9"
         "MsmSig" = "8:_UNDEFINED"
@@ -604,6 +610,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F1CF9247807A4528AE02E3A8087231D7"
+            {
+            "SourcePath" = "8:..\\MachineLearningSoftware\\Assets\\Images\\MachineLearningIconTensorFlow.ico"
+            "TargetName" = "8:MachineLearningIconTensorFlow.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_767DB768A0B4408982011074FFB87F11"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FA2DFF84DF642DCC8DAA1F69E8D29318"
             {
             "AssemblyRegister" = "3:1"
@@ -692,7 +718,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Machine Learning Software"
         "ProductCode" = "8:{788F5CB6-42B9-41EF-BB09-555152D92A57}"
-        "PackageCode" = "8:{56DE9DC3-843E-4B71-BEB0-CCA504F4C4D7}"
+        "PackageCode" = "8:{2B633D1E-F1A7-466B-BFBB-3D036694A99B}"
         "UpgradeCode" = "8:{4692129B-7891-4AE1-90B1-B33701E6CF12}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -709,7 +735,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:Machine Learning Software is free for anyone to use and can be used to learn about how machine learning works"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_F1CF9247807A4528AE02E3A8087231D7"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -812,6 +838,20 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_710D13C28DFA4133AE80E67F6BFCD8C2"
+            {
+            "Name" = "8:Machine Learning Software"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_1E4EB7591A4F41FB9A1076460A984266"
+            "Folder" = "8:_D67D772370E94789BCB7371A8D45F3DD"
+            "WorkingFolder" = "8:_767DB768A0B4408982011074FFB87F11"
+            "Icon" = "8:_F1CF9247807A4528AE02E3A8087231D7"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {

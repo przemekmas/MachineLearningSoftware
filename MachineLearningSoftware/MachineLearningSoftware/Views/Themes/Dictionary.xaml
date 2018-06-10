@@ -57,5 +57,4 @@
     <Style x:Key="DataGridRowStyle" TargetType="{x:Type DataGridRowHeader}">
         <Setter Property="Width" Value="10"/>
     </Style>
-
 </ResourceDictionary>

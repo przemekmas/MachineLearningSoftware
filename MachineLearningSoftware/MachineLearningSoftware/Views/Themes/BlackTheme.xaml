@@ -4,18 +4,26 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../MainView/MainWindowDictionary.xaml" />
+        <ResourceDictionary Source="BaseStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
     
     <SolidColorBrush x:Key="WindowButtonBackground" Color="Black"/>
+    
     <Style x:Key="MainWindowStyle" TargetType="{x:Type Grid}">
         <Setter Property="Background" Value="Black"/>
     </Style>
+    
     <Style x:Key="MainMenuStyle" TargetType="{x:Type ListBox}" BasedOn="{StaticResource MainMenuBaseStyle}">
         <Setter Property="Background" Value="#FF3A3A3A"/>
     </Style>    
+    
     <Style x:Key="MainMenuButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="#FF878787"/>
         <Setter Property="BorderBrush" Value="White"/>
     </Style>
-    
+
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseButtonStyle}">
+        <Setter Property="Background" Value="Gray"/>        
+    </Style>
+
 </ResourceDictionary>

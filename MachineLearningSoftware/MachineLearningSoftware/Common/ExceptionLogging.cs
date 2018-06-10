@@ -24,8 +24,11 @@ namespace MachineLearningSoftware.Common
         private void CreateExceptionLogTable()
         {
             string sqlCreateTable = "CREATE TABLE IF NOT EXISTS ExceptionLog (Id int AUTO_INCREMENT, Exception varchar, Time TIME)";
-            SQLiteCommand sqlCreateComand = new SQLiteCommand(sqlCreateTable, _sqlConnection);
-            sqlCreateComand.ExecuteNonQuery();
+            using (var cmd = new SQLiteCommand(sqlCreateTable, _sqlConnection))
+            {
+                SQLiteCommand sqlCreateComand = new SQLiteCommand(sqlCreateTable, _sqlConnection);
+                sqlCreateComand.ExecuteNonQuery();
+            }            
         }
 
         public void CloseConnection()
@@ -38,27 +41,35 @@ namespace MachineLearningSoftware.Common
             var exceptionList = new ObservableCollection<ExceptionEntity>();
 
             string sql = "SELECT Exception,Time FROM ExceptionLog";
-            SQLiteCommand command = new SQLiteCommand(sql, _sqlConnection);
-            SQLiteDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
+            using (var cmd = new SQLiteCommand(sql, _sqlConnection))
             {
-                var exception = reader["Exception"];
-                exceptionList.Add(new ExceptionEntity()
+                var command = new SQLiteCommand(sql, _sqlConnection);
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
                 {
-                    Exception = exception.ToString(),
-                    Time = (DateTime)reader["Time"]
-                });
-            }
+                    var exception = reader["Exception"];
+                    exceptionList.Add(new ExceptionEntity()
+                    {
+                        Exception = exception.ToString(),
+                        Time = (DateTime)reader["Time"]
+                    });
+                }
+            }            
             return exceptionList;
         }
 
         public static void LogException(string exception)
         {
-            string sql = string.Format("INSERT INTO ExceptionLog VALUES((SELECT Id FROM ExceptionLog)+1, @exception, '{0}')", DateTime.Now);
-            SQLiteCommand command = new SQLiteCommand(sql, _sqlConnection);
-            command.Parameters.Add(new SQLiteParameter("@exception", exception));
-            command.ExecuteNonQuery();
+            if (!string.IsNullOrEmpty(exception))
+            {
+                string sql = string.Format("INSERT INTO ExceptionLog VALUES((SELECT Id FROM ExceptionLog)+1, @exception, '{0}')", DateTime.Now);
+                using (var cmd = new SQLiteCommand(sql, _sqlConnection))
+                {
+                    cmd.Parameters.Add(new SQLiteParameter("@exception", exception));
+                    cmd.ExecuteNonQuery();
+                }
+            }            
         }
     }
 }

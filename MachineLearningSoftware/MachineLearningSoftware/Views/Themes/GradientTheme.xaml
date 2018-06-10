@@ -3,9 +3,11 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../MainView/MainWindowDictionary.xaml" />
+        <ResourceDictionary Source="BaseStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <SolidColorBrush x:Key="WindowButtonBackground" Color="#e8621d"/>
+    
     <Style x:Key="MainWindowStyle" TargetType="{x:Type Grid}">
         <Setter Property="Background">
             <Setter.Value>
@@ -16,6 +18,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
     <Style x:Key="MainMenuStyle" TargetType="{x:Type ListBox}" BasedOn="{StaticResource MainMenuBaseStyle}">
         <Setter Property="Background">
             <Setter.Value>
@@ -26,8 +29,20 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
     <Style x:Key="MainMenuButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="#3f525b"/>
         <Setter Property="BorderBrush" Value="Black"/>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseButtonStyle}">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF616161" Offset="0"/>
+                    <GradientStop Color="#FFFFB635" Offset="1"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>

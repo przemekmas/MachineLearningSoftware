@@ -5,7 +5,7 @@
     <Style x:Key="MainMenuBaseStyle">
         <Setter Property="Control.Template">
             <Setter.Value>
-                <ControlTemplate TargetType="ListBox">
+                <ControlTemplate TargetType="{x:Type ListBox}">
                     <Border BorderBrush="{TemplateBinding Border.BorderBrush}" 
                                 BorderThickness="0" Name="Bd" Background="{TemplateBinding Panel.Background}" SnapsToDevicePixels="True" Padding="0">
                         <ScrollViewer Focusable="False" Padding="{TemplateBinding Control.Padding}">
@@ -17,10 +17,10 @@
         </Setter>
     </Style>
 
-    <Style x:Key="TabItem" TargetType="TabItem">
-        <Setter Property="Template">
+    <Style x:Key="TabItem">
+        <Setter Property="Control.Template">
             <Setter.Value>
-                <ControlTemplate TargetType="TabItem">
+                <ControlTemplate TargetType="{x:Type TabItem}">
                     <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Black" CornerRadius="2,2,0,0" Margin="-2,0,3,0">
                         <ContentPresenter x:Name="ContentSite"
                                     VerticalAlignment="Center"
@@ -41,6 +41,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
     <Style x:Key="HoverOnCloseWindowButton1" TargetType="{x:Type Border}">
         <Setter Property="Border.Background" Value="Transparent"/>
         <Style.Triggers>
