@@ -1,4 +1,5 @@
-﻿using MachineLearningSoftware.Entities;
+﻿using MachineLearningSoftware.Common;
+using MachineLearningSoftware.Entities;
 using MachineLearningSoftware.ViewModels;
 using MachineLearningSoftware.Views.Controls.ButtonIcons;
 using System.Windows.Controls;
@@ -8,6 +9,7 @@ namespace MachineLearningSoftware
     /// <summary>
     /// Interaction logic for SearchPage.xaml
     /// </summary>
+    [ViewExport(typeof(SearchPage), typeof(IResourceItemEntity), "Search", false)]
     public partial class SearchPage : Page, IResourceItemEntity
     {
         private SearchPageViewModel _viewModel;
@@ -16,10 +18,8 @@ namespace MachineLearningSoftware
         {
             InitializeComponent();
             _viewModel = new SearchPageViewModel();
-            this.DataContext = _viewModel;
+            DataContext = _viewModel;
         }
-
-        public string Name => "Search";
 
         public Page Page => this;
 

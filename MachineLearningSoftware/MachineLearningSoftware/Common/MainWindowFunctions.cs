@@ -2,8 +2,9 @@
 using MachineLearningSoftware.Views.Controls;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -50,6 +51,9 @@ namespace MachineLearningSoftware.Common
         public void OpenPage(string name, string searchParameter)
         {
             IResourceItemEntity instance;
+            var export = GetAssemblyCompositionContainer().GetExports<IResourceItemEntity, IResourceItemMetadata>()
+                .FirstOrDefault(x => string.Equals(x.Metadata.PageName, name, StringComparison.OrdinalIgnoreCase));
+
             if (string.Equals(name, "Search", StringComparison.OrdinalIgnoreCase) 
                 && !string.IsNullOrEmpty(searchParameter))
             {
@@ -59,11 +63,10 @@ namespace MachineLearningSoftware.Common
             }
             else
             {
-                instance = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.GetInterfaces().Contains(typeof(IResourceItemEntity))
-                                && t.GetConstructor(Type.EmptyTypes) != null).Select(t => Activator.CreateInstance(t) as IResourceItemEntity).FirstOrDefault(t => string.Equals(t.Name, name));
+                instance = Activator.CreateInstance(export.Metadata.ClassType) as IResourceItemEntity;
             }
             
-            _openPages.Add(instance.Name);
+            _openPages.Add(export.Metadata.PageName);
             var tabItems = TabControl.Items.Count;
             tabItems = tabItems++;
             var tabItem = new MainWindowTab(TabControl);
@@ -72,24 +75,35 @@ namespace MachineLearningSoftware.Common
 
             tabItem.MouseDown += new MouseButtonEventHandler(TabItemMouse_Click);
             tabItem.Content = itemFrame;
-            tabItem.Header.Text = instance.Name;
+            tabItem.Header.Text = export.Metadata.PageName;
             TabControl.Items.Insert(tabItems, tabItem);
             TabControl.SelectedIndex = tabItems;
         }
 
         public void LoadPanels(ListBox mainMenuListBox)
         {
-            var instances = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.GetInterfaces().Contains(typeof(IResourceItemEntity))
-                                && t.GetConstructor(Type.EmptyTypes) != null).Select(t => Activator.CreateInstance(t) as IResourceItemEntity);
-
-            foreach (var instance in instances.OrderBy(i => i.Name).Where(i => i.IsVisible == true))
+            var exports = GetAssemblyCompositionContainer().GetExports<IResourceItemEntity, IResourceItemMetadata>();
+            foreach (var export in exports)
             {
-                var resources = new MainMenuButtonControl();
-                resources.MinHeight = 40;
-                resources.Grid.Children.Add(instance.IconControl);
-                resources.TextBlock.Text = instance.Name;
-                mainMenuListBox.Items.Add(resources);
+                if (export.Metadata.IsPageVisible)
+                {
+                    var instance = Activator.CreateInstance(export.Metadata.ClassType) as IResourceItemEntity;
+                    var resources = new MainMenuButtonControl();
+                    resources.MinHeight = 40;
+                    resources.Grid.Children.Add(instance.IconControl);
+                    resources.TextBlock.Text = export.Metadata.PageName;
+                    mainMenuListBox.Items.Add(resources);
+                }
             }
+        }
+
+        public CompositionContainer GetAssemblyCompositionContainer()
+        {
+            var catalog = new AssemblyCatalog(typeof(App).Assembly);
+            var container = new CompositionContainer(catalog);
+            container.ComposeParts(this);
+            container.SatisfyImportsOnce(this);
+            return container;
         }
 
         private void TabItemMouse_Click(object sender, MouseButtonEventArgs e)

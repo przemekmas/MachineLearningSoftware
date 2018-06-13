@@ -4,12 +4,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using MachineLearningSoftware.Views.Controls.ButtonIcons;
+using MachineLearningSoftware.Common;
 
 namespace MachineLearningSoftware.Views
 {
     /// <summary>
     /// Interaction logic for RetrainInceptionModel.xaml
     /// </summary>
+    [ViewExport(typeof(PeopleDetection), typeof(IResourceItemEntity), "Retrain Inception Model", true)]
     public partial class RetrainInceptionModel : Page, IResourceItemEntity
     {
         private RetrainInceptionModelViewModel _viewmodel;
@@ -22,10 +24,6 @@ namespace MachineLearningSoftware.Views
         }
 
         public Page Page => this;
-
-        public string Name => "Retrain Inception Model";
-
-        public bool IsVisible => true;
 
         public System.Windows.Controls.Control IconControl => new RetrainInceptionModelIcon();
 

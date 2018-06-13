@@ -2,21 +2,19 @@
 using MachineLearningSoftware.ViewModels;
 using System.Windows.Controls;
 using MachineLearningSoftware.Views.Controls.ButtonIcons;
+using MachineLearningSoftware.Common;
 
 namespace MachineLearningSoftware.Views
 {
     /// <summary>
     /// Interaction logic for ExceptionLog.xaml
     /// </summary>
+    [ViewExport(typeof(ExceptionLog), typeof(IResourceItemEntity), "Exception Log", true)]
     public partial class ExceptionLog : Page, IResourceItemEntity
     {
         public Page Page => this;
 
-        public string Name => "Exception Log";
-
         public Control IconControl => new ExceptionLogIcon();
-
-        public bool IsVisible => true;
 
         private ExceptionLogViewModel _viewmodel;
         

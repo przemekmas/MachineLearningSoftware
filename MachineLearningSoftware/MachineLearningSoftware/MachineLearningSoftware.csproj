@@ -71,8 +71,9 @@
       <HintPath>..\packages\NScrape.0.3.0.0\lib\net45\Sprache.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Data" />   
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Windows.Forms" />
@@ -187,6 +188,8 @@
     <Compile Include="Common\CurrentDirectory.cs" />
     <Compile Include="Common\ExceptionLogging.cs" />
     <Compile Include="Common\ExecuteCMDCommands.cs" />
+    <Compile Include="Common\IResourceItemMetadata.cs" />
+    <Compile Include="Common\ViewExportAttribute.cs" />
     <Compile Include="Common\OnlineSearchResults.cs" />
     <Compile Include="Common\HyperlinkNavigation.cs" />
     <Compile Include="Common\MainWindowFunctions.cs" />

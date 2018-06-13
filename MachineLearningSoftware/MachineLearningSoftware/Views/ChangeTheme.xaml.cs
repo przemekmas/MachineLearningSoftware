@@ -1,4 +1,5 @@
-﻿using MachineLearningSoftware.Entities;
+﻿using MachineLearningSoftware.Common;
+using MachineLearningSoftware.Entities;
 using MachineLearningSoftware.Views.Controls.ButtonIcons;
 using System;
 using System.Windows;
@@ -9,6 +10,7 @@ namespace MachineLearningSoftware
     /// <summary>
     /// Interaction logic for ChangeTheme.xaml
     /// </summary>
+    [ViewExport(typeof(ChangeTheme), typeof(IResourceItemEntity), "Change Theme", true)]
     public partial class ChangeTheme : Page, IResourceItemEntity
     {
         private App _currentApplication;
@@ -20,13 +22,9 @@ namespace MachineLearningSoftware
             LoadAllThemes();
         }
 
-        public string Name => "Change Theme";
-
         public Page Page => this;
 
         public Control IconControl => new ThemeButtonIcon();
-
-        public bool IsVisible => true;
 
         private void ThemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

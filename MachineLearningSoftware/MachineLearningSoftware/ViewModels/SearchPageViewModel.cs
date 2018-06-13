@@ -3,7 +3,6 @@ using MachineLearningSoftware.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace MachineLearningSoftware.ViewModels
 {
@@ -60,23 +59,20 @@ namespace MachineLearningSoftware.ViewModels
 
         private void DisplaySearchResult(string input)
         {
-            var instances = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.GetInterfaces().Contains(typeof(IResourceItemEntity))
-                                && t.GetConstructor(Type.EmptyTypes) != null).Select(t => Activator.CreateInstance(t) as IResourceItemEntity)
-                                .Where(t => string.Equals(t.Name, input, StringComparison.OrdinalIgnoreCase) && t.IsVisible == true);
-            
-            if (instances != null)
+            var export = _mainWindowFunctions.GetAssemblyCompositionContainer().GetExports<IResourceItemEntity, IResourceItemMetadata>()
+                .FirstOrDefault(x => string.Equals(x.Metadata.PageName, input, StringComparison.OrdinalIgnoreCase));
+
+            if (export != null)
             {
+                var instance = Activator.CreateInstance(export.Metadata.ClassType) as IResourceItemEntity;
                 SearchResultText = string.Format(_searchResults, input);
-                foreach (var instance in instances)
+                SearchResult.Add(new SearchResultEntity()
                 {
-                    SearchResult.Add(new SearchResultEntity()
-                    {
-                        Heading = instance.Name,
-                        Description = "Machine Learning Software Page",
-                        Icon = instance.IconControl,
-                        IsPage = true
-                    });
-                }                
+                    Heading = export.Metadata.PageName,
+                    Description = "Machine Learning Software Page",
+                    Icon = instance.IconControl,
+                    IsPage = true
+                });             
             }
             else
             {
