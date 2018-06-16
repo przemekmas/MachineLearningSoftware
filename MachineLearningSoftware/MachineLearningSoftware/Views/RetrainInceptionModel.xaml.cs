@@ -11,7 +11,7 @@ namespace MachineLearningSoftware.Views
     /// <summary>
     /// Interaction logic for RetrainInceptionModel.xaml
     /// </summary>
-    [ViewExport(typeof(PeopleDetection), typeof(IResourceItemEntity), "Retrain Inception Model", true)]
+    [ViewExport(typeof(RetrainInceptionModel), typeof(IResourceItemEntity), "Retrain Inception Model", true)]
     public partial class RetrainInceptionModel : Page, IResourceItemEntity
     {
         private RetrainInceptionModelViewModel _viewmodel;
