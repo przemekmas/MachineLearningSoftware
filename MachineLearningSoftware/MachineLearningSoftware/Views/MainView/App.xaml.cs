@@ -1,6 +1,5 @@
-﻿using MachineLearningSoftware.Common;
+﻿using MachineLearningSoftware.DataAccess;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 
 namespace MachineLearningSoftware

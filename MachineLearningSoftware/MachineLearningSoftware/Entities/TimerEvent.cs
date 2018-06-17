@@ -2,7 +2,7 @@
 
 namespace MachineLearningSoftware.Entities
 {
-    class TimerEvent : ITimerEvent
+    public class TimerEvent : ITimerEvent
     {
         public void InititateTimer(int interval, ElapsedEventHandler eventHandler)
         {

@@ -1,4 +1,5 @@
-﻿using MachineLearningSoftware.ViewModels;
+﻿using MachineLearningSoftware.Enumerations;
+using MachineLearningSoftware.ViewModels;
 using MachineLearningSoftware.Views.Controls;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +13,7 @@ namespace MachineLearningSoftware
     public partial class MainWindow : Window
     {
         private MainWindowViewModel _viewModel;
+        private MainWindowState _windowState;
         
         public MainWindow()
         {
@@ -43,14 +45,32 @@ namespace MachineLearningSoftware
         
         private void OnClickMaximiseWindow(object sender, RoutedEventArgs e)
         {
-            if (WindowState == WindowState.Maximized)
+            if (_windowState == MainWindowState.Normal)
             {
-                WindowState = WindowState.Normal;
+                MaximiseWindow();
             }
             else
             {
-                WindowState = WindowState.Maximized;
+                MinimiseWindow();
             }
+        }
+
+        private void MinimiseWindow()
+        {
+            Width = 800;
+            Height = 600;
+            Left = (SystemParameters.WorkArea.Width - Width) / 2;
+            Top = (SystemParameters.WorkArea.Height - Height) / 2;
+            _windowState = MainWindowState.Normal;
+        }
+
+        private void MaximiseWindow()
+        {
+            Width = SystemParameters.WorkArea.Width;
+            Height = SystemParameters.WorkArea.Height;
+            Left = 0;
+            Top = 0;
+            _windowState = MainWindowState.Maximised;
         }
 
         private void OnClickMinimiseWindow(object sender, RoutedEventArgs e)

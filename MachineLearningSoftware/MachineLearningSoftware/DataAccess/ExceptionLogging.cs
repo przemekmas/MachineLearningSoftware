@@ -3,7 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Data.SQLite;
 
-namespace MachineLearningSoftware.Common
+namespace MachineLearningSoftware.DataAccess
 {
     public class ExceptionLogging
     {

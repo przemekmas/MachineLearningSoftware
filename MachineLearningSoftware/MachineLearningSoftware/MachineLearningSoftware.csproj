@@ -186,7 +186,7 @@
     </Page>
     <Compile Include="Common\BitmapConverter.cs" />
     <Compile Include="Common\CurrentDirectory.cs" />
-    <Compile Include="Common\ExceptionLogging.cs" />
+    <Compile Include="DataAccess\ExceptionLogging.cs" />
     <Compile Include="Common\ExecuteCMDCommands.cs" />
     <Compile Include="Common\IResourceItemMetadata.cs" />
     <Compile Include="Common\ViewExportAttribute.cs" />
@@ -208,6 +208,7 @@
     <Compile Include="Entities\ThemeConstantsEntity.cs" />
     <Compile Include="Entities\ThemeEntity.cs" />
     <Compile Include="Entities\TimerEvent.cs" />
+    <Compile Include="Enumerations\MainWindowState.cs" />
     <Compile Include="Properties\ChangeThemeResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -539,9 +540,7 @@
   <ItemGroup>
     <None Include="Views\MainView\App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Assets\Images\HelpTensorFlowLogo.png" />
   </ItemGroup>

@@ -26,32 +26,34 @@
         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"
                    Margin="10,10,0,0" Width="780" Text="{Binding SearchResultText}" Grid.Row="1" Grid.ColumnSpan="2"/>
         <ListBox x:Name="SearchResultList" ItemsSource="{Binding Path=SearchResult}" Margin="10,56,10,10" Grid.Row="1" VerticalAlignment="Stretch" 
-                 HorizontalAlignment="Stretch" Grid.ColumnSpan="2" SelectionChanged="SelectedResult">
+                 HorizontalAlignment="Stretch" Grid.ColumnSpan="2" SelectionChanged="SelectedResult" HorizontalContentAlignment="Stretch">
             <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="Width" Value="{Binding Path=ViewportWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ScrollViewer}}"/>
                 </Style>
             </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid Width="Auto">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="60"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <UserControl Grid.Column="0" Content="{Binding Icon}" Margin="10" Width="40" Height="40"></UserControl>
-                        <TextBlock Grid.Column="1" Margin="10">
-                                <Run Text="{Binding Path=Heading}" FontWeight="Bold" FontSize="18"/>
-                                <LineBreak/>
-                                <Run Text="{Binding Path=Description}" FontWeight="Normal"/>
-                        </TextBlock>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
 
-                        <Border BorderBrush="Black" Grid.ColumnSpan="2" BorderThickness="1" Height="70" HorizontalAlignment="Stretch" 
-                                CornerRadius="2"/>
+                        <UserControl Grid.Column="0" Grid.RowSpan="2" Content="{Binding Icon}" Margin="10" Width="40" Height="40"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" Margin="10" Text="{Binding Path=Heading}" FontWeight="Bold" FontSize="18"
+                                   TextWrapping="Wrap"/>
+                        <TextBlock Grid.Column="1" Grid.Row="1" Margin="10" Text="{Binding Path=Description}" FontWeight="Normal"
+                                   TextWrapping="Wrap"/>
+                        <Border Grid.RowSpan="2" BorderBrush="Black" Grid.ColumnSpan="2" BorderThickness="1" HorizontalAlignment="Stretch" 
+                                VerticalAlignment="Stretch"  CornerRadius="2"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-
         </ListBox>
     </Grid>
 </Page>
