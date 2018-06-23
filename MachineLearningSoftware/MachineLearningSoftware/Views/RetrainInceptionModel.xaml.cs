@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using MachineLearningSoftware.Views.Controls.ButtonIcons;
 using MachineLearningSoftware.Common;
+using System.ComponentModel.Composition;
 
 namespace MachineLearningSoftware.Views
 {
@@ -12,13 +13,15 @@ namespace MachineLearningSoftware.Views
     /// Interaction logic for RetrainInceptionModel.xaml
     /// </summary>
     [ViewExport(typeof(RetrainInceptionModel), typeof(IResourceItemEntity), "Retrain Inception Model", true)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public partial class RetrainInceptionModel : Page, IResourceItemEntity
     {
         private RetrainInceptionModelViewModel _viewmodel;
 
-        public RetrainInceptionModel()
+        [ImportingConstructor]
+        public RetrainInceptionModel(RetrainInceptionModelViewModel viewModel)
         {
-            _viewmodel = new RetrainInceptionModelViewModel();
+            _viewmodel = viewModel;
             DataContext = _viewmodel;
             InitializeComponent();
         }

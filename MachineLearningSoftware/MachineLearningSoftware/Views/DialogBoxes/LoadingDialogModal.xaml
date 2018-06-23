@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MachineLearningSoftware.Views.DialogBoxes"
         xmlns:resx="clr-namespace:MachineLearningSoftware.Properties"
-        mc:Ignorable="d"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             mc:Ignorable="d"
         Height="Auto" 
         Width="Auto"
         Background="Transparent">
@@ -19,12 +20,14 @@
         </Storyboard>        
     </UserControl.Resources>
 
+        
     <Border Background="#CC000000" x:Name="MainModal" Opacity="100">
         <Border Width="230" Height="130" CornerRadius="2" Background="White" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel VerticalAlignment="Center">
+                <fa:ImageAwesome Icon="Spinner" Width="40" Height="40" Spin="True" SpinDuration="4" />
                 <TextBlock Text="{x:Static resx:LoadingDialogBoxResource.LoadingMessage}" FontSize="20" TextAlignment="Center"/>
                 <TextBlock Text="{x:Static resx:LoadingDialogBoxResource.OperationTimeMessage}" TextAlignment="Center"/>
             </StackPanel>
         </Border>
-    </Border>
+    </Border> 
 </UserControl>

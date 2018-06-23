@@ -3,11 +3,13 @@ using MachineLearningSoftware.Entities;
 using MachineLearningSoftware.Views.DialogBoxes;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace MachineLearningSoftware.ViewModels
 {
+    [Export]
     public class MainWindowViewModel : BaseViewModel
     {
         #region Fields
@@ -46,11 +48,11 @@ namespace MachineLearningSoftware.ViewModels
 
         #region Constructor
 
-        public MainWindowViewModel()
+        [ImportingConstructor]
+        public MainWindowViewModel(MainWindowFunctions mainWindowFunctions)
         {
             ResourceItems = new ObservableCollection<IResourceItemEntity>();
-
-            _mainWindowFunctions = MainWindowFunctions.Instance;            
+            _mainWindowFunctions = mainWindowFunctions;
         }
 
         #endregion

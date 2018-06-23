@@ -3,6 +3,7 @@ using MachineLearningSoftware.ViewModels;
 using System.Windows.Controls;
 using MachineLearningSoftware.Views.Controls.ButtonIcons;
 using MachineLearningSoftware.Common;
+using System.ComponentModel.Composition;
 
 namespace MachineLearningSoftware.Views
 {
@@ -10,6 +11,7 @@ namespace MachineLearningSoftware.Views
     /// Interaction logic for ExceptionLog.xaml
     /// </summary>
     [ViewExport(typeof(ExceptionLog), typeof(IResourceItemEntity), "Exception Log", true)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public partial class ExceptionLog : Page, IResourceItemEntity
     {
         public Page Page => this;
@@ -18,10 +20,11 @@ namespace MachineLearningSoftware.Views
 
         private ExceptionLogViewModel _viewmodel;
         
-        public ExceptionLog()
+        [ImportingConstructor]
+        public ExceptionLog(ExceptionLogViewModel viewModel)
         {
             InitializeComponent();
-            _viewmodel = new ExceptionLogViewModel();
+            _viewmodel = viewModel;
             DataContext = _viewmodel;
         }
 

@@ -2,6 +2,7 @@
 using MachineLearningSoftware.Entities;
 using MachineLearningSoftware.ViewModels;
 using MachineLearningSoftware.Views.Controls.ButtonIcons;
+using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,14 +12,16 @@ namespace MachineLearningSoftware.Views
     /// Interaction logic for ObjectRecognition.xaml
     /// </summary>
     [ViewExport(typeof(ObjectRecognition), typeof(IResourceItemEntity), "Object Recognition", true)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public partial class ObjectRecognition : Page, IResourceItemEntity
     {
         private ObjectRecognitionViewModel _viewModel;
 
-        public ObjectRecognition()
+        [ImportingConstructor]
+        public ObjectRecognition(ObjectRecognitionViewModel viewModel)
         {
             InitializeComponent();
-            _viewModel = new ObjectRecognitionViewModel();
+            _viewModel = viewModel;
             DataContext = _viewModel;
         }
 

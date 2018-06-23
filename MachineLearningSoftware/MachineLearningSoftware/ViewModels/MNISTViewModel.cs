@@ -3,6 +3,7 @@ using MachineLearningSoftware.DataAccess;
 using MachineLearningSoftware.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -10,10 +11,13 @@ using System.Threading;
 
 namespace MachineLearningSoftware.ViewModels
 {
+    [Export]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class MNISTViewModel : BaseViewModel
     {
         #region Fields
-
+        
+        private ExceptionLogDataAccess _exceptionLogging;
         private string _datasetInformation;
         private string _compressedImageFileName = "t10k-images.idx3-ubyte.zip";
         private string _compressedLabelsFileName = "t10k-labels.idx1-ubyte.zip";
@@ -25,7 +29,7 @@ namespace MachineLearningSoftware.ViewModels
         private int _labelPosition = 0;
         private int _correspondingLabel;
         private List<int> _pixelArray;
-
+        
         #endregion
 
         #region Properties
@@ -64,8 +68,10 @@ namespace MachineLearningSoftware.ViewModels
 
         #region Constructor
 
-        public MNISTViewModel()
+        [ImportingConstructor]
+        public MNISTViewModel(ExceptionLogDataAccess exceptionLogging)
         {
+            _exceptionLogging = exceptionLogging;
             InitialiseMNISTDataset();
         }
 
@@ -179,7 +185,7 @@ namespace MachineLearningSoftware.ViewModels
             }
             catch (Exception ex)
             {
-                ExceptionLogging.LogException(ex.ToString());
+                _exceptionLogging.LogException(ex.ToString());
             }
         }
         

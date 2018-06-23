@@ -2,6 +2,7 @@
 using MachineLearningSoftware.Entities;
 using MachineLearningSoftware.Views.Controls.ButtonIcons;
 using System;
+using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,9 +12,9 @@ namespace MachineLearningSoftware
     /// Interaction logic for ChangeTheme.xaml
     /// </summary>
     [ViewExport(typeof(ChangeTheme), typeof(IResourceItemEntity), "Change Theme", true)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public partial class ChangeTheme : Page, IResourceItemEntity
     {
-        private App _currentApplication;
         private string _selectedTheme;
 
         public ChangeTheme()
@@ -69,8 +70,7 @@ namespace MachineLearningSoftware
                     {
                         if(string.Equals(_selectedTheme, value.ThemeName, StringComparison.OrdinalIgnoreCase))
                         {
-                            _currentApplication = (App)Application.Current;
-                            _currentApplication.ChangeTheme(value.ThemeSource);
+                            ((App)Application.Current).ChangeTheme(value.ThemeSource);
                         }
                     }
                 }
@@ -79,8 +79,8 @@ namespace MachineLearningSoftware
 
         private void ChangeMockTheme(string uri)
         {
-            Uri dictionaryUri = new Uri(uri, UriKind.Relative);
-            ResourceDictionary resourceDict = Application.LoadComponent(dictionaryUri) as ResourceDictionary;
+            var dictionaryUri = new Uri(uri, UriKind.Relative);
+            var resourceDict = Application.LoadComponent(dictionaryUri) as ResourceDictionary;
             Resources.MergedDictionaries.Clear();
             Resources.MergedDictionaries.Add(resourceDict);
         }

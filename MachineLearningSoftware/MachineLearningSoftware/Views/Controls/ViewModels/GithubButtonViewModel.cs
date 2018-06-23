@@ -1,10 +1,11 @@
 ﻿using MachineLearningSoftware.Common;
 using MachineLearningSoftware.Entities;
+using MachineLearningSoftware.ViewModels;
 using System.Windows.Input;
 
 namespace MachineLearningSoftware.Views.Controls.ViewModels
 {
-    public class GithubButtonViewModel : NotifyPropertyChanged
+    public class GithubButtonViewModel : BaseViewModel
     {
         public ICommand GithubButtonCommand
         {

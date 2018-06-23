@@ -3,6 +3,7 @@ using Emgu.TF.Models;
 using MachineLearningSoftware.Common;
 using MachineLearningSoftware.Entities;
 using System;
+using System.ComponentModel.Composition;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -10,6 +11,8 @@ using System.Windows.Media.Imaging;
 
 namespace MachineLearningSoftware.ViewModels
 {
+    [Export]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ObjectRecognitionViewModel : BaseViewModel
     {
         #region

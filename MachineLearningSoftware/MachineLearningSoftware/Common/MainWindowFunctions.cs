@@ -3,36 +3,19 @@ using MachineLearningSoftware.Views.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace MachineLearningSoftware.Common
 {
+    [Export]
+    [PartCreationPolicy(CreationPolicy.Shared)]
     public class MainWindowFunctions : NotifyPropertyChanged
     {
-        private static MainWindowFunctions _instance;
         private TabControl _tabControl;
         private List<string> _openPages = new List<string>();
-
-        public MainWindowFunctions()
-        {
-
-        }
-
-        public static MainWindowFunctions Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new MainWindowFunctions();
-                }
-                return _instance;
-            }
-        }
-
+        
         public TabControl TabControl
         {
             get { return _tabControl; }
@@ -51,19 +34,14 @@ namespace MachineLearningSoftware.Common
         public void OpenPage(string name, string searchParameter)
         {
             IResourceItemEntity instance;
-            var export = GetAssemblyCompositionContainer().GetExports<IResourceItemEntity, IResourceItemMetadata>()
+            var export = DependencyInjection.Container.GetExports<IResourceItemEntity, IResourceItemMetadata>()
                 .FirstOrDefault(x => string.Equals(x.Metadata.PageName, name, StringComparison.OrdinalIgnoreCase));
-
+            instance = export.Value;
+            
             if (string.Equals(name, "Search", StringComparison.OrdinalIgnoreCase) 
-                && !string.IsNullOrEmpty(searchParameter))
+                && !string.IsNullOrEmpty(searchParameter) && instance is SearchPage searchInstance)
             {
-                var searchInstance = new SearchPage();
                 searchInstance.SearchResult(searchParameter);
-                instance = searchInstance;
-            }
-            else
-            {
-                instance = Activator.CreateInstance(export.Metadata.ClassType) as IResourceItemEntity;
             }
             
             _openPages.Add(export.Metadata.PageName);
@@ -82,12 +60,13 @@ namespace MachineLearningSoftware.Common
 
         public void LoadPanels(ListBox mainMenuListBox)
         {
-            var exports = GetAssemblyCompositionContainer().GetExports<IResourceItemEntity, IResourceItemMetadata>();
+            var exports = DependencyInjection.Container.GetExports<IResourceItemEntity, IResourceItemMetadata>();
+
             foreach (var export in exports)
             {
                 if (export.Metadata.IsPageVisible)
                 {
-                    var instance = Activator.CreateInstance(export.Metadata.ClassType) as IResourceItemEntity;
+                    var instance = export.Value;
                     var resources = new MainMenuButtonControl();
                     resources.MinHeight = 40;
                     resources.Grid.Children.Add(instance.IconControl);
@@ -95,15 +74,6 @@ namespace MachineLearningSoftware.Common
                     mainMenuListBox.Items.Add(resources);
                 }
             }
-        }
-
-        public CompositionContainer GetAssemblyCompositionContainer()
-        {
-            var catalog = new AssemblyCatalog(typeof(App).Assembly);
-            var container = new CompositionContainer(catalog);
-            container.ComposeParts(this);
-            container.SatisfyImportsOnce(this);
-            return container;
         }
 
         private void TabItemMouse_Click(object sender, MouseButtonEventArgs e)

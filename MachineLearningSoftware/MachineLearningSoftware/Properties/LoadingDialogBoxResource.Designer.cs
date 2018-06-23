@@ -61,7 +61,7 @@ namespace MachineLearningSoftware.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Loading....
+        ///   Looks up a localized string similar to Loading.
         /// </summary>
         public static string LoadingMessage {
             get {

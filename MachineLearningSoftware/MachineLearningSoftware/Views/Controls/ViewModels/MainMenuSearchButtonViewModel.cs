@@ -1,16 +1,19 @@
 ﻿using MachineLearningSoftware.Common;
-using MachineLearningSoftware.Entities;
+using MachineLearningSoftware.ViewModels;
+using System.ComponentModel.Composition;
 
 namespace MachineLearningSoftware.Views.Controls.ViewModels
 {
-    public class MainMenuSearchButtonViewModel : NotifyPropertyChanged
+    [Export]
+    public class MainMenuSearchButtonViewModel : BaseViewModel
     {
         private string _searchPageName = "Search";
         private MainWindowFunctions _mainWindowFunctions;
 
-        public MainMenuSearchButtonViewModel()
+        [ImportingConstructor]
+        public MainMenuSearchButtonViewModel(MainWindowFunctions mainWindowFunctions)
         {
-            _mainWindowFunctions = MainWindowFunctions.Instance;
+            _mainWindowFunctions = mainWindowFunctions;
         }
 
         public void Search(string input)

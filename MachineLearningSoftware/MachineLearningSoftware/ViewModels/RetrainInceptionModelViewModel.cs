@@ -2,6 +2,7 @@
 using MachineLearningSoftware.Entities;
 using MachineLearningSoftware.Views.DialogBoxes;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.Text;
 using System.Threading;
@@ -9,6 +10,8 @@ using System.Windows.Input;
 
 namespace MachineLearningSoftware.ViewModels
 {
+    [Export]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class RetrainInceptionModelViewModel : BaseViewModel
     {
         #region Fields

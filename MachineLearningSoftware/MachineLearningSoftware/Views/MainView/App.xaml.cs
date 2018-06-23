@@ -1,4 +1,5 @@
-﻿using MachineLearningSoftware.DataAccess;
+﻿using MachineLearningSoftware.Common;
+using MachineLearningSoftware.DataAccess;
 using System;
 using System.Windows;
 
@@ -9,10 +10,12 @@ namespace MachineLearningSoftware
     /// </summary>
     public partial class App : Application
     {
+        private static ExceptionLogDataAccess _exceptionLogging = DependencyInjection.ResolveSingle<ExceptionLogDataAccess>();
+
         public void ChangeTheme(string uri)
         {
-            Uri dictionaryUri = new Uri(uri, UriKind.Relative);
-            ResourceDictionary resourceDict = LoadComponent(dictionaryUri) as ResourceDictionary;
+            var dictionaryUri = new Uri(uri, UriKind.Relative);
+            var resourceDict = LoadComponent(dictionaryUri) as ResourceDictionary;
             Current.Resources.MergedDictionaries.Clear();
             Current.Resources.MergedDictionaries.Add(resourceDict);
         }
@@ -22,20 +25,14 @@ namespace MachineLearningSoftware
         {
             try
             {
-                InitiateClasses();
                 var application = new App();
                 application.InitializeComponent();
                 application.Run();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                ExceptionLogging.LogException(e.ToString());
-            }            
-        }
-
-        private static void InitiateClasses()
-        {
-            new ExceptionLogging();
+                _exceptionLogging.LogException(ex.ToString());
+            }
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using MachineLearningSoftware.Common;
-using MachineLearningSoftware.Entities;
+using MachineLearningSoftware.ViewModels;
 
 namespace MachineLearningSoftware.Views.Controls.ViewModels
 {
-    public class PythonInstallationViewModel : NotifyPropertyChanged
+    public class PythonInstallationViewModel : BaseViewModel
     {
         private bool _pythonInstalled;
         private string _pythonInstallationLabel;

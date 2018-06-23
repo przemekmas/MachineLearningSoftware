@@ -2,6 +2,7 @@
 using MachineLearningSoftware.Entities;
 using MachineLearningSoftware.ViewModels;
 using MachineLearningSoftware.Views.Controls.ButtonIcons;
+using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,14 +12,16 @@ namespace MachineLearningSoftware
     /// Interaction logic for MNIST.xaml
     /// </summary>
     [ViewExport(typeof(MNIST), typeof(IResourceItemEntity), "MNIST", true)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public partial class MNIST : Page, IResourceItemEntity
     {
         private MNISTViewModel _viewModel;
 
-        public MNIST()
+        [ImportingConstructor]
+        public MNIST(MNISTViewModel viewModel)
         {
             InitializeComponent();
-            _viewModel = new MNISTViewModel();
+            _viewModel = viewModel;
             DataContext = _viewModel;
         }
 

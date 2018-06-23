@@ -1,18 +1,23 @@
 ﻿using MachineLearningSoftware.Common;
 using MachineLearningSoftware.Entities;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace MachineLearningSoftware.ViewModels
 {
+    [Export]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class SearchPageViewModel : BaseViewModel
     {
         private string _searchResultText;
-        private string _noSearchResults = "No Search Results For \"{0}\"";
         private string _searchResults = "Displaying Search Results For \"{0}\"";
         private MainWindowFunctions _mainWindowFunctions;
-        private List<SearchResultEntity> _searchResult = new List<SearchResultEntity>();
+        private OnlineSearchResultsDataAccess _onlineSearchResultsDataAccess;
+        private ObservableCollection<SearchResultEntity> _searchResult = new ObservableCollection<SearchResultEntity>();
 
         public string SearchResultText
         {
@@ -24,7 +29,7 @@ namespace MachineLearningSoftware.ViewModels
             }
         }
 
-        public List<SearchResultEntity> SearchResult
+        public ObservableCollection<SearchResultEntity> SearchResult
         {
             get { return _searchResult; }
             set
@@ -34,15 +39,36 @@ namespace MachineLearningSoftware.ViewModels
             }
         }
 
-        public SearchPageViewModel()
+        [ImportingConstructor]
+        public SearchPageViewModel(MainWindowFunctions mainWindowFunctions, OnlineSearchResultsDataAccess onlineSearchResultsDataAccess)
         {
-            _mainWindowFunctions = MainWindowFunctions.Instance;
+            _mainWindowFunctions = mainWindowFunctions;
+            _onlineSearchResultsDataAccess = onlineSearchResultsDataAccess;
         }
 
         public void DisplaySearchResults(string input)
         {
-            DisplaySearchResult(input);
-            DisplayWebSearchResults(input);
+            IsModalVisible = true;
+            Task.Run(() => DisplayAllSearchResults(input));
+        }
+
+        private void DisplayAllSearchResults(string input)
+        {
+            SearchResultText = string.Format(_searchResults, input);
+            SearchResult = new ObservableCollection<SearchResultEntity>(_onlineSearchResultsDataAccess.GetSearchResults(input));
+            DisplayMatchingPage(input);
+            MovePageToTop();
+            IsModalVisible = false;
+        }
+
+        private void MovePageToTop()
+        {
+            var result = SearchResult.Where(x => x.IsPage).FirstOrDefault();
+            if (result != null)
+            {
+                var pageIndex = SearchResult.IndexOf(result);
+                Application.Current.Dispatcher.Invoke(() => SearchResult.Move(pageIndex, 0));
+            }            
         }
 
         public void NavigateTo(SearchResultEntity clickedResult)
@@ -57,32 +83,27 @@ namespace MachineLearningSoftware.ViewModels
             }
         }
 
-        private void DisplaySearchResult(string input)
+        private void DisplayMatchingPage(string input)
         {
-            var export = _mainWindowFunctions.GetAssemblyCompositionContainer().GetExports<IResourceItemEntity, IResourceItemMetadata>()
+            var export = DependencyInjection.Container.GetExports<IResourceItemEntity, IResourceItemMetadata>()
                 .FirstOrDefault(x => string.Equals(x.Metadata.PageName, input, StringComparison.OrdinalIgnoreCase));
 
             if (export != null)
             {
-                var instance = Activator.CreateInstance(export.Metadata.ClassType) as IResourceItemEntity;
-                SearchResultText = string.Format(_searchResults, input);
-                SearchResult.Add(new SearchResultEntity()
-                {
-                    Heading = export.Metadata.PageName,
-                    Description = "Machine Learning Software Page",
-                    Icon = instance.IconControl,
-                    IsPage = true
-                });             
-            }
-            else
-            {
-                SearchResultText = string.Format(_noSearchResults, input);
+                Application.Current.Dispatcher.Invoke(() => ApplyMachingPageSearchResult(input, export));
             }
         }
-        
-        private void DisplayWebSearchResults(string input)
+
+        private void ApplyMachingPageSearchResult(string input, Lazy<IResourceItemEntity, IResourceItemMetadata> export)
         {
-            SearchResult.AddRange(OnlineSearchResults.GetSearchResults(input));
+            var instance = export.Value;
+            SearchResult.Add(new SearchResultEntity()
+            {
+                Heading = export.Metadata.PageName,
+                Description = "Machine Learning Software Page",
+                Icon = instance.IconControl,
+                IsPage = true
+            });
         }
     }
 }

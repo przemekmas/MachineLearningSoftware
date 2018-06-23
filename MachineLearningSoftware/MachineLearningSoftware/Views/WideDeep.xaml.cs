@@ -3,21 +3,21 @@ using MachineLearningSoftware.ViewModels;
 using System.Windows.Controls;
 using MachineLearningSoftware.Views.Controls.ButtonIcons;
 using MachineLearningSoftware.Common;
+using System.ComponentModel.Composition;
 
 namespace MachineLearningSoftware.Views
 {
     /// <summary>
-    /// Interaction logic for RetrainInceptionModel.xaml
+    /// Interaction logic for WideDeep.xaml
     /// </summary>
     [ViewExport(typeof(WideDeep), typeof(IResourceItemEntity), "Wide Deep", true)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public partial class WideDeep : Page, IResourceItemEntity
     {
-        private WideDeepViewModel _viewmodel;
-
-        public WideDeep()
+        [ImportingConstructor]
+        public WideDeep(WideDeepViewModel viewModel)
         {
-            _viewmodel = new WideDeepViewModel();
-            DataContext = _viewmodel;
+            DataContext = viewModel;
             InitializeComponent();
         }
 

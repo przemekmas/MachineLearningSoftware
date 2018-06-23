@@ -5,6 +5,7 @@ using MachineLearningSoftware.Entities;
 using MachineLearningSoftware.Views.Controls.ButtonIcons;
 using MachineLearningSoftware.ViewModels;
 using MachineLearningSoftware.Common;
+using System.ComponentModel.Composition;
 
 namespace MachineLearningSoftware
 {
@@ -12,15 +13,17 @@ namespace MachineLearningSoftware
     /// Interaction logic for PeopleDetection.xaml
     /// </summary>
     [ViewExport(typeof(PeopleDetection), typeof(IResourceItemEntity), "People Detection", true)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public partial class PeopleDetection : Page, IResourceItemEntity
     {
         private PeopleDetectionViewModel _viewModel;
         
-        public PeopleDetection()
+        [ImportingConstructor]
+        public PeopleDetection(PeopleDetectionViewModel viewModel)
         {
             InitializeComponent();
             TfInvoke.CheckLibraryLoaded();
-            _viewModel = new PeopleDetectionViewModel();
+            _viewModel = viewModel;
             DataContext = _viewModel;
         }
 

@@ -61,6 +61,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="FontAwesome.WPF, Version=4.7.0.37774, Culture=neutral, PublicKeyToken=0758b07a11a4f466, processorArchitecture=MSIL">
+      <HintPath>..\packages\FontAwesome.WPF.4.7.0.9\lib\net40\FontAwesome.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.7.1.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.7.1\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
@@ -185,12 +188,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="Common\BitmapConverter.cs" />
+    <Compile Include="Common\DependencyInjection.cs" />
     <Compile Include="Common\CurrentDirectory.cs" />
-    <Compile Include="DataAccess\ExceptionLogging.cs" />
+    <Compile Include="DataAccess\BaseDataAccess.cs" />
+    <Compile Include="DataAccess\ExceptionLogDataAccess.cs" />
     <Compile Include="Common\ExecuteCMDCommands.cs" />
     <Compile Include="Common\IResourceItemMetadata.cs" />
     <Compile Include="Common\ViewExportAttribute.cs" />
-    <Compile Include="Common\OnlineSearchResults.cs" />
+    <Compile Include="DataAccess\OnlineSearchResultsDataAccess.cs" />
     <Compile Include="Common\HyperlinkNavigation.cs" />
     <Compile Include="Common\MainWindowFunctions.cs" />
     <Compile Include="Common\Python.cs" />

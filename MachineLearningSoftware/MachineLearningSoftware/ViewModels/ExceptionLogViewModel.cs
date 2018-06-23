@@ -2,14 +2,19 @@
 using MachineLearningSoftware.Entities;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 
 namespace MachineLearningSoftware.ViewModels
 {
+    [Export]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ExceptionLogViewModel : BaseViewModel
     {
         private ObservableCollection<ExceptionEntity> _exceptionList;
+        private ExceptionLogDataAccess _exceptionLogging;
         private string _exceptionCount;
         private string _exceptionDetails;
 
@@ -43,8 +48,11 @@ namespace MachineLearningSoftware.ViewModels
             }
         }
         
-        public ExceptionLogViewModel()
+        [ImportingConstructor]
+        public ExceptionLogViewModel(ExceptionLogDataAccess exceptionLogging)
         {
+            _exceptionLogging = exceptionLogging;
+            IsModalVisible = true;
             Task.Run(() => SetExceptions());
         }
                 
@@ -61,9 +69,9 @@ namespace MachineLearningSoftware.ViewModels
 
         private void OnUpdateEvent(Object source, ElapsedEventArgs e)
         {
-            if(ExceptionList.Count < ExceptionLogging.GetExceptions().Count)
+            if(ExceptionList.Count < _exceptionLogging.GetExceptions().Count)
             {
-                ExceptionList = ExceptionLogging.GetExceptions();
+                ExceptionList = _exceptionLogging.GetExceptions();
                 UpdateExceptionCount(ExceptionList.Count);
             }            
         }
@@ -75,9 +83,11 @@ namespace MachineLearningSoftware.ViewModels
 
         private void SetExceptions()
         {
-            ExceptionList = ExceptionLogging.GetExceptions();
+            Thread.Sleep(100);
+            ExceptionList = _exceptionLogging.GetExceptions();
             UpdateExceptionCount(ExceptionList.Count);
             InitiateTimer();
+            IsModalVisible = false;
         }
     }
 }

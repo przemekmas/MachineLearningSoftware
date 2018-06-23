@@ -3,12 +3,20 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:MachineLearningSoftware"
       xmlns:resx="clr-namespace:MachineLearningSoftware.Properties"
+      xmlns:controls="clr-namespace:MachineLearningSoftware.Views.DialogBoxes"
       mc:Ignorable="d" 
       d:DesignWidth="800" d:DesignHeight="600" 
       Title="Search Software">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/Dictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -55,5 +63,6 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <controls:LoadingDialogModal Grid.ColumnSpan="2" Grid.RowSpan="2" Visibility="{Binding IsModalVisible, Converter={StaticResource VisibilityConverter}}"/>
     </Grid>
 </Page>

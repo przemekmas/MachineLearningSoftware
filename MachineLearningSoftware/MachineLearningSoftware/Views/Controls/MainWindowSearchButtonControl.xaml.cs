@@ -1,4 +1,5 @@
-﻿using MachineLearningSoftware.Views.Controls.ViewModels;
+﻿using MachineLearningSoftware.Common;
+using MachineLearningSoftware.Views.Controls.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -15,8 +16,8 @@ namespace MachineLearningSoftware.Views.Controls
         public MainWindowSearchButtonControl()
         {
             InitializeComponent();
-            _viewModel = new MainMenuSearchButtonViewModel();
-            this.DataContext = _viewModel;
+            _viewModel = DependencyInjection.ResolveSingle<MainMenuSearchButtonViewModel>();
+            DataContext = _viewModel;
         }
         
         private void SearchButtonClick(object sender, RoutedEventArgs e)

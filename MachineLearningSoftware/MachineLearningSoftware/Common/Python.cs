@@ -9,6 +9,7 @@ namespace MachineLearningSoftware.Common
 {
     public static class Python
     {
+        private static ExceptionLogDataAccess _exceptionLogging = DependencyInjection.ResolveSingle<ExceptionLogDataAccess>();
         private static string _windowsRegistryInstall = @"Software\Microsoft\Windows\CurrentVersion\Uninstall";
         private static string _python = "Python";
 
@@ -50,7 +51,7 @@ namespace MachineLearningSoftware.Common
                 }
                 catch (Exception ex)
                 {
-                    ExceptionLogging.LogException(ex.ToString());
+                    _exceptionLogging.LogException(ex.ToString());
                 }
             }
             return pythonInstallations;
@@ -106,7 +107,7 @@ namespace MachineLearningSoftware.Common
                 }
                 catch (Exception ex)
                 {
-                    ExceptionLogging.LogException(ex.ToString());
+                    _exceptionLogging.LogException(ex.ToString());
                 }
             }
             return false;

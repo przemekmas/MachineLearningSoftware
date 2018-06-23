@@ -8,12 +8,16 @@ using System.Text.RegularExpressions;
 using MachineLearningSoftware.Entities;
 using System.Collections.Generic;
 using MachineLearningSoftware.Views.Controls.ButtonIcons;
+using System.Windows;
+using System.ComponentModel.Composition;
 
 namespace MachineLearningSoftware.Common
 {
-    public static class OnlineSearchResults
+    [Export]
+    [PartCreationPolicy(CreationPolicy.Shared)]
+    public class OnlineSearchResultsDataAccess
     {
-        public static List<SearchResultEntity> GetSearchResults (string textSearch)
+        public IEnumerable<SearchResultEntity> GetSearchResults(string textSearch)
         {
             var searchResults = new List<SearchResultEntity>();
             var bufferForHtml = new StringBuilder();
@@ -63,20 +67,27 @@ namespace MachineLearningSoftware.Common
                         var hyperlink = hrefValue.Replace("/url?q=", string.Empty);
                         var title = Regex.Replace(link.InnerText, "&quot;\\.?", string.Empty);
 
-                        if (!string.IsNullOrEmpty(title) && !string.IsNullOrEmpty(title))
+                        if (!string.IsNullOrWhiteSpace(title))
                         {
-                            searchResults.Add(new SearchResultEntity
+                            var searchResult = (new SearchResultEntity
                             {
                                 Heading = title,
                                 Description = "Google Search Result",
-                                Icon = new WebIcon(),
                                 Url = hyperlink
                             });
+                            
+                            Application.Current.Dispatcher.Invoke(() => AddIcon(searchResult));
+                            searchResults.Add(searchResult);
                         }                        
                     }
                 }
             }
             return searchResults;
+        }
+
+        private void AddIcon(SearchResultEntity searchResult)
+        {
+            searchResult.Icon = new WebIcon();
         }
     }
 }

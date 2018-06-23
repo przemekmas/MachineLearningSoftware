@@ -1,4 +1,5 @@
-﻿using MachineLearningSoftware.Enumerations;
+﻿using MachineLearningSoftware.Common;
+using MachineLearningSoftware.Enumerations;
 using MachineLearningSoftware.ViewModels;
 using MachineLearningSoftware.Views.Controls;
 using System.Windows;
@@ -12,13 +13,12 @@ namespace MachineLearningSoftware
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MainWindowViewModel _viewModel;
+        private MainWindowViewModel _viewModel = DependencyInjection.ResolveSingle<MainWindowViewModel>();
         private MainWindowState _windowState;
         
         public MainWindow()
         {
             InitializeComponent();
-            _viewModel = new MainWindowViewModel();
             DataContext = _viewModel;
             _viewModel.SetTabControl(TabControl);
             _viewModel.SetMainMenu(MainMenu1);
@@ -26,8 +26,10 @@ namespace MachineLearningSoftware
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selectedItem = ((MainMenuButtonControl)MainMenu1.SelectedItem).TextBlock.Text.ToString();
-            _viewModel.OpenPage(selectedItem);                      
+            if (MainMenu1.SelectedItem is MainMenuButtonControl selectedItem)
+            {
+                _viewModel.OpenPage(selectedItem.TextBlock.Text.ToString());
+            }
         }
 
         private void HideMenuButton1_Click(object sender, RoutedEventArgs e)
@@ -51,11 +53,11 @@ namespace MachineLearningSoftware
             }
             else
             {
-                MinimiseWindow();
+                RestoreWindow();
             }
         }
 
-        private void MinimiseWindow()
+        private void RestoreWindow()
         {
             Width = 800;
             Height = 600;

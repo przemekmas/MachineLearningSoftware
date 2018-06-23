@@ -5,6 +5,7 @@ using MachineLearningSoftware.Views.DialogBoxes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -13,6 +14,8 @@ using System.Windows.Input;
 
 namespace MachineLearningSoftware.ViewModels
 {
+    [Export]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class WideDeepViewModel : BaseViewModel
     {
         #region Fields
@@ -24,8 +27,9 @@ namespace MachineLearningSoftware.ViewModels
         private bool _pythonInstalled;
         private ObservableCollection<CensusBaseEntity> _predictionInputValues;
         private ObservableCollection<CensusPredictionOutput> _predictionOutputValues;
+        private ExceptionLogDataAccess _exceptionLogging;
         public string imageDirectory;
-
+        
         #endregion
 
         #region Properties
@@ -102,8 +106,10 @@ namespace MachineLearningSoftware.ViewModels
 
         #region Constructor
 
-        public WideDeepViewModel()
+        [ImportingConstructor]
+        public WideDeepViewModel(ExceptionLogDataAccess exceptionLogging)
         {
+            _exceptionLogging = exceptionLogging;
             ExecuteCMDCommands.outputHandler = OutputHandler;
             GetPredictions();
             GetPredictionResults();            
@@ -148,7 +154,7 @@ namespace MachineLearningSoftware.ViewModels
             }
             catch(Exception ex)
             {
-                ExceptionLogging.LogException(ex.ToString());
+                _exceptionLogging.LogException(ex.ToString());
             }           
         }
         
@@ -189,7 +195,7 @@ namespace MachineLearningSoftware.ViewModels
             }
             catch (Exception ex)
             {
-                ExceptionLogging.LogException(ex.ToString());
+                _exceptionLogging.LogException(ex.ToString());
             }            
         }
 
