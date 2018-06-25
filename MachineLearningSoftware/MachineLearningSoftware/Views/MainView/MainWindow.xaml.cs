@@ -29,6 +29,7 @@ namespace MachineLearningSoftware
             if (MainMenu1.SelectedItem is MainMenuButtonControl selectedItem)
             {
                 _viewModel.OpenPage(selectedItem.TextBlock.Text.ToString());
+                MainMenu1.SelectedItem = null;
             }
         }
 

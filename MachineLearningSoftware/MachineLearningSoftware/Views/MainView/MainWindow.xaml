@@ -107,7 +107,6 @@
                 <MenuItem Header="_Help">
                     <MenuItem Header="_About" Command="{Binding DisplayHelpDialogCommand}"/>
                     <MenuItem Header="_Python" Command="{Binding DisplayPythonWebsiteCommand}"/>
-                    <MenuItem Header="_Help"/>
                     <MenuItem Header="_TensorFlow" Command="{Binding DisplayTensorFlowWebsiteCommand}"/>
                 </MenuItem>
             </Menu>

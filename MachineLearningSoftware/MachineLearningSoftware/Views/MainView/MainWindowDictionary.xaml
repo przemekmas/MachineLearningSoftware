@@ -121,7 +121,7 @@
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Border x:Name="Normal"
-                                Background="#FFCDCDCD"
+                                Background="#B0B2B8"
                                 BorderBrush="#FF636363"
                                 BorderThickness="0"
                                 HorizontalAlignment="Stretch"
