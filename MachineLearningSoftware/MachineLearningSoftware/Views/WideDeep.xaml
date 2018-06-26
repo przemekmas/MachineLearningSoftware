@@ -2,9 +2,7 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:MachineLearningSoftware.Views"
-      xmlns:resx="clr-namespace:MachineLearningSoftware.Properties"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:controls="clr-namespace:MachineLearningSoftware.Views.DialogBoxes"
       xmlns:generalControls="clr-namespace:MachineLearningSoftware.Views.Controls"
       mc:Ignorable="d" 
@@ -14,9 +12,13 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Themes/Dictionary.xaml"/>
+                <ResourceDictionary Source="Themes/Dictionary.xaml"/>                
             </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>      
+            <CollectionViewSource x:Key="MartialStatusVocabulary" Source="{Binding MartialStatusVocabulary}"/>
+            <CollectionViewSource x:Key="EducationVocabulary" Source="{Binding EducationVocabulary}"/>
+            <CollectionViewSource x:Key="WorkclassVocabulary" Source="{Binding WorkclassVocabulary}"/>
+            <CollectionViewSource x:Key="RelationshipVocabulary" Source="{Binding RelationshipVocabulary}"/>
+        </ResourceDictionary>
     </Page.Resources>
 
     <Grid>
@@ -47,19 +49,19 @@
                   ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}" RowHeaderStyle="{StaticResource DataGridRowStyle}">            
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Age" Binding="{Binding Age}" Width="Auto"/>
-                <DataGridTextColumn Header="Fnlwgt" Binding="{Binding Fnlwgt}" Width="Auto"/>
-                <DataGridTextColumn Header="EducationNumber" Binding="{Binding EducationNumber}" Width="Auto"/>
-                <DataGridTextColumn Header="CapitalGain" Binding="{Binding CapitalGain}" Width="Auto"/>
-                <DataGridTextColumn Header="CapticalLoss" Binding="{Binding CapticalLoss}" Width="Auto"/>
-                <DataGridTextColumn Header="HoursPerWeek" Binding="{Binding HoursPerWeek}" Width="Auto"/>
-                <DataGridTextColumn Header="MartialStatus" Binding="{Binding MartialStatus}" Width="Auto"/>
+                <DataGridTextColumn Header="Hours Per Week" Binding="{Binding HoursPerWeek}" Width="Auto"/>
+                <DataGridComboBoxColumn Header="Martial Status" Visibility="Visible" Width="Auto" ItemsSource="{Binding Source={StaticResource MartialStatusVocabulary}}"
+                                        SelectedItemBinding="{Binding MartialStatus}"/>                
                 <DataGridTextColumn Header="Occupation" Binding="{Binding Occupation}" Width="Auto"/>
-                <DataGridTextColumn Header="Relationship" Binding="{Binding Relationship}" Width="Auto"/>
+                <DataGridComboBoxColumn Header="Relationship" Visibility="Visible" Width="Auto" ItemsSource="{Binding Source={StaticResource RelationshipVocabulary}}"
+                                        SelectedItemBinding="{Binding Relationship}"/>
                 <DataGridTextColumn Header="Race" Binding="{Binding Race}" Width="Auto"/>
                 <DataGridTextColumn Header="Gender" Binding="{Binding Gender}" Width="Auto"/>
                 <DataGridTextColumn Header="Country" Binding="{Binding Country}" Width="Auto"/>
-                <DataGridTextColumn Header="Education" Binding="{Binding Education}" Width="Auto"/>
-                <DataGridTextColumn Header="WorkClass" Binding="{Binding WorkClass}" Width="Auto"/>
+                <DataGridComboBoxColumn Header="Education" Visibility="Visible" Width="Auto" ItemsSource="{Binding Source={StaticResource EducationVocabulary}}"
+                                        SelectedItemBinding="{Binding Education}"/>
+                <DataGridComboBoxColumn Header="WorkClass" Visibility="Visible" Width="Auto" ItemsSource="{Binding Source={StaticResource WorkclassVocabulary}}"
+                                        SelectedItemBinding="{Binding WorkClass}"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Orientation="Horizontal">
@@ -74,18 +76,14 @@
                 <DataGridTextColumn Header="Prediction" Binding="{Binding Prediction}" Width="Auto" CellStyle="{StaticResource DataGridCellStyle}"/>
                 <DataGridTextColumn Header="Probability" Binding="{Binding Probability}" Width="Auto"/>
                 <DataGridTextColumn Header="Age" Binding="{Binding Age}" Width="Auto"/>
-                <DataGridTextColumn Header="Fnlwgt" Binding="{Binding Fnlwgt}" Width="Auto"/>
-                <DataGridTextColumn Header="EducationNumber" Binding="{Binding EducationNumber}" Width="Auto"/>
-                <DataGridTextColumn Header="CapitalGain" Binding="{Binding CapitalGain}" Width="Auto"/>
-                <DataGridTextColumn Header="CapticalLoss" Binding="{Binding CapticalLoss}" Width="Auto"/>
-                <DataGridTextColumn Header="HoursPerWeek" Binding="{Binding HoursPerWeek}" Width="Auto"/>
-                <DataGridTextColumn Header="MartialStatus" Binding="{Binding MartialStatus}" Width="Auto"/>
+                <DataGridTextColumn Header="Hours Per Week" Binding="{Binding HoursPerWeek}" Width="Auto"/>
+                <DataGridTextColumn Header="Martial Status" Binding="{Binding MartialStatus}" Width="Auto"/>
                 <DataGridTextColumn Header="Occupation" Binding="{Binding Occupation}" Width="Auto"/>
                 <DataGridTextColumn Header="Relationship" Binding="{Binding Relationship}" Width="Auto"/>
                 <DataGridTextColumn Header="Race" Binding="{Binding Race}" Width="Auto"/>
                 <DataGridTextColumn Header="Gender" Binding="{Binding Gender}" Width="Auto"/>
                 <DataGridTextColumn Header="Country" Binding="{Binding Country}" Width="Auto"/>
-                <DataGridTextColumn Header="Education" Binding="{Binding Education}" Width="Auto"/>
+                <DataGridTextColumn Header="Education" Binding="{Binding Education}" Width="Auto"/>                
                 <DataGridTextColumn Header="WorkClass" Binding="{Binding WorkClass}" Width="Auto"/>
             </DataGrid.Columns>
         </DataGrid>

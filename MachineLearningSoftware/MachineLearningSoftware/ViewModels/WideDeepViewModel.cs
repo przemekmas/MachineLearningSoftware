@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,8 @@ namespace MachineLearningSoftware.ViewModels
     {
         #region Fields
 
-        private const string _predictionColumnNames = "age, workclass, fnlwgt, education, education_num,marital_status, occupation, relationship, race, gender,capital_gain, capital_loss, hours_per_week, native_country";
+        private const string _predictionColumnNames = "age, workclass, fnlwgt, education, education_num,marital_status,"+ 
+            "occupation, relationship, race, gender,capital_gain, capital_loss, hours_per_week, native_country";
         private const string _predictionOutputColumnNames = _predictionColumnNames+",predicted_income_bracket,probability";
         private StringBuilder _textLogBuilder = new StringBuilder();
         private string _textBoxLog;
@@ -78,7 +80,20 @@ namespace MachineLearningSoftware.ViewModels
                 OnPropertyChanged(nameof(PredictionOutputValues));
             }
         }
-        
+
+        public ObservableCollection<string> MartialStatusVocabulary { get; } = new ObservableCollection<string>() { "Married-civ-spouse", "Divorced",
+            "Married-spouse-absent", "Never-married", "Separated", "Married-AF-spouse", "Widowed" };
+
+        public ObservableCollection<string> EducationVocabulary { get; } = new ObservableCollection<string>() { "Bachelors", "HS-grad", "11th",
+            "Masters", "9th", "Some-college", "Assoc-acdm", "Assoc-voc", "7th-8th", "Doctorate", "Prof-school", "5th-6th", "10th", "1st-4th",
+            "Preschool", "12th" };
+
+        public ObservableCollection<string> WorkclassVocabulary { get; } = new ObservableCollection<string>() { "Self-emp-not-inc", "Private",
+            "State-gov", "Federal-gov", "Local-gov", "?", "Self-emp-inc", "Without-pay", "Never-worked" };
+
+        public ObservableCollection<string> RelationshipVocabulary { get; } = new ObservableCollection<string>() { "Husband", "Not-in-family",
+            "Wife", "Own-child", "Unmarried", "Other-relative" };
+
         public ICommand SavePredictionCommand
         {
             get { return new CommandDelegate(SavePrediction, CanExecute); }
@@ -187,7 +202,7 @@ namespace MachineLearningSoftware.ViewModels
                             HoursPerWeek = Convert.ToInt32(values[12]),
                             Country = values[13],
                             Prediction = Convert.ToInt32(values[14]),
-                            Probability = Convert.ToInt32(values[14])
+                            Probability = float.Parse(values[15], CultureInfo.CurrentCulture.NumberFormat)
                         });
                     }
                 }
