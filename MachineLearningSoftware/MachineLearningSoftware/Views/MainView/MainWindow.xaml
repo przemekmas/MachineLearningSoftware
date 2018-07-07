@@ -132,11 +132,7 @@
         </Grid>
 
         <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Background="White">
-            <TabControl Name="TabControl" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ColumnSpan="2">
-                <TabItem Header="Start Page" Style="{StaticResource TabItem}">
-                    <Frame Source="../StartPage.xaml" FontWeight="Light" />
-                </TabItem>
-            </TabControl>
+            <controls:MainWindowTabControl x:Name="TabControl" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ColumnSpan="2"/>
         </Border>
     </Grid>
 </Window>

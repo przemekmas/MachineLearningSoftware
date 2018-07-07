@@ -14,21 +14,22 @@ namespace MachineLearningSoftware
     public partial class MainWindow : Window
     {
         private MainWindowViewModel _viewModel = DependencyInjection.ResolveSingle<MainWindowViewModel>();
+        private MainWindowFunctions _mainWindowFunctions = DependencyInjection.ResolveSingle<MainWindowFunctions>();
         private MainWindowState _windowState;
         
         public MainWindow()
         {
             InitializeComponent();
             DataContext = _viewModel;
-            _viewModel.SetTabControl(TabControl);
-            _viewModel.SetMainMenu(MainMenu1);
+            _mainWindowFunctions.SetMainWindowTabControl(TabControl);
+            _mainWindowFunctions.LoadMenuItems(MainMenu1);
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (MainMenu1.SelectedItem is MainMenuButtonControl selectedItem)
             {
-                _viewModel.OpenPage(selectedItem.TextBlock.Text.ToString());
+                _mainWindowFunctions.OpenPage(selectedItem.TextBlock.Text.ToString());
                 MainMenu1.SelectedItem = null;
             }
         }

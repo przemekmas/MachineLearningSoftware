@@ -1,9 +1,10 @@
 ﻿using MachineLearningSoftware.Common;
 using MachineLearningSoftware.Entities;
+using MachineLearningSoftware.Views.Controls;
 using MachineLearningSoftware.Views.DialogBoxes;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System;
 using System.ComponentModel.Composition;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -16,13 +17,10 @@ namespace MachineLearningSoftware.ViewModels
 
         private HelpDialogBox _helpDialog;
         private CloseSoftwareDialog _closeDialog;
-        private MainWindowFunctions _mainWindowFunctions;
 
         #endregion
 
         #region Properties
-
-        public ICollection<IResourceItemEntity> ResourceItems { get; }
 
         public ICommand DisplayHelpDialogCommand
         {
@@ -33,7 +31,7 @@ namespace MachineLearningSoftware.ViewModels
         {
             get { return new CommandDelegate(DisplayExitDialog, CanExecute); }
         }
-        
+
         public ICommand DisplayTensorFlowWebsiteCommand
         {
             get { return new CommandDelegate(NavigateToTensorFlow, CanExecute); }
@@ -48,30 +46,9 @@ namespace MachineLearningSoftware.ViewModels
 
         #region Constructor
 
-        [ImportingConstructor]
-        public MainWindowViewModel(MainWindowFunctions mainWindowFunctions)
+        public MainWindowViewModel()
         {
-            ResourceItems = new ObservableCollection<IResourceItemEntity>();
-            _mainWindowFunctions = mainWindowFunctions;
-        }
-
-        #endregion
-
-        #region Public Methods
-
-        public void SetTabControl(TabControl tabControl)
-        {
-            _mainWindowFunctions.TabControl = tabControl;
-        }
-
-        public void SetMainMenu(ListBox mainMenu)
-        {
-            _mainWindowFunctions.LoadPanels(mainMenu);
-        }
-
-        public void OpenPage(string page)
-        {
-            _mainWindowFunctions.OpenPage(page);
+            ApplyTheme();
         }
 
         #endregion
@@ -81,7 +58,7 @@ namespace MachineLearningSoftware.ViewModels
         private void DisplayHelpDialog(object context)
         {
             _helpDialog = new HelpDialogBox();
-            _helpDialog.ShowDialog();
+            _helpDialog.ShowDialog();            
         }
 
         private void DisplayExitDialog(object context)
@@ -98,6 +75,26 @@ namespace MachineLearningSoftware.ViewModels
         private void NavigateToPython(object context)
         {
             HyperlinkNavigation.NavigateTo("https://www.python.org/");
+        }
+
+        private void ApplyTheme()
+        {
+            var theme = new ThemeConstantsEntity();
+            foreach (var prop in typeof(ThemeConstantsEntity).GetProperties())
+            {
+                if (prop.CanRead)
+                {
+                    var value = prop.GetValue(theme, null) as ThemeEntity;
+                    var applicationTheme = Properties.Settings.Default["ApplicationTheme"].ToString();
+                    if (string.Equals(value.ThemeName, applicationTheme, StringComparison.OrdinalIgnoreCase))
+                    {
+                        var dictionaryUri = new Uri(value.ThemeSource, UriKind.Relative);
+                        var resourceDict = Application.LoadComponent(dictionaryUri) as ResourceDictionary;
+                        Application.Current.Resources.MergedDictionaries.Clear();
+                        Application.Current.Resources.MergedDictionaries.Add(resourceDict);
+                    }
+                }
+            }
         }
 
         #endregion

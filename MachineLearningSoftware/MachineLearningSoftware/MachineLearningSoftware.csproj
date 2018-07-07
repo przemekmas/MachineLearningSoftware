@@ -123,7 +123,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Controls\MainWindowTab.xaml">
+    <Page Include="Views\Controls\MainWindowTabControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\MainWindowTabItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -131,7 +135,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Controls\WindowHeaderControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainView\MainWindowDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainView\TabViewPlaceholder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -139,19 +155,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Themes\Dictionary.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\WideDeep.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\SearchPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\MNIST.xaml">
+    <Page Include="Views\SearchView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -159,19 +163,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Controls\ButtonIcons\ObjectRecognitionIcon.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Controls\ButtonIcons\ExceptionLogIcon.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Controls\ButtonIcons\RetrainInceptionModelIcon.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Controls\ButtonIcons\PeopleDetectionIcon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -190,6 +182,9 @@
     <Compile Include="Common\BitmapConverter.cs" />
     <Compile Include="Common\DependencyInjection.cs" />
     <Compile Include="Common\CurrentDirectory.cs" />
+    <Compile Include="Views\Controls\MainWindowTabControl.xaml.cs">
+      <DependentUpon>MainWindowTabControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataAccess\BaseDataAccess.cs" />
     <Compile Include="DataAccess\ExceptionLogDataAccess.cs" />
     <Compile Include="Common\ExecuteCMDCommands.cs" />
@@ -205,6 +200,7 @@
     <Compile Include="Entities\DigitImage.cs" />
     <Compile Include="Entities\ExceptionEntity.cs" />
     <Compile Include="Entities\FileDialogOption.cs" />
+    <Compile Include="Entities\HeaderControlEntity.cs" />
     <Compile Include="Entities\IResourceItemEntity.cs" />
     <Compile Include="Entities\ITimerEvent.cs" />
     <Compile Include="Entities\IUserModal.cs" />
@@ -234,45 +230,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MainWindowResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\MNISTResource.Designer.cs">
+    <Compile Include="Properties\SearchViewResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MNISTResource.resx</DependentUpon>
+      <DependentUpon>SearchViewResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\ObjectRecognitionResource.Designer.cs">
+    <Compile Include="Properties\StartViewResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ObjectRecognitionResource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\PeopleDetectionResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PeopleDetectionResource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\RetrainInceptionModelResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RetrainInceptionModelResource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\SearchPageResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SearchPageResource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\StartPageResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>StartPageResource.resx</DependentUpon>
+      <DependentUpon>StartViewResource.resx</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\WideDeepViewModel.cs" />
-    <Compile Include="ViewModels\SearchPageViewModel.cs" />
-    <Compile Include="ViewModels\ObjectRecognitionViewModel.cs" />
-    <Compile Include="ViewModels\PeopleDetectionViewModel.cs" />
-    <Compile Include="ViewModels\MNISTViewModel.cs" />
+    <Compile Include="ViewModels\ChangeThemeViewModel.cs" />
+    <Compile Include="ViewModels\SearchViewModel.cs" />
     <Compile Include="ViewModels\ExceptionLogViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="ViewModels\RetrainInceptionModelViewModel.cs" />
     <Compile Include="Views\Controls\ButtonIcons\WebIcon.xaml.cs">
       <DependentUpon>WebIcon.xaml</DependentUpon>
     </Compile>
@@ -285,8 +257,8 @@
     <Compile Include="Views\Controls\MainWindowSearchButtonControl.xaml.cs">
       <DependentUpon>MainWindowSearchButtonControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Controls\MainWindowTab.xaml.cs">
-      <DependentUpon>MainWindowTab.xaml</DependentUpon>
+    <Compile Include="Views\Controls\MainWindowTabItem.xaml.cs">
+      <DependentUpon>MainWindowTabItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\PythonInstallationControl.xaml.cs">
       <DependentUpon>PythonInstallationControl.xaml</DependentUpon>
@@ -294,36 +266,24 @@
     <Compile Include="Views\Controls\ViewModels\GithubButtonViewModel.cs" />
     <Compile Include="Views\Controls\ViewModels\PythonInstallationViewModel.cs" />
     <Compile Include="Views\Controls\ViewModels\MainMenuSearchButtonViewModel.cs" />
+    <Compile Include="Views\Controls\WindowHeaderControl.xaml.cs">
+      <DependentUpon>WindowHeaderControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Converters\ArrayPixelConverter.cs" />
-    <Compile Include="Views\DialogBoxes\WideDeepHelpDialog.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Views\MainView\TabViewPlaceholder.xaml.cs">
+      <DependentUpon>TabViewPlaceholder.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DialogBoxes\WideDeepHelpDialog.Designer.cs">
-      <DependentUpon>WideDeepHelpDialog.cs</DependentUpon>
+    <Compile Include="Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WideDeep.xaml.cs">
-      <DependentUpon>WideDeep.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SearchPage.xaml.cs">
-      <DependentUpon>SearchPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MNIST.xaml.cs">
-      <DependentUpon>MNIST.xaml</DependentUpon>
+    <Compile Include="Views\SearchView.xaml.cs">
+      <DependentUpon>SearchView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\ButtonIcons\DefaultIcon.xaml.cs">
       <DependentUpon>DefaultIcon.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Controls\ButtonIcons\ObjectRecognitionIcon.xaml.cs">
-      <DependentUpon>ObjectRecognitionIcon.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Controls\ButtonIcons\ExceptionLogIcon.xaml.cs">
       <DependentUpon>ExceptionLogIcon.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Controls\ButtonIcons\RetrainInceptionModelIcon.xaml.cs">
-      <DependentUpon>RetrainInceptionModelIcon.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Controls\ButtonIcons\PeopleDetectionIcon.xaml.cs">
-      <DependentUpon>PeopleDetectionIcon.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\ButtonIcons\ThemeButtonIcon.xaml.cs">
       <DependentUpon>ThemeButtonIcon.xaml</DependentUpon>
@@ -345,32 +305,17 @@
     <Compile Include="Views\DialogBoxes\HelpDialogBox.Designer.cs">
       <DependentUpon>HelpDialogBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\DialogBoxes\InceptionModelHelpDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\DialogBoxes\InceptionModelHelpDialog.Designer.cs">
-      <DependentUpon>InceptionModelHelpDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\DialogBoxes\LoadingDialogModal.xaml.cs">
       <DependentUpon>LoadingDialogModal.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ExceptionLog.xaml.cs">
       <DependentUpon>ExceptionLog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ObjectRecognition.xaml.cs">
-      <DependentUpon>ObjectRecognition.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ChangeTheme.xaml.cs">
       <DependentUpon>ChangeTheme.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PeopleDetection.xaml.cs">
-      <DependentUpon>PeopleDetection.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\RetrainInceptionModel.xaml.cs">
-      <DependentUpon>RetrainInceptionModel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\StartPage.xaml.cs">
-      <DependentUpon>StartPage.xaml</DependentUpon>
+    <Compile Include="Views\StartView.xaml.cs">
+      <DependentUpon>StartView.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\DialogBoxes\LoadingDialogModal.xaml">
       <SubType>Designer</SubType>
@@ -392,23 +337,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\ObjectRecognition.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\ChangeTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\PeopleDetection.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\RetrainInceptionModel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\StartPage.xaml">
+    <Page Include="Views\StartView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -459,48 +392,24 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>MainWindowResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\MNISTResource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>MNISTResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\ObjectRecognitionResource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ObjectRecognitionResource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\PeopleDetectionResource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>PeopleDetectionResource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\RetrainInceptionModelResource.resx">
+    <EmbeddedResource Include="Properties\SearchViewResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>RetrainInceptionModelResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+      <LastGenOutput>SearchViewResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\SearchPageResource.resx">
+    <EmbeddedResource Include="Properties\StartViewResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>SearchPageResource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\StartPageResource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>StartPageResource.Designer.cs</LastGenOutput>
+      <LastGenOutput>StartViewResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\DialogBoxes\CloseSoftwareDialog.resx">
       <DependentUpon>CloseSoftwareDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\DialogBoxes\HelpDialogBox.resx">
       <DependentUpon>HelpDialogBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\DialogBoxes\WideDeepHelpDialog.resx">
-      <DependentUpon>WideDeepHelpDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\DialogBoxes\InceptionModelHelpDialog.resx">
-      <DependentUpon>InceptionModelHelpDialog.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <Resource Include="Assets\Images\MachineLearningIcon.ico" />
@@ -538,7 +447,7 @@
     </Content>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>

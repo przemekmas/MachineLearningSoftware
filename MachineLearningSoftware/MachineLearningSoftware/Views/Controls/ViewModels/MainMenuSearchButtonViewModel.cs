@@ -7,7 +7,7 @@ namespace MachineLearningSoftware.Views.Controls.ViewModels
     [Export]
     public class MainMenuSearchButtonViewModel : BaseViewModel
     {
-        private string _searchPageName = "Search";
+        private string _searchViewName = "Search";
         private MainWindowFunctions _mainWindowFunctions;
 
         [ImportingConstructor]
@@ -20,7 +20,7 @@ namespace MachineLearningSoftware.Views.Controls.ViewModels
         {
             if (!string.IsNullOrEmpty(input))
             {
-                _mainWindowFunctions.OpenPage(_searchPageName, input);
+                _mainWindowFunctions.OpenPage(_searchViewName, input);
             }
         }       
     }

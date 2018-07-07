@@ -12,12 +12,12 @@ namespace MachineLearningSoftware.Views
     /// </summary>
     [ViewExport(typeof(ExceptionLog), typeof(IResourceItemEntity), "Exception Log", true)]
     [PartCreationPolicy(CreationPolicy.NonShared)]
-    public partial class ExceptionLog : Page, IResourceItemEntity
+    public partial class ExceptionLog : UserControl, IResourceItemEntity
     {
-        public Page Page => this;
+        public UserControl Page => this;
 
         public Control IconControl => new ExceptionLogIcon();
-
+        
         private ExceptionLogViewModel _viewmodel;
         
         [ImportingConstructor]

@@ -9,16 +9,12 @@ namespace MachineLearningSoftware.Views.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var visibility = (bool)value;
-
-            if (visibility)
+            var visibility = Visibility.Collapsed;
+            if (value is bool isVisible && isVisible)
             {
-                return Visibility.Visible;
+                visibility = Visibility.Visible;
             }
-            else
-            {
-                return Visibility.Hidden;
-            }
+            return visibility;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

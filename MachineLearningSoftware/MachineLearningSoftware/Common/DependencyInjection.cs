@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.Composition.Hosting;
+﻿using System.ComponentModel.Composition.Hosting;
 
 namespace MachineLearningSoftware.Common
 {

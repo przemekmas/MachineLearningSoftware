@@ -1,26 +1,14 @@
-﻿<Page x:Class="MachineLearningSoftware.Views.ExceptionLog"
+﻿<UserControl x:Class="MachineLearningSoftware.Views.ExceptionLog"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:MachineLearningSoftware.Views"
-      xmlns:resx="clr-namespace:MachineLearningSoftware.Properties"
-      xmlns:controls="clr-namespace:MachineLearningSoftware.Views.DialogBoxes"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="800"
-      Title="ExceptionLog">
-    
-    <Page.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Themes/Dictionary.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Page.Resources>
-    
-    <Grid>
+      d:DesignHeight="600" d:DesignWidth="800">
+
+    <Grid Margin="6">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="25"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
@@ -30,10 +18,8 @@
             <ColumnDefinition Width="130"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="22"  
-                   FontStyle="Italic" Text="{x:Static resx:ExceptionLogResource.Title}" Margin="6,6,4,0" Grid.ColumnSpan="2" Width="300"/>
-        <TextBlock Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="110" Text="{Binding ExceptionCount}"
-                   TextAlignment="Right" Margin="0,0,5,0"/>
+        <TextBlock Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="110" Text="{Binding ExceptionCount}"
+                   TextAlignment="Left" Margin="0,0,0,5"/>
         <DataGrid Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding ExceptionList}" x:Name="ExceptionDataGrid" AutoGenerateColumns="False" 
                   CanUserAddRows="False" CanUserDeleteRows="False" FontFamily="Calibri" FontSize="12" RowHeight="30" 
                   SelectionChanged="ExceptionDataGrid_SelectionChanged">
@@ -63,6 +49,5 @@
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
-        <controls:LoadingDialogModal Grid.ColumnSpan="2" Grid.RowSpan="3" Visibility="{Binding IsModalVisible, Converter={StaticResource VisibilityConverter}}"/>
     </Grid>
-</Page>
+</UserControl>

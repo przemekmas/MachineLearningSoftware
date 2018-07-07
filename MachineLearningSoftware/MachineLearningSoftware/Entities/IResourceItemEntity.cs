@@ -4,7 +4,7 @@ namespace MachineLearningSoftware.Entities
 {
     public interface IResourceItemEntity
     {
-        Page Page { get; }
+        UserControl Page { get; }
         Control IconControl { get; }
     }
 }

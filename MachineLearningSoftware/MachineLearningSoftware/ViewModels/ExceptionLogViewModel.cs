@@ -51,6 +51,7 @@ namespace MachineLearningSoftware.ViewModels
         [ImportingConstructor]
         public ExceptionLogViewModel(ExceptionLogDataAccess exceptionLogging)
         {
+            ConfigureHeaderControl(true, true, Properties.ExceptionLogResource.Title);
             _exceptionLogging = exceptionLogging;
             IsModalVisible = true;
             Task.Run(() => SetExceptions());

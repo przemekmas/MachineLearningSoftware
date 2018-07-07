@@ -1,5 +1,6 @@
 ﻿using MachineLearningSoftware.Common;
 using MachineLearningSoftware.Entities;
+using MachineLearningSoftware.ViewModels;
 using MachineLearningSoftware.Views.Controls.ButtonIcons;
 using System;
 using System.ComponentModel.Composition;
@@ -13,20 +14,22 @@ namespace MachineLearningSoftware
     /// </summary>
     [ViewExport(typeof(ChangeTheme), typeof(IResourceItemEntity), "Change Theme", true)]
     [PartCreationPolicy(CreationPolicy.NonShared)]
-    public partial class ChangeTheme : Page, IResourceItemEntity
+    public partial class ChangeTheme : UserControl, IResourceItemEntity
     {
         private string _selectedTheme;
 
-        public ChangeTheme()
+        [ImportingConstructor]
+        public ChangeTheme(ChangeThemeViewModel changeThemeViewModel)
         {
             InitializeComponent();
             LoadAllThemes();
+            DataContext = changeThemeViewModel;
         }
 
-        public Page Page => this;
+        public UserControl Page => this;
 
         public Control IconControl => new ThemeButtonIcon();
-
+        
         private void ThemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedTheme = ThemeComboBox.SelectedValue.ToString();
@@ -40,7 +43,7 @@ namespace MachineLearningSoftware
 
         private void ApplyThemeButton_Click(object sender, RoutedEventArgs e)
         {
-            if(_selectedTheme != null)
+            if (_selectedTheme != null)
             {
                 LoadProperties(false, false);
             }
@@ -62,14 +65,16 @@ namespace MachineLearningSoftware
                             ChangeMockTheme(value.ThemeSource);
                         }
                     }
-                    else if (action == true)
+                    else if (action)
                     {
-                        ThemeComboBox.Items.Add(value.ThemeName);
+                        ThemeComboBox.Items.Add(value.ThemeName);                        
                     }
                     else
                     {
                         if(string.Equals(_selectedTheme, value.ThemeName, StringComparison.OrdinalIgnoreCase))
                         {
+                            Properties.Settings.Default["ApplicationTheme"] = value.ThemeName;
+                            Properties.Settings.Default.Save();
                             ((App)Application.Current).ChangeTheme(value.ThemeSource);
                         }
                     }

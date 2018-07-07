@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{45109E69-C8A6-4F30-BFA5-DA99C6E398B5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>MachineLearningSoftware.Views</RootNamespace>
+    <AssemblyName>MachineLearningSoftware.Views</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\MachineLearningSoftware\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\MNISTResource.Designer.cs">
+      <DependentUpon>MNISTResource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Properties\ObjectRecognitionResource.Designer.cs">
+      <DependentUpon>ObjectRecognitionResource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Properties\PeopleDetectionResource.Designer.cs">
+      <DependentUpon>PeopleDetectionResource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\RetrainInceptionModelResource.Designer.cs">
+      <DependentUpon>RetrainInceptionModelResource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Properties\WideDeepResource.Designer.cs">
+      <DependentUpon>WideDeepResource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="ViewModels\MNISTViewModel.cs" />
+    <Compile Include="ViewModels\ObjectRecognitionViewModel.cs" />
+    <Compile Include="ViewModels\PeopleDetectionViewModel.cs" />
+    <Compile Include="ViewModels\RetrainInceptionModelViewModel.cs" />
+    <Compile Include="ViewModels\WideDeepViewModel.cs" />
+    <Compile Include="Views\Controls\ButtonIcons\ObjectRecognitionIcon.xaml.cs">
+      <DependentUpon>ObjectRecognitionIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\ButtonIcons\PeopleDetectionIcon.xaml.cs">
+      <DependentUpon>PeopleDetectionIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\ButtonIcons\RetrainInceptionModelIcon.xaml.cs">
+      <DependentUpon>RetrainInceptionModelIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\PythonInstallationControl.xaml.cs">
+      <DependentUpon>PythonInstallationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\ViewModels\PythonInstallationViewModel.cs" />
+    <Compile Include="Views\DialogBoxes\InceptionModelHelpDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\DialogBoxes\InceptionModelHelpDialog.Designer.cs">
+      <DependentUpon>InceptionModelHelpDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogBoxes\WideDeepHelpDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\DialogBoxes\WideDeepHelpDialog.Designer.cs">
+      <DependentUpon>WideDeepHelpDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MNIST.xaml.cs">
+      <DependentUpon>MNIST.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ObjectRecognition.xaml.cs">
+      <DependentUpon>ObjectRecognition.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PeopleDetection.xaml.cs">
+      <DependentUpon>PeopleDetection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RetrainInceptionModel.xaml.cs">
+      <DependentUpon>RetrainInceptionModel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WideDeep.xaml.cs">
+      <DependentUpon>WideDeep.xaml</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\MNISTResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MNISTResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\ObjectRecognitionResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ObjectRecognitionResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\PeopleDetectionResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>PeopleDetectionResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\RetrainInceptionModelResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>RetrainInceptionModelResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\WideDeepResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WideDeepResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\DialogBoxes\InceptionModelHelpDialog.resx">
+      <DependentUpon>InceptionModelHelpDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\DialogBoxes\WideDeepHelpDialog.resx">
+      <DependentUpon>WideDeepHelpDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MachineLearningSoftware\MachineLearningSoftware.csproj">
+      <Project>{4E287989-BC72-4EEE-AD9A-8C605DDC2045}</Project>
+      <Name>MachineLearningSoftware</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\Controls\ButtonIcons\ObjectRecognitionIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Controls\ButtonIcons\PeopleDetectionIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Controls\ButtonIcons\RetrainInceptionModelIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Controls\PythonInstallationControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MNIST.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ObjectRecognition.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PeopleDetection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\RetrainInceptionModel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Themes\Dictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WideDeep.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\ImagePlaceholder.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
