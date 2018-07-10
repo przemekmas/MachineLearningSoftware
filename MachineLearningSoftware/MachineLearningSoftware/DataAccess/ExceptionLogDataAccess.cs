@@ -58,7 +58,7 @@ namespace MachineLearningSoftware.DataAccess
                     cmd.Parameters.Add(new SQLiteParameter("@date", DateTime.Now));
                     cmd.ExecuteNonQuery();
                 }
-            }            
+            }        
         }
     }
 }

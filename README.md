@@ -6,6 +6,12 @@ The purpose of this repository is to provide software which allows to understand
 
 * The .NET Framework required to build the project and execute the software is .NET Framework 4.6.1
 
+### Download Link
+
+Below is the download link to the latest build of the software.
+
+* https://drive.google.com/open?id=1jEFOrdyHmiD5SHJs2pyYhYpL6tyk5_k4
+
 ### Software Screens/Pages
 
 * Change Theme - The change theme page is a very basic screen where you can change the theme/look and feel of the software.
