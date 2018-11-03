@@ -9,9 +9,6 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Themes/Dictionary.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
             <CollectionViewSource x:Key="MartialStatusVocabulary" Source="{Binding MartialStatusVocabulary}"/>
             <CollectionViewSource x:Key="EducationVocabulary" Source="{Binding EducationVocabulary}"/>
             <CollectionViewSource x:Key="WorkclassVocabulary" Source="{Binding WorkclassVocabulary}"/>
