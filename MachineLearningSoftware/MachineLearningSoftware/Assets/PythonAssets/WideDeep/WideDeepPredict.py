@@ -1,3 +1,4 @@
+from xml.dom import minidom
 import tensorflow as tf
 import os
 import numpy as np
@@ -6,9 +7,15 @@ exported_path = 'CensusModel'
 predictionoutputfile = 'CensusOutput.csv'
 predictioninputfile = 'Prediction.csv'
 
-
+def GetConfigurationPath():
+	mydoc = minidom.parse('Configuration.xml')
+	items = mydoc.getElementsByTagName('Directory')
+	return items[0].childNodes[0].data;
+        
 def main():
+	
 	with tf.Session() as sess:
+		exported_path = GetConfigurationPath();
 		# load the saved model
 		tf.saved_model.loader.load(sess, [tf.saved_model.tag_constants.SERVING], exported_path)
 		

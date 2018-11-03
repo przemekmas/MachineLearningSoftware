@@ -10,20 +10,19 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Themes/Dictionary.xaml"/>                
+                <ResourceDictionary Source="Themes/Dictionary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <CollectionViewSource x:Key="MartialStatusVocabulary" Source="{Binding MartialStatusVocabulary}"/>
             <CollectionViewSource x:Key="EducationVocabulary" Source="{Binding EducationVocabulary}"/>
             <CollectionViewSource x:Key="WorkclassVocabulary" Source="{Binding WorkclassVocabulary}"/>
             <CollectionViewSource x:Key="RelationshipVocabulary" Source="{Binding RelationshipVocabulary}"/>
+            <generalControls:HidePanelControl x:Key="HidePanelControl"/>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid Margin="6">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -33,59 +32,86 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="150"/>
         </Grid.ColumnDefinitions>
-        
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <ComboBox ItemsSource="{Binding ModelTypes}" SelectedItem="{Binding SelectedModelType}" Height="25"/>
+            <Button Command="{Binding ChooseModelFolderCommand}" Height="25" Width="100" Content="Choose Model" Margin="5,0,0,0"/>
+        </StackPanel>
         <generalControls:PythonInstallationControl Grid.Column="2" Grid.Row="0"/>
 
-        <DataGrid Grid.ColumnSpan="3" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                  ItemsSource="{Binding PredictionInputValues, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False"
-                  ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}" RowHeaderStyle="{StaticResource DataGridRowStyle}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Age" Binding="{Binding Age}" Width="Auto"/>
-                <DataGridTextColumn Header="Hours Per Week" Binding="{Binding HoursPerWeek}" Width="Auto"/>
-                <DataGridComboBoxColumn Header="Martial Status" Visibility="Visible" Width="Auto" ItemsSource="{Binding Source={StaticResource MartialStatusVocabulary}}"
-                                        SelectedItemBinding="{Binding MartialStatus}"/>                
-                <DataGridTextColumn Header="Occupation" Binding="{Binding Occupation}" Width="Auto"/>
-                <DataGridComboBoxColumn Header="Relationship" Visibility="Visible" Width="Auto" ItemsSource="{Binding Source={StaticResource RelationshipVocabulary}}"
-                                        SelectedItemBinding="{Binding Relationship}"/>
-                <DataGridTextColumn Header="Race" Binding="{Binding Race}" Width="Auto"/>
-                <DataGridTextColumn Header="Gender" Binding="{Binding Gender}" Width="Auto"/>
-                <DataGridTextColumn Header="Country" Binding="{Binding Country}" Width="Auto"/>
-                <DataGridComboBoxColumn Header="Education" Visibility="Visible" Width="Auto" ItemsSource="{Binding Source={StaticResource EducationVocabulary}}"
-                                        SelectedItemBinding="{Binding Education}"/>
-                <DataGridComboBoxColumn Header="WorkClass" Visibility="Visible" Width="Auto" ItemsSource="{Binding Source={StaticResource WorkclassVocabulary}}"
-                                        SelectedItemBinding="{Binding WorkClass}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="0,10,0,10">
-            <Button Content="Save" Width="120" HorizontalAlignment="Left" Command="{Binding SavePredictionCommand}" Height="20"/>
-            <Button Content="Delete" Width="120" HorizontalAlignment="Left" Margin="5,0,0,0" Command="{Binding DeletePredictionCommand}" Height="20"/>
-        </StackPanel>
+        <ScrollViewer Grid.Row="1" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <generalControls:HidePanelControl Margin="0,0,0,5" Title="Predictions">
+                    <generalControls:HidePanelControl.ContentPlaceholder>
+                        <StackPanel>
+                            <DataGrid HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                      ItemsSource="{Binding Path=DataContext.PredictionInputValues, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" AutoGenerateColumns="False" Margin="2" MinHeight="100" 
+                                      MaxHeight="600">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Age" Binding="{Binding Age}" Width="Auto"/>
+                                    <DataGridTextColumn Header="Hours Per Week" Binding="{Binding HoursPerWeek}" Width="Auto"/>
+                                    <DataGridComboBoxColumn Header="Martial Status" Visibility="Visible" Width="*" ItemsSource="{Binding Source={StaticResource MartialStatusVocabulary}}"
+                                                            SelectedItemBinding="{Binding MartialStatus}"/>
+                                    <DataGridTextColumn Header="Occupation" Binding="{Binding Occupation}" Width="*"/>
+                                    <DataGridComboBoxColumn Header="Relationship" Visibility="Visible" Width="*" ItemsSource="{Binding Source={StaticResource RelationshipVocabulary}}"
+                                                            SelectedItemBinding="{Binding Relationship}"/>
+                                    <DataGridTextColumn Header="Race" Binding="{Binding Race}" Width="*"/>
+                                    <DataGridTextColumn Header="Gender" Binding="{Binding Gender}" Width="*"/>
+                                    <DataGridTextColumn Header="Country" Binding="{Binding Country}" Width="*"/>
+                                    <DataGridComboBoxColumn Header="Education" Visibility="Visible" Width="*" ItemsSource="{Binding Source={StaticResource EducationVocabulary}}"
+                                                            SelectedItemBinding="{Binding Education}"/>
+                                    <DataGridComboBoxColumn Header="WorkClass" Visibility="Visible" Width="*" ItemsSource="{Binding Source={StaticResource WorkclassVocabulary}}"
+                                                            SelectedItemBinding="{Binding WorkClass}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <StackPanel Orientation="Horizontal" Margin="2">
+                                <Button Content="Save" Width="120" HorizontalAlignment="Left" Command="{Binding Path=DataContext.SavePredictionCommand, 
+                                    RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                        Height="20"/>
+                                <Button Content="Delete" Width="120" HorizontalAlignment="Left" Margin="5,0,0,0" Command="{Binding Path=DataContext.DeletePredictionCommand,
+                                    RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Height="20"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </generalControls:HidePanelControl.ContentPlaceholder>
+                </generalControls:HidePanelControl>
+
+                <generalControls:HidePanelControl Margin="0,0,0,5" Title="Prediction Results">
+                    <generalControls:HidePanelControl.ContentPlaceholder>
+                        <StackPanel>
+                            <DataGrid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsReadOnly="True" MinHeight="100" MaxHeight="600"
+                                      ItemsSource="{Binding Path=DataContext.PredictionOutputValues, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                                RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" AutoGenerateColumns="False" Margin="2">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Prediction" Binding="{Binding Prediction}" Width="Auto"/>
+                                    <DataGridTextColumn Header="Probability" Binding="{Binding Probability}" Width="Auto"/>
+                                    <DataGridTextColumn Header="Age" Binding="{Binding Age}" Width="Auto"/>
+                                    <DataGridTextColumn Header="Hours Per Week" Binding="{Binding HoursPerWeek}" Width="Auto"/>
+                                    <DataGridTextColumn Header="Martial Status" Binding="{Binding MartialStatus}" Width="*"/>
+                                    <DataGridTextColumn Header="Occupation" Binding="{Binding Occupation}" Width="*"/>
+                                    <DataGridTextColumn Header="Relationship" Binding="{Binding Relationship}" Width="*"/>
+                                    <DataGridTextColumn Header="Race" Binding="{Binding Race}" Width="*"/>
+                                    <DataGridTextColumn Header="Gender" Binding="{Binding Gender}" Width="*"/>
+                                    <DataGridTextColumn Header="Country" Binding="{Binding Country}" Width="*"/>
+                                    <DataGridTextColumn Header="Education" Binding="{Binding Education}" Width="*"/>
+                                    <DataGridTextColumn Header="WorkClass" Binding="{Binding WorkClass}" Width="*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Margin="2">
+                                <Button Content="Predict" IsEnabled="{Binding Path=DataContext.IsPythonInstalled,
+                                    RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Command="{Binding Path=DataContext.PredictWideDeepCommand,
+                                    RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Height="20" Width="120"/>
+                                <Button Content="Install TensorFlow" Width="120" IsEnabled="{Binding Path=DataContext.IsPythonInstalled,
+                                    RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Command="{Binding Path=DataContext.InstallTensorFlowCommand,
+                                    RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Height="20"
+                                        Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </generalControls:HidePanelControl.ContentPlaceholder>
+                </generalControls:HidePanelControl>
+            </StackPanel>
+        </ScrollViewer>
         
-        <DataGrid Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="3" IsReadOnly="True"
-                  ItemsSource="{Binding PredictionOutputValues, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False"
-                  ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}" RowHeaderStyle="{StaticResource DataGridRowStyle}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Prediction" Binding="{Binding Prediction}" Width="Auto" CellStyle="{StaticResource DataGridCellStyle}"/>
-                <DataGridTextColumn Header="Probability" Binding="{Binding Probability}" Width="Auto"/>
-                <DataGridTextColumn Header="Age" Binding="{Binding Age}" Width="Auto"/>
-                <DataGridTextColumn Header="Hours Per Week" Binding="{Binding HoursPerWeek}" Width="Auto"/>
-                <DataGridTextColumn Header="Martial Status" Binding="{Binding MartialStatus}" Width="Auto"/>
-                <DataGridTextColumn Header="Occupation" Binding="{Binding Occupation}" Width="Auto"/>
-                <DataGridTextColumn Header="Relationship" Binding="{Binding Relationship}" Width="Auto"/>
-                <DataGridTextColumn Header="Race" Binding="{Binding Race}" Width="Auto"/>
-                <DataGridTextColumn Header="Gender" Binding="{Binding Gender}" Width="Auto"/>
-                <DataGridTextColumn Header="Country" Binding="{Binding Country}" Width="Auto"/>
-                <DataGridTextColumn Header="Education" Binding="{Binding Education}" Width="Auto"/>                
-                <DataGridTextColumn Header="WorkClass" Binding="{Binding WorkClass}" Width="Auto"/>
-            </DataGrid.Columns>
-        </DataGrid>
-
-        <StackPanel Grid.Row="4" Grid.ColumnSpan="3" HorizontalAlignment="Left" Orientation="Horizontal">
-            <Button Content="Predict" IsEnabled="{Binding IsPythonInstalled}" Command="{Binding PredictWideDeepCommand}" Height="20" Width="120"/>
-            <Button Content="Install TensorFlow" Width="120" IsEnabled="{Binding IsPythonInstalled}" Command="{Binding InstallTensorFlowCommand}" Height="20"
-                    Margin="5,0,0,0"/>
-        </StackPanel>
-
-        <generalControls:InformationButtonControl Grid.Column="2" Grid.Row="4" HorizontalAlignment="Right" Command="{Binding OpenHelpDialog}"/>
+        <generalControls:InformationButtonControl Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" Command="{Binding OpenHelpDialog}"/>
     </Grid>
 </UserControl>

@@ -15,8 +15,12 @@
     
     <Style x:Key="MainMenuStyle" TargetType="{x:Type ListBox}" BasedOn="{StaticResource MainMenuBaseStyle}">
         <Setter Property="Background" Value="#4D5057"/>
-    </Style>    
-    
+    </Style>
+
+    <Style x:Key="BorderStyle" TargetType="{x:Type Border}">
+        <Setter Property="Background" Value="DimGray"/>
+    </Style>
+
     <Style x:Key="MainMenuButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="#8A8D91"/>
         <Setter Property="BorderBrush" Value="#1B2432"/>
@@ -26,4 +30,16 @@
         <Setter Property="Background" Value="Gray"/>        
     </Style>
 
+    <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource BaseGridColumnHeaderStyle}">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="#FF898989" Offset="0.0" />
+                    <GradientStop Color="#FF656565" Offset="0.234" />
+                    <GradientStop Color="#FF1F1F1F" Offset="0.498" />
+                    <GradientStop Color="#FF5F5F5F" Offset="1"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

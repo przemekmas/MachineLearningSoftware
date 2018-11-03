@@ -135,6 +135,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Controls\HidePanelControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Controls\InformationButtonControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -202,6 +206,9 @@
     <Compile Include="Common\BitmapConverter.cs" />
     <Compile Include="Common\DependencyInjection.cs" />
     <Compile Include="Common\CurrentDirectory.cs" />
+    <Compile Include="Views\Controls\HidePanelControl.xaml.cs">
+      <DependentUpon>HidePanelControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Controls\MainWindowTabControl.xaml.cs">
       <DependentUpon>MainWindowTabControl.xaml</DependentUpon>
     </Compile>
@@ -284,6 +291,7 @@
       <DependentUpon>PythonInstallationControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\ViewModels\GithubButtonViewModel.cs" />
+    <Compile Include="Views\Controls\ViewModels\HidePanelViewModel.cs" />
     <Compile Include="Views\Controls\ViewModels\PythonInstallationViewModel.cs" />
     <Compile Include="Views\Controls\ViewModels\MainMenuSearchButtonViewModel.cs" />
     <Compile Include="Views\Controls\WindowHeaderControl.xaml.cs">
@@ -437,6 +445,8 @@
     <Resource Include="Assets\Images\MachineLearningIcon.ico" />
     <Resource Include="Assets\Images\MachineLearningIconTensorFlow.ico" />
     <Resource Include="Assets\Images\SoftwareIcon.png" />
+    <Resource Include="Assets\Images\ArrowDown.png" />
+    <Resource Include="Assets\Images\ArrowUp.png" />
     <Content Include="Assets\MNISTDataset\t10k-images.idx3-ubyte">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -452,19 +462,37 @@
     <Content Include="Assets\PythonAssets\RetrainInceptionModel\retrained_graph.pb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\PythonAssets\WideDeep\CensusModel\saved_model.pb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\PythonAssets\WideDeep\CensusModel\variables\variables.data-00000-of-00001">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\PythonAssets\WideDeep\CensusModel\variables\variables.index">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Assets\PythonAssets\WideDeep\CensusOutput.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\PythonAssets\WideDeep\Prediction.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\PythonAssets\WideDeep\DeepModel\saved_model.pb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\PythonAssets\WideDeep\DeepModel\variables\variables.data-00000-of-00001">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\PythonAssets\WideDeep\DeepModel\variables\variables.index">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\PythonAssets\WideDeep\WideDeepModel\saved_model.pb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\PythonAssets\WideDeep\WideDeepModel\variables\variables.data-00000-of-00001">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\PythonAssets\WideDeep\WideDeepModel\variables\variables.index">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\PythonAssets\WideDeep\WideModel\saved_model.pb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\PythonAssets\WideDeep\WideModel\variables\variables.data-00000-of-00001">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\PythonAssets\WideDeep\WideModel\variables\variables.index">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />

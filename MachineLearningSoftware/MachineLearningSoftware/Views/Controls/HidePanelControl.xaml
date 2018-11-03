@@ -1,0 +1,35 @@
+﻿<StackPanel x:Class="MachineLearningSoftware.Views.Controls.HidePanelControl"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:CoreConverters="clr-namespace:MachineLearningSoftware.Views.Converters"
+            mc:Ignorable="d" 
+            d:DesignWidth="600"
+            Name="HidePanel">
+    <StackPanel.Resources>
+        <CoreConverters:VisibilityConverter x:Key="VisibilityConverter"/>
+        <Style x:Key="ShowHidePanelStyle" TargetType="{x:Type Image}">
+            <Setter Property="Margin" Value="2"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsPanelVisible}" Value="True">
+                    <Setter Property="Image.Source" Value="..\..\Assets\Images\ArrowUp.png"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsPanelVisible}" Value="False">
+                    <Setter Property="Image.Source" Value="..\..\Assets\Images\ArrowDown.png"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </StackPanel.Resources>
+    <Border Height="25" Style="{DynamicResource BorderStyle}" CornerRadius="5,5,0,0">
+        <DockPanel>
+            <TextBlock Text="{Binding Title, ElementName=HidePanel}" Foreground="White" Margin="5"/>
+            <Button Width="25" Height="25" HorizontalAlignment="Right" BorderThickness="0" Command="{Binding ShowHidePanelCommand}">
+                <Image Style="{StaticResource ShowHidePanelStyle}"/>
+            </Button>
+        </DockPanel>
+    </Border>
+    <Border Background="LightGray" BorderThickness="1" BorderBrush="Black">
+        <ContentControl Content="{Binding ContentPlaceholder, ElementName=HidePanel}" Visibility="{Binding IsPanelVisible, Converter={StaticResource VisibilityConverter}}"/>
+    </Border>
+</StackPanel>

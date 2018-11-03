@@ -3,6 +3,7 @@ using MachineLearningSoftware.DataAccess;
 using MachineLearningSoftware.Entities;
 using MachineLearningSoftware.ViewModels;
 using MachineLearningSoftware.Views.DialogBoxes;
+using MachineLearningSoftware.Views.Enumerations;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,7 +13,9 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Input;
+using System.Xml;
 
 namespace MachineLearningSoftware.Views.ViewModels
 {
@@ -31,8 +34,10 @@ namespace MachineLearningSoftware.Views.ViewModels
         private ObservableCollection<CensusBaseEntity> _predictionInputValues;
         private ObservableCollection<CensusPredictionOutput> _predictionOutputValues;
         private ExceptionLogDataAccess _exceptionLogging;
-        public string imageDirectory;
-        
+        private ModelType _selectedModelType;
+        private ObservableCollection<ModelType> _modelTypes = new ObservableCollection<ModelType>() { ModelType.DeepModel, ModelType.WideModel, ModelType.WideDeepModel };
+        private string _modelFolderDirectory;
+
         #endregion
 
         #region Properties
@@ -40,6 +45,29 @@ namespace MachineLearningSoftware.Views.ViewModels
         public bool IsPythonInstalled
         {
             get { return Python.IsPythonInstalled(); }
+        }
+
+        public ObservableCollection<ModelType> ModelTypes
+        {
+            get { return _modelTypes; }
+            set
+            {
+                if (_modelTypes != value)
+                {
+                    _modelTypes = value;
+                    OnPropertyChanged(nameof(ModelTypes));
+                }
+            }
+        }
+
+        public ModelType SelectedModelType
+        {
+            get { return _selectedModelType; }
+            set
+            {
+                _selectedModelType = value;
+                OnPropertyChanged(nameof(SelectedModelType));
+            }
         }
 
         public string TextBoxLog
@@ -51,7 +79,7 @@ namespace MachineLearningSoftware.Views.ViewModels
                 OnPropertyChanged(nameof(TextBoxLog));
             }
         }
-        
+
         public bool PythonInstalled
         {
             get { return _pythonInstalled; }
@@ -94,11 +122,17 @@ namespace MachineLearningSoftware.Views.ViewModels
 
         public ObservableCollection<string> RelationshipVocabulary { get; } = new ObservableCollection<string>() { "Husband", "Not-in-family",
             "Wife", "Own-child", "Unmarried", "Other-relative" };
-
+        
+        public ICommand ChooseModelFolderCommand
+        {
+            get { return new CommandDelegate(ChangeModelFolder, CanExecute); }
+        }
+        
         public ICommand SavePredictionCommand
         {
             get { return new CommandDelegate(SavePrediction, CanExecute); }
         }
+
         public ICommand DeletePredictionCommand
         {
             get { return new CommandDelegate(DeletePrediction, CanExecute); }
@@ -130,7 +164,8 @@ namespace MachineLearningSoftware.Views.ViewModels
             _exceptionLogging = exceptionLogging;
             ExecuteCMDCommands.outputHandler = OutputHandler;
             GetPredictions();
-            GetPredictionResults();            
+            GetPredictionResults();
+            CreateConfigurationFile();
         }
 
         #endregion
@@ -234,6 +269,18 @@ namespace MachineLearningSoftware.Views.ViewModels
             }
         }
 
+        private void ChangeModelFolder(object context)
+        {
+            var fileDialog = new FolderBrowserDialog();
+            fileDialog.ShowDialog();
+
+            var filePath = fileDialog.SelectedPath;
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                _modelFolderDirectory = filePath;
+            }
+        }
+                
         private void SavePrediction(object context)
         {
             SaveToCSV();
@@ -249,13 +296,12 @@ namespace MachineLearningSoftware.Views.ViewModels
         private void Predict(object context)
         {
             IsModalVisible = true;
-            Task.Run(() =>
-                predict()
-            );
+            Task.Run(() => predict());
         }
 
         private void predict()
         {
+            ModifyModelType();
             var commands = new List<string>() { string.Format("cd {0}", CurrentDirectory.GetPythonAssetsDirectory("WideDeep")), @"python WideDeepPredict.py" };
             ExecuteCMDCommands.RunMultipleCommands(commands, false);
             GetPredictionResults();
@@ -294,6 +340,42 @@ namespace MachineLearningSoftware.Views.ViewModels
         private void DisplayHelpDialog(object obj)
         {
             new WideDeepHelpDialog().ShowDialog();
+        }
+
+        private void CreateConfigurationFile()
+        {
+            if (!File.Exists(CurrentDirectory.GetPythonAssetsDirectory(@"WideDeep\Configuration.xml")))
+            {
+                var xmlWriter = XmlWriter.Create(CurrentDirectory.GetPythonAssetsDirectory(@"WideDeep\Configuration.xml"));
+                xmlWriter.WriteStartDocument();
+                xmlWriter.WriteStartElement("Configuration");
+                xmlWriter.WriteStartElement("Directory");
+                xmlWriter.WriteString(ModelType.DeepModel.ToString());
+                xmlWriter.WriteEndElement();
+                xmlWriter.WriteEndElement();
+                xmlWriter.WriteEndDocument();
+                xmlWriter.Close();
+            }
+        }
+
+        private void ModifyModelType()
+        {
+            var configurationDirectory = CurrentDirectory.GetPythonAssetsDirectory(@"WideDeep\Configuration.xml");
+            if (File.Exists(configurationDirectory))
+            {
+                var xmlDoc = new XmlDocument();
+                xmlDoc.Load(configurationDirectory);
+                var directoryElement = xmlDoc.GetElementsByTagName("Directory");
+                if (!string.IsNullOrEmpty(_modelFolderDirectory))
+                {
+                    directoryElement.Item(0).InnerXml = _modelFolderDirectory;
+                }
+                else
+                {
+                    directoryElement.Item(0).InnerXml = SelectedModelType.ToString();
+                }
+                xmlDoc.Save(configurationDirectory);
+            }
         }
 
         #endregion
