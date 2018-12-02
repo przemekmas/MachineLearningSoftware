@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:generalControls="clr-namespace:MachineLearningSoftware.Views.Controls;assembly=MachineLearningSoftware"
+             xmlns:controls="clr-namespace:MachineLearningSoftware.Controls;assembly=MachineLearningSoftware.Controls"
              mc:Ignorable="d" 
              d:DesignWidth="800" d:DesignHeight="600">
 
@@ -13,7 +14,6 @@
             <CollectionViewSource x:Key="EducationVocabulary" Source="{Binding EducationVocabulary}"/>
             <CollectionViewSource x:Key="WorkclassVocabulary" Source="{Binding WorkclassVocabulary}"/>
             <CollectionViewSource x:Key="RelationshipVocabulary" Source="{Binding RelationshipVocabulary}"/>
-            <generalControls:HidePanelControl x:Key="HidePanelControl"/>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -37,8 +37,8 @@
 
         <ScrollViewer Grid.Row="1" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Auto">
             <StackPanel>
-                <generalControls:HidePanelControl Margin="0,0,0,5" Title="Predictions">
-                    <generalControls:HidePanelControl.ContentPlaceholder>
+                <controls:HidePanelControl Margin="0,0,0,5" Title="Predictions">
+                    <controls:HidePanelControl.ContentPlaceholder>
                         <StackPanel>
                             <DataGrid HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                       ItemsSource="{Binding Path=DataContext.PredictionInputValues, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
@@ -69,11 +69,11 @@
                                     RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Height="20"/>
                             </StackPanel>
                         </StackPanel>
-                    </generalControls:HidePanelControl.ContentPlaceholder>
-                </generalControls:HidePanelControl>
+                    </controls:HidePanelControl.ContentPlaceholder>
+                </controls:HidePanelControl>
 
-                <generalControls:HidePanelControl Margin="0,0,0,5" Title="Prediction Results">
-                    <generalControls:HidePanelControl.ContentPlaceholder>
+                <controls:HidePanelControl Margin="0,0,0,5" Title="Prediction Results">
+                    <controls:HidePanelControl.ContentPlaceholder>
                         <StackPanel>
                             <DataGrid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsReadOnly="True" MinHeight="100" MaxHeight="600"
                                       ItemsSource="{Binding Path=DataContext.PredictionOutputValues, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
@@ -104,11 +104,11 @@
                                         Margin="5,0,0,0"/>
                             </StackPanel>
                         </StackPanel>
-                    </generalControls:HidePanelControl.ContentPlaceholder>
-                </generalControls:HidePanelControl>
+                    </controls:HidePanelControl.ContentPlaceholder>
+                </controls:HidePanelControl>
             </StackPanel>
         </ScrollViewer>
         
-        <generalControls:InformationButtonControl Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" Command="{Binding OpenHelpDialog}"/>
+        <controls:InformationButtonControl Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" Command="{Binding OpenHelpDialog}"/>
     </Grid>
 </UserControl>

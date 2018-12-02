@@ -6,13 +6,28 @@
              xmlns:controls="clr-namespace:MachineLearningSoftware.Views.DialogBoxes"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
-    <Grid>
+    <Grid Width="Auto" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <controls:LoadingDialogModal Panel.ZIndex="1" Grid.RowSpan="3" >
+        <ContentControl Grid.Row="0" x:Name="Header">
+            <ContentControl.Style>
+                <Style TargetType="ContentControl">
+                    <Setter Property="Visibility" Value="{Binding HeaderControl.IsHeaderVisible}"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=HeaderControl.IsHeaderVisible, FallbackValue=False, TargetNullValue=False}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=HeaderControl.IsHeaderVisible}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
+        <ContentControl Grid.Row="1" x:Name="Main"/>
+        <controls:LoadingDialogModal Panel.ZIndex="1" Grid.RowSpan="2">
             <controls:LoadingDialogModal.Style>
                 <Style TargetType="controls:LoadingDialogModal">
                     <Setter Property="Visibility" Value="{Binding IsModalVisible}"/>

@@ -13,6 +13,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Emgu.TF", "Emgu.TF\Emgu.TF.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachineLearningSoftware.Views", "MachineLearningSoftware.Views\MachineLearningSoftware.Views.csproj", "{45109E69-C8A6-4F30-BFA5-DA99C6E398B5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachineLearningSoftware.Controls", "MachineLearningSoftware.Controls\MachineLearningSoftware.Controls.csproj", "{A97A106B-802B-4DB4-86F3-1F3324F9E7D5}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Emgu.TF.Models\Emgu.TF.Models.projitems*{4e287989-bc72-4eee-ad9a-8c605ddc2045}*SharedItemsImports = 4
@@ -29,22 +31,30 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4E287989-BC72-4EEE-AD9A-8C605DDC2045}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E287989-BC72-4EEE-AD9A-8C605DDC2045}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E287989-BC72-4EEE-AD9A-8C605DDC2045}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{4E287989-BC72-4EEE-AD9A-8C605DDC2045}.Debug|Any CPU.Build.0 = Debug|x64
 		{4E287989-BC72-4EEE-AD9A-8C605DDC2045}.Debug|x64.ActiveCfg = Debug|x64
 		{4E287989-BC72-4EEE-AD9A-8C605DDC2045}.Debug|x64.Build.0 = Debug|x64
 		{4E287989-BC72-4EEE-AD9A-8C605DDC2045}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E287989-BC72-4EEE-AD9A-8C605DDC2045}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4E287989-BC72-4EEE-AD9A-8C605DDC2045}.Release|x64.ActiveCfg = Release|x64
 		{4E287989-BC72-4EEE-AD9A-8C605DDC2045}.Release|x64.Build.0 = Release|x64
-		{45109E69-C8A6-4F30-BFA5-DA99C6E398B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{45109E69-C8A6-4F30-BFA5-DA99C6E398B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45109E69-C8A6-4F30-BFA5-DA99C6E398B5}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{45109E69-C8A6-4F30-BFA5-DA99C6E398B5}.Debug|Any CPU.Build.0 = Debug|x64
 		{45109E69-C8A6-4F30-BFA5-DA99C6E398B5}.Debug|x64.ActiveCfg = Debug|x64
 		{45109E69-C8A6-4F30-BFA5-DA99C6E398B5}.Debug|x64.Build.0 = Debug|x64
 		{45109E69-C8A6-4F30-BFA5-DA99C6E398B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45109E69-C8A6-4F30-BFA5-DA99C6E398B5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{45109E69-C8A6-4F30-BFA5-DA99C6E398B5}.Release|x64.ActiveCfg = Release|x64
 		{45109E69-C8A6-4F30-BFA5-DA99C6E398B5}.Release|x64.Build.0 = Release|x64
+		{A97A106B-802B-4DB4-86F3-1F3324F9E7D5}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{A97A106B-802B-4DB4-86F3-1F3324F9E7D5}.Debug|Any CPU.Build.0 = Debug|x64
+		{A97A106B-802B-4DB4-86F3-1F3324F9E7D5}.Debug|x64.ActiveCfg = Debug|x64
+		{A97A106B-802B-4DB4-86F3-1F3324F9E7D5}.Debug|x64.Build.0 = Debug|x64
+		{A97A106B-802B-4DB4-86F3-1F3324F9E7D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A97A106B-802B-4DB4-86F3-1F3324F9E7D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A97A106B-802B-4DB4-86F3-1F3324F9E7D5}.Release|x64.ActiveCfg = Release|Any CPU
+		{A97A106B-802B-4DB4-86F3-1F3324F9E7D5}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

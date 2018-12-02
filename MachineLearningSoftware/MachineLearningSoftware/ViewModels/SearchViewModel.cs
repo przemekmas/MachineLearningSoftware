@@ -24,8 +24,11 @@ namespace MachineLearningSoftware.ViewModels
             get { return _searchResult; }
             set
             {
-                _searchResult = value;
-                OnPropertyChanged(nameof(SearchResult));
+                if (_searchResult != value)
+                {
+                    _searchResult = value;
+                    OnPropertyChanged(nameof(SearchResult));
+                }
             }
         }
 
@@ -50,10 +53,19 @@ namespace MachineLearningSoftware.ViewModels
             Task.Run(() => DisplayAllSearchResults(input));
         }
 
-        private void DisplayAllSearchResults(string input)
+        public void DisplaySearchResults(string input, bool showHeader)
+        {
+            IsModalVisible = true;
+            Task.Run(() => DisplayAllSearchResults(input, showHeader));
+        }
+
+        private void DisplayAllSearchResults(string input, bool showHeader = true)
         {
             _headerControl.Description = string.Format(_searchResults, input);
-            ConfigureHeaderControl(_headerControl);
+            if (showHeader)
+            {
+                ConfigureHeaderControl(_headerControl);
+            }
             SearchResult = new ObservableCollection<SearchResultEntity>(_onlineSearchResultsDataAccess.GetSearchResults(input));
             DisplayMatchingPage(input);
             MovePageToTop();

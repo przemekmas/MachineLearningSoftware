@@ -1,4 +1,5 @@
 ﻿using MachineLearningSoftware.Common;
+using MachineLearningSoftware.Controls.Entities;
 using MachineLearningSoftware.DataAccess;
 using MachineLearningSoftware.Entities;
 using MachineLearningSoftware.ViewModels;

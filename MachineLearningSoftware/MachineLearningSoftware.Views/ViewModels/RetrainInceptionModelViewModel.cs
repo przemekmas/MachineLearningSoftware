@@ -1,5 +1,5 @@
 ﻿using MachineLearningSoftware.Common;
-using MachineLearningSoftware.Entities;
+using MachineLearningSoftware.Controls.Entities;
 using MachineLearningSoftware.ViewModels;
 using MachineLearningSoftware.Views.DialogBoxes;
 using System.Collections.Generic;

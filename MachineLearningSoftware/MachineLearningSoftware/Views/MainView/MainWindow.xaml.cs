@@ -1,7 +1,7 @@
 ﻿using MachineLearningSoftware.Common;
+using MachineLearningSoftware.Controls;
 using MachineLearningSoftware.Enumerations;
 using MachineLearningSoftware.ViewModels;
-using MachineLearningSoftware.Views.Controls;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -29,7 +29,7 @@ namespace MachineLearningSoftware
         {
             if (MainMenu1.SelectedItem is MainMenuButtonControl selectedItem)
             {
-                _mainWindowFunctions.OpenPage(selectedItem.TextBlock.Text.ToString());
+                _mainWindowFunctions.OpenPage(selectedItem.PageTitle.ToString());
                 MainMenu1.SelectedItem = null;
             }
         }
@@ -107,6 +107,11 @@ namespace MachineLearningSoftware
 
             MainMenuGrid1.Width = GridLength.Auto;
             MainMenuGridColumn1.Width = GridLength.Auto;
+        }
+
+        private void OnMainWindowLoaded(object sender, RoutedEventArgs e)
+        {
+            _mainWindowFunctions.AddStartPage();
         }
     }
 }

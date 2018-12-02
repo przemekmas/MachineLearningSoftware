@@ -1,5 +1,7 @@
-﻿using MachineLearningSoftware.Entities;
-using MachineLearningSoftware.Views.Controls;
+﻿using MachineLearningSoftware.Controls;
+using MachineLearningSoftware.Entities;
+using MachineLearningSoftware.Views;
+using MachineLearningSoftware.Views.MainView;
 using System;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -15,7 +17,7 @@ namespace MachineLearningSoftware.Common
 
         public void SetMainWindowTabControl(MainWindowTabControl mainWindowTabControl)
         {
-            _mainWindowTabControl = mainWindowTabControl;
+            _mainWindowTabControl = mainWindowTabControl;            
         }
 
         public void OpenPage(string name)
@@ -36,9 +38,25 @@ namespace MachineLearningSoftware.Common
                 searchInstance.SearchResult(searchParameter);
             }
 
-            _mainWindowTabControl.AddUserControlToTabControl(instance, export);
+            AddPage(instance, export.Metadata.PageName);
         }
-                
+
+        public void AddStartPage()
+        {
+            AddPage((IResourceItemEntity)Activator.CreateInstance(typeof(StartView)), "Start Page", false);
+        }
+
+        private void AddPage(IResourceItemEntity instance, string pageName, bool isClosable = true)
+        {
+            var mainWindowTabItem = new MainWindowTabItem();
+            var itemFrame = new Frame();
+            itemFrame.Content = SetupPageUserControls(instance);
+            mainWindowTabItem.Content = itemFrame;
+            mainWindowTabItem.Title = pageName;
+            mainWindowTabItem.IsClosable = isClosable;
+            _mainWindowTabControl.AddPage.Invoke(mainWindowTabItem);
+        }
+
         public void LoadMenuItems(ListBox mainMenuListBox)
         {
             var exports = DependencyInjection.Container.GetExports<IResourceItemEntity, IResourceItemMetadata>();
@@ -50,11 +68,22 @@ namespace MachineLearningSoftware.Common
                     var instance = export.Value;
                     var mainMenuButton = new MainMenuButtonControl();
                     mainMenuButton.MinHeight = 40;
-                    mainMenuButton.Grid.Children.Add(instance.IconControl);
-                    mainMenuButton.TextBlock.Text = export.Metadata.PageName;
+                    mainMenuButton.ContentPlaceholder = instance.IconControl;
+                    mainMenuButton.PageTitle = export.Metadata.PageName;
                     mainMenuListBox.Items.Add(mainMenuButton);
                 }
             }
+        }
+
+        private TabViewPlaceholder SetupPageUserControls(IResourceItemEntity resourceItemEntityInstance)
+        {
+            var pageContent = resourceItemEntityInstance.Page.Content;
+            var tabViewPlaceholder = new TabViewPlaceholder();
+            tabViewPlaceholder.DataContext = resourceItemEntityInstance.Page.DataContext;
+            var windowHeaderControl = new WindowHeaderControl();
+            tabViewPlaceholder.Header.Content = windowHeaderControl;
+            tabViewPlaceholder.Main.Content = resourceItemEntityInstance.Page;
+            return tabViewPlaceholder;
         }
     }
 }

@@ -117,13 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Paragraph1" xml:space="preserve">
-    <value>Object recognition aims to solve the problem of recognising multiple objects that have not been seen before. Therefore it focuses on recognising the category of the object which is challenging because there are many categories of objects in the real world.</value>
+  <data name="DefaultLink" xml:space="preserve">
+    <value>http://http://localhost:6006</value>
   </data>
-  <data name="Paragraph2" xml:space="preserve">
-    <value>Tensorflow is an open source machine learning library and it can be used to train an image classifier with training data, which is simply a directory full of images. Also, Tensorflow for poets is used to train the image classifier that includes a list of labelled images. The classifier is a function which includes a 2D array of the given image. Additionally, Tensorflow will train a neural network behind the scenes which makes it easier for developers to implement.</value>
+  <data name="Go" xml:space="preserve">
+    <value>Go</value>
   </data>
-  <data name="Title" xml:space="preserve">
-    <value>Machine Learning Software</value>
+  <data name="ModelLocation" xml:space="preserve">
+    <value>Model Location:</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="TensorBoardLink" xml:space="preserve">
+    <value>TensorBoard Link:</value>
   </data>
 </root>

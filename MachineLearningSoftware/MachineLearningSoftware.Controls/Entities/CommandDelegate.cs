@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace MachineLearningSoftware.Entities
+namespace MachineLearningSoftware.Controls.Entities
 {
     public class CommandDelegate : ICommand
     {
@@ -9,7 +9,7 @@ namespace MachineLearningSoftware.Entities
         private readonly Action<object> _execute;
 
         public event EventHandler CanExecuteChanged;
-        
+
         public CommandDelegate(Action<object> execute,
                        Predicate<object> canExecute)
         {
@@ -31,15 +31,12 @@ namespace MachineLearningSoftware.Entities
         {
             _execute(parameter);
         }
-        
+
         public void RaiseCanExecuteChanged()
         {
-            if (CanExecuteChanged != null)
-            {
-                CanExecuteChanged(this, EventArgs.Empty);
-            }
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
-        
+
         public bool ExecuteTrue(object context)
         {
             return true;

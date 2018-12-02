@@ -1,11 +1,10 @@
 ﻿using MachineLearningSoftware.Common;
+using MachineLearningSoftware.Controls.Entities;
 using MachineLearningSoftware.Entities;
-using MachineLearningSoftware.Views.Controls;
 using MachineLearningSoftware.Views.DialogBoxes;
 using System;
 using System.ComponentModel.Composition;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace MachineLearningSoftware.ViewModels
@@ -15,8 +14,10 @@ namespace MachineLearningSoftware.ViewModels
     {
         #region Fields
 
+        private readonly MainWindowFunctions _mainWindowFunctions;
         private HelpDialogBox _helpDialog;
         private CloseSoftwareDialog _closeDialog;
+        private Action<string> _searchControlAction;
 
         #endregion
 
@@ -42,18 +43,39 @@ namespace MachineLearningSoftware.ViewModels
             get { return new CommandDelegate(NavigateToPython, CanExecute); }
         }
 
+        public Action<string> SearchControlAction
+        {
+            get { return _searchControlAction; }
+            set
+            {
+                if (_searchControlAction != value)
+                {
+                    _searchControlAction = value;
+                    OnPropertyChanged(nameof(SearchControlAction));
+                }
+            }
+        }
+
         #endregion
 
         #region Constructor
 
-        public MainWindowViewModel()
+        [ImportingConstructor]
+        public MainWindowViewModel(MainWindowFunctions mainWindowFunctions)
         {
             ApplyTheme();
+            _mainWindowFunctions = mainWindowFunctions;
+            SearchControlAction = OnSearch;
         }
 
         #endregion
 
         #region Private Methods
+
+        private void OnSearch(string parameter)
+        {
+            _mainWindowFunctions.OpenPage("Search", parameter);
+        }
 
         private void DisplayHelpDialog(object context)
         {

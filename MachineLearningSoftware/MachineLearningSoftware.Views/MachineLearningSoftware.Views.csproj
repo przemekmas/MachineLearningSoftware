@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\CefSharp.Wpf.69.0.0\build\CefSharp.Wpf.props" Condition="Exists('..\packages\CefSharp.Wpf.69.0.0\build\CefSharp.Wpf.props')" />
+  <Import Project="..\packages\CefSharp.Common.69.0.0\build\CefSharp.Common.props" Condition="Exists('..\packages\CefSharp.Common.69.0.0\build\CefSharp.Common.props')" />
+  <Import Project="..\packages\cef.redist.x86.3.3497.1841\build\cef.redist.x86.props" Condition="Exists('..\packages\cef.redist.x86.3.3497.1841\build\cef.redist.x86.props')" />
+  <Import Project="..\packages\cef.redist.x64.3.3497.1841\build\cef.redist.x64.props" Condition="Exists('..\packages\cef.redist.x64.3.3497.1841\build\cef.redist.x64.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,6 +17,8 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x64</PlatformTarget>
@@ -38,7 +44,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>..\MachineLearningSoftware\bin\x64\Debug\</OutputPath>
+    <OutputPath>..\Binaries\x64\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
@@ -108,6 +114,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Properties\TensorBoardResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TensorBoardResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\WideDeepResource.Designer.cs">
       <DependentUpon>WideDeepResource.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -117,6 +128,7 @@
     <Compile Include="ViewModels\ObjectRecognitionViewModel.cs" />
     <Compile Include="ViewModels\PeopleDetectionViewModel.cs" />
     <Compile Include="ViewModels\RetrainInceptionModelViewModel.cs" />
+    <Compile Include="ViewModels\TensorBoardViewModel.cs" />
     <Compile Include="ViewModels\WideDeepViewModel.cs" />
     <Compile Include="Views\Controls\ButtonIcons\ObjectRecognitionIcon.xaml.cs">
       <DependentUpon>ObjectRecognitionIcon.xaml</DependentUpon>
@@ -127,10 +139,6 @@
     <Compile Include="Views\Controls\ButtonIcons\RetrainInceptionModelIcon.xaml.cs">
       <DependentUpon>RetrainInceptionModelIcon.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Controls\PythonInstallationControl.xaml.cs">
-      <DependentUpon>PythonInstallationControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Controls\ViewModels\PythonInstallationViewModel.cs" />
     <Compile Include="Views\DialogBoxes\InceptionModelHelpDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -154,6 +162,9 @@
     </Compile>
     <Compile Include="Views\RetrainInceptionModel.xaml.cs">
       <DependentUpon>RetrainInceptionModel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TensorBoard.xaml.cs">
+      <DependentUpon>TensorBoard.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WideDeep.xaml.cs">
       <DependentUpon>WideDeep.xaml</DependentUpon>
@@ -181,6 +192,10 @@
       <LastGenOutput>RetrainInceptionModelResource.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\TensorBoardResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TensorBoardResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\WideDeepResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>WideDeepResource.Designer.cs</LastGenOutput>
@@ -191,6 +206,7 @@
     <EmbeddedResource Include="Views\DialogBoxes\WideDeepHelpDialog.resx">
       <DependentUpon>WideDeepHelpDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -202,6 +218,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MachineLearningSoftware.Controls\MachineLearningSoftware.Controls.csproj">
+      <Project>{a97a106b-802b-4db4-86f3-1f3324f9e7d5}</Project>
+      <Name>MachineLearningSoftware.Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MachineLearningSoftware\MachineLearningSoftware.csproj">
       <Project>{4E287989-BC72-4EEE-AD9A-8C605DDC2045}</Project>
       <Name>MachineLearningSoftware</Name>
@@ -217,10 +237,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Controls\ButtonIcons\RetrainInceptionModelIcon.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Controls\PythonInstallationControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -240,6 +256,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\TensorBoard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\WideDeep.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -249,4 +269,17 @@
     <Resource Include="Assets\Images\ImagePlaceholder.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\cef.redist.x64.3.3497.1841\build\cef.redist.x64.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x64.3.3497.1841\build\cef.redist.x64.props'))" />
+    <Error Condition="!Exists('..\packages\cef.redist.x86.3.3497.1841\build\cef.redist.x86.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x86.3.3497.1841\build\cef.redist.x86.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.69.0.0\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.69.0.0\build\CefSharp.Common.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.69.0.0\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.69.0.0\build\CefSharp.Common.targets'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Wpf.69.0.0\build\CefSharp.Wpf.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Wpf.69.0.0\build\CefSharp.Wpf.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Wpf.69.0.0\build\CefSharp.Wpf.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Wpf.69.0.0\build\CefSharp.Wpf.targets'))" />
+  </Target>
+  <Import Project="..\packages\CefSharp.Common.69.0.0\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.69.0.0\build\CefSharp.Common.targets')" />
+  <Import Project="..\packages\CefSharp.Wpf.69.0.0\build\CefSharp.Wpf.targets" Condition="Exists('..\packages\CefSharp.Wpf.69.0.0\build\CefSharp.Wpf.targets')" />
 </Project>

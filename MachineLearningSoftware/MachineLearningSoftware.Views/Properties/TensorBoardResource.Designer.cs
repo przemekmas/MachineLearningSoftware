@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MachineLearningSoftware.Properties {
+namespace MachineLearningSoftware.Views.Properties {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace MachineLearningSoftware.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class StartViewResource {
+    public class TensorBoardResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal StartViewResource() {
+        internal TensorBoardResource() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace MachineLearningSoftware.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MachineLearningSoftware.Properties.StartViewResource", typeof(StartViewResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MachineLearningSoftware.Views.Properties.TensorBoardResource", typeof(TensorBoardResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,56 @@ namespace MachineLearningSoftware.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Object recognition aims to solve the problem of recognising multiple objects that have not been seen before. Therefore it focuses on recognising the category of the object which is challenging because there are many categories of objects in the real world..
+        ///   Looks up a localized string similar to http://http://localhost:6006.
         /// </summary>
-        public static string Paragraph1 {
+        public static string DefaultLink {
             get {
-                return ResourceManager.GetString("Paragraph1", resourceCulture);
+                return ResourceManager.GetString("DefaultLink", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tensorflow is an open source machine learning library and it can be used to train an image classifier with training data, which is simply a directory full of images. Also, Tensorflow for poets is used to train the image classifier that includes a list of labelled images. The classifier is a function which includes a 2D array of the given image. Additionally, Tensorflow will train a neural network behind the scenes which makes it easier for developers to implement..
+        ///   Looks up a localized string similar to Go.
         /// </summary>
-        public static string Paragraph2 {
+        public static string Go {
             get {
-                return ResourceManager.GetString("Paragraph2", resourceCulture);
+                return ResourceManager.GetString("Go", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Machine Learning Software.
+        ///   Looks up a localized string similar to Model Location:.
         /// </summary>
-        public static string Title {
+        public static string ModelLocation {
             get {
-                return ResourceManager.GetString("Title", resourceCulture);
+                return ResourceManager.GetString("ModelLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start.
+        /// </summary>
+        public static string Start {
+            get {
+                return ResourceManager.GetString("Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop.
+        /// </summary>
+        public static string Stop {
+            get {
+                return ResourceManager.GetString("Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TensorBoard Link:.
+        /// </summary>
+        public static string TensorBoardLink {
+            get {
+                return ResourceManager.GetString("TensorBoardLink", resourceCulture);
             }
         }
     }

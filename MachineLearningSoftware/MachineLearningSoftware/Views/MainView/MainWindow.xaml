@@ -3,8 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:controls="clr-namespace:MachineLearningSoftware.Views.Controls"
-        xmlns:custombuttons="clr-namespace:MachineLearningSoftware.Views.Controls.CustomButtons"
+        xmlns:mainControls="clr-namespace:MachineLearningSoftware.Controls;assembly=MachineLearningSoftware.Controls"
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -14,7 +13,8 @@
         BorderBrush="Black"
         BorderThickness="1"
         MinWidth="550"
-        MinHeight="450">
+        MinHeight="450"
+        Loaded="OnMainWindowLoaded">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -59,8 +59,8 @@
                     <ColumnDefinition/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <controls:MainWindowSearchButtonControl x:Name="SearchBox" Grid.Column="1" HorizontalAlignment="Right" Margin="0,2,0,2"/>
-                <custombuttons:GithubButtonControl Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,5,0"/>
+                <mainControls:SearchControl Grid.Column="1" HorizontalAlignment="Right" Margin="0,2,0,2" SearchAction="{Binding SearchControlAction}" Width="200"/>
+                <mainControls:GitHubButtonControl Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,5,0"/>
             </Grid>
             
             <StackPanel Grid.Column="3" Orientation="Horizontal" Height="30" HorizontalAlignment="Right" Margin="0,0,0,0">
@@ -132,7 +132,7 @@
         </Grid>
 
         <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Background="White">
-            <controls:MainWindowTabControl x:Name="TabControl" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ColumnSpan="2"/>
+            <mainControls:MainWindowTabControl x:Name="TabControl" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
         </Border>
     </Grid>
 </Window>

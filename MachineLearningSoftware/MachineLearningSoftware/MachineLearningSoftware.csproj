@@ -56,7 +56,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
+    <OutputPath>..\Binaries\x64\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
@@ -127,39 +127,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Controls\CustomButtons\GithubButtonControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Controls\Dictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Controls\HidePanelControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Controls\InformationButtonControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Controls\MainWindowSearchButtonControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Controls\MainWindowTabControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Controls\MainWindowTabItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Controls\PythonInstallationControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Controls\WindowHeaderControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -195,10 +167,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Controls\MainMenuButtonControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\MainView\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -206,12 +174,6 @@
     <Compile Include="Common\BitmapConverter.cs" />
     <Compile Include="Common\DependencyInjection.cs" />
     <Compile Include="Common\CurrentDirectory.cs" />
-    <Compile Include="Views\Controls\HidePanelControl.xaml.cs">
-      <DependentUpon>HidePanelControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Controls\MainWindowTabControl.xaml.cs">
-      <DependentUpon>MainWindowTabControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="DataAccess\BaseDataAccess.cs" />
     <Compile Include="DataAccess\ExceptionLogDataAccess.cs" />
     <Compile Include="Common\ExecuteCMDCommands.cs" />
@@ -223,7 +185,6 @@
     <Compile Include="Common\Python.cs" />
     <Compile Include="Entities\CensusBaseEntity.cs" />
     <Compile Include="Entities\CensusPredictionOutput.cs" />
-    <Compile Include="Entities\CommandDelegate.cs" />
     <Compile Include="Entities\DigitImage.cs" />
     <Compile Include="Entities\ExceptionEntity.cs" />
     <Compile Include="Entities\FileDialogOption.cs" />
@@ -272,31 +233,14 @@
     <Compile Include="ViewModels\SearchViewModel.cs" />
     <Compile Include="ViewModels\ExceptionLogViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\StartViewModel.cs" />
     <Compile Include="Views\Controls\ButtonIcons\WebIcon.xaml.cs">
       <DependentUpon>WebIcon.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Controls\CustomButtons\GithubButtonControl.xaml.cs">
-      <DependentUpon>GithubButtonControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Controls\InformationButtonControl.xaml.cs">
-      <DependentUpon>InformationButtonControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Controls\MainWindowSearchButtonControl.xaml.cs">
-      <DependentUpon>MainWindowSearchButtonControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Controls\MainWindowTabItem.xaml.cs">
-      <DependentUpon>MainWindowTabItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\PythonInstallationControl.xaml.cs">
       <DependentUpon>PythonInstallationControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Controls\ViewModels\GithubButtonViewModel.cs" />
-    <Compile Include="Views\Controls\ViewModels\HidePanelViewModel.cs" />
     <Compile Include="Views\Controls\ViewModels\PythonInstallationViewModel.cs" />
-    <Compile Include="Views\Controls\ViewModels\MainMenuSearchButtonViewModel.cs" />
-    <Compile Include="Views\Controls\WindowHeaderControl.xaml.cs">
-      <DependentUpon>WindowHeaderControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Converters\ArrayPixelConverter.cs" />
     <Compile Include="Views\MainView\TabViewPlaceholder.xaml.cs">
       <DependentUpon>TabViewPlaceholder.xaml</DependentUpon>
@@ -316,11 +260,7 @@
     <Compile Include="Views\Controls\ButtonIcons\ThemeButtonIcon.xaml.cs">
       <DependentUpon>ThemeButtonIcon.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Controls\MainMenuButtonControl.xaml.cs">
-      <DependentUpon>MainMenuButtonControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Converters\BooleanInvertedConverter.cs" />
-    <Compile Include="Views\Converters\VisibilityConverter.cs" />
     <Compile Include="Views\DialogBoxes\CloseSoftwareDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -404,6 +344,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Content Include="Assets\WebPages\FailedLoad\LoadFail.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\WebPages\FailedLoad\LoadFail.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\WebPages\FailedLoad\SoftwareIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Properties\ChangeThemeResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ChangeThemeResource.Designer.cs</LastGenOutput>
@@ -495,7 +444,9 @@
     <Content Include="Assets\PythonAssets\WideDeep\WideModel\variables\variables.index">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -504,7 +455,12 @@
   <ItemGroup>
     <None Include="Views\MainView\App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\MachineLearningSoftware.Controls\MachineLearningSoftware.Controls.csproj">
+      <Project>{a97a106b-802b-4db4-86f3-1f3324f9e7d5}</Project>
+      <Name>MachineLearningSoftware.Controls</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Images\HelpTensorFlowLogo.png" />
   </ItemGroup>

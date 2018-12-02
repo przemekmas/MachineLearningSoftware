@@ -4,11 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converter="clr-namespace:MachineLearningSoftware.Views.Converters"
+             xmlns:generalConverters="clr-namespace:MachineLearningSoftware.Controls.Converters;assembly=MachineLearningSoftware.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="30">
     <UserControl.Resources>
         <converter:BooleanInvertedConverter x:Key="BooleanInvertedConverter"/>
-        <converter:VisibilityConverter x:Key="VisibilityConverter"/>
+        <generalConverters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>    
     <Grid>
         <Grid.ColumnDefinitions>
@@ -17,7 +18,7 @@
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Column="0" HorizontalAlignment="Right" Margin="0,5,0,0" Text="{Binding PythonInstallationLabel}"
                    TextAlignment="Right" FontSize="12" FontFamily="Calibri"/>
-        <Path Grid.Column="1" Visibility="{Binding PythonInstalled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource VisibilityConverter}}"
+        <Path Grid.Column="1" Visibility="{Binding PythonInstalled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
               HorizontalAlignment="Right" Margin="5" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="#FF00AC00" StrokeThickness="0.26079351" 
               Stroke="#FF000000" Height="18" Stretch="Fill" Width="18"
               VerticalAlignment="Top"
