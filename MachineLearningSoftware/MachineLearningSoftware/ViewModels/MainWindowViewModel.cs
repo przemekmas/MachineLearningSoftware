@@ -16,7 +16,6 @@ namespace MachineLearningSoftware.ViewModels
 
         private readonly MainWindowFunctions _mainWindowFunctions;
         private HelpDialogBox _helpDialog;
-        private CloseSoftwareDialog _closeDialog;
         private Action<string> _searchControlAction;
 
         #endregion
@@ -41,6 +40,11 @@ namespace MachineLearningSoftware.ViewModels
         public ICommand DisplayPythonWebsiteCommand
         {
             get { return new CommandDelegate(NavigateToPython, CanExecute); }
+        }
+
+        public ICommand YesButtonCommand
+        {
+            get { return new CommandDelegate(ExitSoftwareCommand, CanExecute); }
         }
 
         public Action<string> SearchControlAction
@@ -72,6 +76,11 @@ namespace MachineLearningSoftware.ViewModels
 
         #region Private Methods
 
+        private void ExitSoftwareCommand(object parameter)
+        {
+            App.Current.Shutdown();
+        }
+
         private void OnSearch(string parameter)
         {
             _mainWindowFunctions.OpenPage("Search", parameter);
@@ -85,8 +94,7 @@ namespace MachineLearningSoftware.ViewModels
 
         private void DisplayExitDialog(object context)
         {
-            _closeDialog = new CloseSoftwareDialog();
-            _closeDialog.ShowDialog();
+            ShowNewWindow<CloseSoftwareWindow>(this);
         }
 
         private void NavigateToTensorFlow(object context)

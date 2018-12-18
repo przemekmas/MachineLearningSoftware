@@ -1,4 +1,9 @@
-﻿using MachineLearningSoftware.Entities;
+﻿using MachineLearningSoftware.Common;
+using MachineLearningSoftware.Controls;
+using MachineLearningSoftware.Entities;
+using System;
+using System.Reflection;
+using System.Windows;
 
 namespace MachineLearningSoftware.ViewModels
 {
@@ -57,6 +62,30 @@ namespace MachineLearningSoftware.ViewModels
                 Description = description
             };
             HeaderControl = headerControl;
+        }
+
+        protected void ShowNewWindow<T>(object dataContext)
+        {
+            ShowWindow<T>(dataContext);
+        }
+
+        protected void ShowNewWindow<T>()
+        {
+            ShowWindow<T>(null);
+        }
+
+        private void ShowWindow<T>(object dataContext)
+        {
+            var newWindow = DependencyInjection.ResolveSingle<T>();
+            if (newWindow != null && newWindow is Window)
+            {
+                var window = (Window)(object)newWindow;
+                window.Show();
+                if (dataContext != null)
+                {
+                    window.DataContext = dataContext;
+                }
+            }
         }
     }
 }

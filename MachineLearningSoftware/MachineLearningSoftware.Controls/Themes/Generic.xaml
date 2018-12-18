@@ -217,7 +217,7 @@
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid Margin="2" Background="Transparent">
                         <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
-                        <Path x:Name="SearchPath" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        <Path x:Name="SearchPath" 
                             Fill="#FFD3D3D3" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" SnapsToDevicePixels="True"
                             Opacity="1" Stretch="Fill" Data="M 80.685272 91.0144 C 79.379208 90.367903 71.614776 83.071085 58.347469 70.021896 L 54.529665 66.26686 51.370187 67.734818 C 46.434779 70.027903 43.579294 70.716921 38.097522 70.937453 31.066775 71.220303 26.370588 70.1894 20.661352 67.109875 12.000042 62.438025 6.1074544 54.746957 3.6924214 44.961846 2.6575607 40.76885 2.6702999 33.14896 3.7187979 29.184906 6.9977872 16.788038 16.091367 7.5483796 28.344392 4.1637283 32.361475 3.0540898 40.945215 3.0682149 45.022415 4.191173 55.956679 7.2027311 65.909817 15.297509 68.729454 26.475247 l 0.240958 0.797688 0.291901 0.966333 0.202072 1.0204 0.200887 0.925393 c 0.309809 1.187539 0.665223 3.85247 0.755129 6.026785 0.08499 4.515918 -0.392701 7.305243 -1.552404 11.150897 -0.630721 1.811564 -1.633453 4.257875 -2.228293 5.436242 -0.594839 1.178372 -1.081525 2.30394 -1.081525 2.501268 0 0.197325 5.616765 5.947443 12.481697 12.77804 11.276775 11.220375 12.521539 12.574225 12.894429 14.024467 1.527925 5.942433 -4.92035 11.5493 -10.248983 8.91164 z M 43.950987 57.108171 c 5.96746 -2.295596 10.773853 -7.420478 12.72616 -13.569439 1.026922 -3.234382 1.251665 -8.096542 0.518382 -11.215 -1.740317 -7.401153 -8.03761 -13.814842 -15.43895 -15.72432 -2.808796 -0.724643 -7.445246 -0.724643 -10.254041 0 -4.885759 1.260481 -10.247311 5.155909 -12.686259 9.217184 -3.853326 6.416459 -4.256486 14.374347 -1.060398 20.930964 1.427433 2.928311 6.053728 7.682093 8.873677 9.118211 3.935995 2.004486 5.47146 2.323593 10.535714 2.189586 3.79195 -0.100339 5.035586 -0.273936 6.785715 -0.947186 z"/>
                     </Grid>
@@ -293,6 +293,185 @@
                                 </Canvas>
                             </Canvas>
                         </Button>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="HoverOnCloseWindowButton1" TargetType="{x:Type Border}">
+        <Setter Property="Border.Background" Value="Transparent"/>
+        <Style.Triggers>
+            <Trigger Property="Border.IsMouseOver" Value="True">
+            </Trigger>
+
+            <EventTrigger RoutedEvent="MouseEnter">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation To="#f04747" 
+                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                    FillBehavior="HoldEnd" 
+                                    Duration="0:0:0.100"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+
+            <EventTrigger RoutedEvent="MouseLeave">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation To="Transparent" 
+                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                    FillBehavior="HoldEnd" 
+                                    Duration="0:0:0.100"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="HoverOnWindowButton1" TargetType="{x:Type Border}">
+        <Setter Property="Border.Background" Value="Transparent"/>
+        <Style.Triggers>
+            <Trigger Property="Border.IsMouseOver" Value="True">
+            </Trigger>
+
+            <EventTrigger RoutedEvent="MouseEnter">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation To="White" 
+                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                    FillBehavior="HoldEnd" 
+                                    Duration="0:0:0.100"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+
+            <EventTrigger RoutedEvent="MouseLeave">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation To="Transparent" 
+                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" 
+                                    FillBehavior="HoldEnd" 
+                                    Duration="0:0:0.100"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="WindowButtons1" TargetType="{x:Type Button}">
+        <Setter Property="Border.BorderThickness" Value="0"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+    
+    <Style TargetType="{x:Type local:CustomWindowControl}">
+        <Style.Setters>
+            <Setter Property="WindowStyle" Value="None"/>
+            <Setter Property="AllowsTransparency" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type local:CustomWindowControl}">
+                        <Border BorderBrush="Black" BorderThickness="1">
+                            <Grid Style="{DynamicResource MainWindowStyle}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Name="MainMenuGrid1" Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid Name="PART_Header" Grid.Row="0" Grid.ColumnSpan="3" Grid.Column="0" Style="{DynamicResource MainWindowStyle}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="90"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Grid.Column="0" Width="25" Height="25" HorizontalAlignment="Left" Margin="2,0,0,0">
+                                        <Viewbox>
+                                            <Canvas Opacity="1" Width="350" Height="350">
+                                                <Path Fill="Gray" StrokeThickness="10" Stroke="White" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Data="M12.824261,28.57156 L12.824261,0.49999999 25.426987,8.75896 25.426987,22.87087 z M0.50000017,22.21989 L12.824261,28.57156 12.824261,0.49999999 0.50000017,8.52863 z" Canvas.Left="35.629" Canvas.Top="16.725" Height="312.511" Stretch="Fill" Width="278.705"/>
+                                            </Canvas>
+                                        </Viewbox>
+                                    </Border>
+
+                                    <TextBlock Grid.Column="1" Text="{TemplateBinding WindowTitle}" VerticalAlignment="Center" Foreground="White" TextAlignment="Left"/>
+
+                                    <ContentControl Grid.Column="2" Content="{TemplateBinding HeaderContent}"/>
+
+                                    <StackPanel Grid.Column="3" Orientation="Horizontal" Height="30" HorizontalAlignment="Right" Margin="0,0,0,0">
+                                        <Button Name="PART_MinimiseWindowButton" Width="25" Height="25" Background="Transparent" BorderThickness="0" 
+                                                Style="{StaticResource WindowButtons1}" 
+                                                Visibility="{TemplateBinding IsMinimiseButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                            <Border Style="{StaticResource HoverOnWindowButton1}">
+                                                <Viewbox>
+                                                    <Canvas Width="150" Height="150">
+                                                        <Path Name="path41" Fill="#FF4D4D4D" StrokeThickness="0.11301354" Data="m -23.786549 191.26878 v 4.74926 h -34.07144 v -4.74926 z" Width="100.139" Height="10.967" Stretch="Fill" Canvas.Left="24.655" Canvas.Top="118.244"/>
+                                                    </Canvas>
+                                                </Viewbox>
+                                            </Border>
+                                        </Button>
+
+                                        <Button Name="PART_MaximiseWindowButton" Width="25" Height="25" Background="Transparent" BorderThickness="0" 
+                                                Style="{StaticResource WindowButtons1}"
+                                                Visibility="{TemplateBinding IsMaximiseButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                            <Border Style="{StaticResource HoverOnWindowButton1}">
+                                                <Viewbox>
+                                                    <Canvas Width="150" Height="150">
+                                                        <Path Fill="#FF4D4D4D" StrokeThickness="0.11301354" Data="M38.820701,43.13975 L38.820701,47.88901 4.749261,47.88901 4.749261,43.13975 z M38.820701,1.9895197E-13 L38.820701,4.74926 4.749261,4.74926 4.749261,1.9895197E-13 z M38.820701,1.9895197E-13 L43.569962,1.9895197E-13 43.569962,47.88901 38.820701,47.88901 z M-7.1054322E-15,1.9895197E-13 L4.749261,1.9895197E-13 4.749261,47.88901 -7.1054322E-15,47.88901 z" Height="108.288" Canvas.Left="21.584" Stretch="Fill" Canvas.Top="22.206" Width="102.712"/>
+                                                    </Canvas>
+                                                </Viewbox>
+                                            </Border>
+                                        </Button>
+
+                                        <Button Width="25" Height="25" Background="Transparent" BorderThickness="0" Command="{TemplateBinding ExitWindowCommand}" 
+                                                Style="{StaticResource WindowButtons1}"
+                                                Visibility="{TemplateBinding IsCloseButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                            <Border Style="{StaticResource HoverOnCloseWindowButton1}">
+                                                <Viewbox>
+                                                    <Canvas Width="150" Height="150">
+                                                        <Path Fill="#FF4D4D4D" StrokeThickness="0.42713779" Data="M 52.742188 52.476562 L 40.048828 65.167969 L 79.761719 104.88086 L 40.314453 144.32812 L 53.005859 157.01953 L 92.453125 117.57227 L 131.10547 156.22461 L 143.79883 143.5332 L 105.14453 104.87891 L 144.0625 65.962891 L 131.37109 53.271484 L 92.453125 92.1875 L 52.742188 52.476562 z " Canvas.Left="30.717" Height="98.784" Stretch="Fill" Width="90.632" Canvas.Top="25.108"/>
+                                                    </Canvas>
+                                                </Viewbox>
+                                            </Border>
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                                <AdornerDecorator Grid.Row="1" Grid.ColumnSpan="2">
+                                    <ContentPresenter/>
+                                </AdornerDecorator>
+                                <Button Name="PART_ResizeButton" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="15" Height="15"
+                                        BorderThickness="0" Background="Transparent" Cursor="Arrow" 
+                                        Visibility="{TemplateBinding CanResizeWindow, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <Viewbox Stretch="Uniform">
+                                        <Canvas Width="25" Height="25" Opacity="0.2">
+                                            <Ellipse  Canvas.Left="20" Width="4" Canvas.Top="1" Height="4" Fill="#FF363638" StrokeThickness="6.98518515" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Opacity="1"/>
+                                            <Ellipse  Canvas.Left="20" Width="4" Canvas.Top="7" Height="4" Fill="#FF363638" StrokeThickness="6.98518515" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Opacity="1"/>
+                                            <Ellipse  Canvas.Left="20" Width="4" Canvas.Top="13" Height="4" Fill="#FF363638" StrokeThickness="6.98518515" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Opacity="1"/>
+                                            <Ellipse  Canvas.Left="20" Width="4" Canvas.Top="19" Height="4" Fill="#FF363638" StrokeThickness="6.98518515" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Opacity="1"/>
+                                            <Ellipse  Canvas.Left="15" Width="4" Canvas.Top="7" Height="4" Fill="#FF363638" StrokeThickness="6.98518515" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Opacity="1"/>
+                                            <Ellipse  Canvas.Left="15" Width="4" Canvas.Top="13" Height="4" Fill="#FF363638" StrokeThickness="6.98518515" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Opacity="1"/>
+                                            <Ellipse  Canvas.Left="15" Width="4" Canvas.Top="19" Height="4" Fill="#FF363638" StrokeThickness="6.98518515" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Opacity="1"/>
+                                            <Ellipse  Canvas.Left="10" Width="4" Canvas.Top="13" Height="4" Fill="#FF363638" StrokeThickness="6.98518515" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Opacity="1"/>
+                                            <Ellipse  Canvas.Left="10" Width="4" Canvas.Top="19" Height="4" Fill="#FF363638" StrokeThickness="6.98518515" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Opacity="1"/>
+                                            <Ellipse  Canvas.Left="5" Width="4" Canvas.Top="19" Height="4" Fill="#FF363638" StrokeThickness="6.98518515" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Opacity="1"/>
+                                        </Canvas>
+                                    </Viewbox>
+                                </Button>
+                            </Grid>
+                        </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>

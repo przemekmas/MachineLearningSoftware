@@ -117,19 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CloseWindowTitle" xml:space="preserve">
-    <value>Exit</value>
+  <data name="ChooseFile" xml:space="preserve">
+    <value>Choose File</value>
   </data>
-  <data name="ExitMessage" xml:space="preserve">
-    <value>Are you sure you want to exit?</value>
+  <data name="ChoosePredictionColumn" xml:space="preserve">
+    <value>Choose Prediction Column</value>
   </data>
-  <data name="No" xml:space="preserve">
-    <value>No</value>
+  <data name="CleanData" xml:space="preserve">
+    <value>Clean Data</value>
   </data>
-  <data name="SoftwareInformation" xml:space="preserve">
-    <value>The machine learning software has been developed by Przemyslaw Maslowski.</value>
+  <data name="ColumnPredictionsTitle" xml:space="preserve">
+    <value>Column Prediction Values</value>
   </data>
-  <data name="Yes" xml:space="preserve">
-    <value>Yes</value>
+  <data name="Columns" xml:space="preserve">
+    <value>Columns</value>
+  </data>
+  <data name="DataVisualisationTitle" xml:space="preserve">
+    <value>Column Data Visualisation</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>Export Data</value>
+  </data>
+  <data name="LimitRowRead" xml:space="preserve">
+    <value>Limit Row Read</value>
+  </data>
+  <data name="PredictionValues" xml:space="preserve">
+    <value>Prediction Values</value>
+  </data>
+  <data name="Properties" xml:space="preserve">
+    <value>Properties</value>
+  </data>
+  <data name="RegexFilter" xml:space="preserve">
+    <value>Filter By Regular Expression</value>
+  </data>
+  <data name="SelectColumnDataOccurance" xml:space="preserve">
+    <value>Selected Column Data Occurance Count</value>
+  </data>
+  <data name="SelectColumnToVisualise" xml:space="preserve">
+    <value>Select Column To Visualise</value>
+  </data>
+  <data name="ShowCorruptValues" xml:space="preserve">
+    <value>Show Corrupt Values</value>
+  </data>
+  <data name="ShowDuplicates" xml:space="preserve">
+    <value>Show Duplicates</value>
+  </data>
+  <data name="ShowPredictionValues" xml:space="preserve">
+    <value>Show Prediction Values</value>
+  </data>
+  <data name="VisualiseColumn" xml:space="preserve">
+    <value>Visualise Column</value>
+  </data>
+  <data name="VisualiseData" xml:space="preserve">
+    <value>Visualise Column Data</value>
   </data>
 </root>

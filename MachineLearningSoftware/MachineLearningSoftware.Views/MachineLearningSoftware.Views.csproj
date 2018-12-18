@@ -61,10 +61,18 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EPPlus, Version=4.5.2.1, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.2.1\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Controls.DataVisualization.Toolkit, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Controls.DataVisualization.Toolkit.4.0.0.0\lib\net40-Client\System.Windows.Controls.DataVisualization.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -80,9 +88,15 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\CleanDataEntity.cs" />
     <Compile Include="Enumerations\ModelType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\CleanDataResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CleanDataResource.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\MNISTResource.Designer.cs">
       <DependentUpon>MNISTResource.resx</DependentUpon>
@@ -124,12 +138,22 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="ViewModels\CleanDataViewModel.cs" />
     <Compile Include="ViewModels\MNISTViewModel.cs" />
     <Compile Include="ViewModels\ObjectRecognitionViewModel.cs" />
     <Compile Include="ViewModels\PeopleDetectionViewModel.cs" />
     <Compile Include="ViewModels\RetrainInceptionModelViewModel.cs" />
     <Compile Include="ViewModels\TensorBoardViewModel.cs" />
     <Compile Include="ViewModels\WideDeepViewModel.cs" />
+    <Compile Include="Views\CleanData.xaml.cs">
+      <DependentUpon>CleanData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CleanDataPredicitonValuesView.xaml.cs">
+      <DependentUpon>CleanDataPredicitonValuesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CleanDataVisualizationView.xaml.cs">
+      <DependentUpon>CleanDataVisualizationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Controls\ButtonIcons\ObjectRecognitionIcon.xaml.cs">
       <DependentUpon>ObjectRecognitionIcon.xaml</DependentUpon>
     </Compile>
@@ -169,6 +193,10 @@
     <Compile Include="Views\WideDeep.xaml.cs">
       <DependentUpon>WideDeep.xaml</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Properties\CleanDataResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CleanDataResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\MNISTResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MNISTResource.Designer.cs</LastGenOutput>
@@ -206,7 +234,9 @@
     <EmbeddedResource Include="Views\DialogBoxes\WideDeepHelpDialog.resx">
       <DependentUpon>WideDeepHelpDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -228,6 +258,18 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\CleanData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CleanDataPredicitonValuesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CleanDataVisualizationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Controls\ButtonIcons\ObjectRecognitionIcon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

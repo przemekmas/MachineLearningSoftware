@@ -1,28 +1,25 @@
 ﻿using MachineLearningSoftware.Common;
 using MachineLearningSoftware.Controls;
-using MachineLearningSoftware.Enumerations;
 using MachineLearningSoftware.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace MachineLearningSoftware
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : CustomWindowControl
     {
         private MainWindowViewModel _viewModel = DependencyInjection.ResolveSingle<MainWindowViewModel>();
         private MainWindowFunctions _mainWindowFunctions = DependencyInjection.ResolveSingle<MainWindowFunctions>();
-        private MainWindowState _windowState;
         
         public MainWindow()
         {
             InitializeComponent();
             DataContext = _viewModel;
             _mainWindowFunctions.SetMainWindowTabControl(TabControl);
-            _mainWindowFunctions.LoadMenuItems(MainMenu1);
+            _mainWindowFunctions.LoadMenuItems(MainMenu1);            
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -37,49 +34,6 @@ namespace MachineLearningSoftware
         private void HideMenuButton1_Click(object sender, RoutedEventArgs e)
         {
             ShowOrHideMenu();
-        }
-
-        private void TopBorder_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                DragMove();
-            }                
-        }
-        
-        private void OnClickMaximiseWindow(object sender, RoutedEventArgs e)
-        {
-            if (_windowState == MainWindowState.Normal)
-            {
-                MaximiseWindow();
-            }
-            else
-            {
-                RestoreWindow();
-            }
-        }
-
-        private void RestoreWindow()
-        {
-            Width = 800;
-            Height = 600;
-            Left = (SystemParameters.WorkArea.Width - Width) / 2;
-            Top = (SystemParameters.WorkArea.Height - Height) / 2;
-            _windowState = MainWindowState.Normal;
-        }
-
-        private void MaximiseWindow()
-        {
-            Width = SystemParameters.WorkArea.Width;
-            Height = SystemParameters.WorkArea.Height;
-            Left = 0;
-            Top = 0;
-            _windowState = MainWindowState.Maximised;
-        }
-
-        private void OnClickMinimiseWindow(object sender, RoutedEventArgs e)
-        {
-            SystemCommands.MinimizeWindow(this);
         }
 
         private void OnClickShowMenu(object sender, RoutedEventArgs e)
@@ -112,6 +66,7 @@ namespace MachineLearningSoftware
         private void OnMainWindowLoaded(object sender, RoutedEventArgs e)
         {
             _mainWindowFunctions.AddStartPage();
+            SetBinding(ExitWindowCommandProperty, "DisplayExitDialogCommand");
         }
     }
 }

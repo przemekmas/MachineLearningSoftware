@@ -135,6 +135,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\DialogBoxes\CloseSoftwareWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainView\MainWindowDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -197,7 +201,6 @@
     <Compile Include="Entities\ThemeConstantsEntity.cs" />
     <Compile Include="Entities\ThemeEntity.cs" />
     <Compile Include="Entities\TimerEvent.cs" />
-    <Compile Include="Enumerations\MainWindowState.cs" />
     <Compile Include="Properties\ChangeThemeResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -242,6 +245,9 @@
     </Compile>
     <Compile Include="Views\Controls\ViewModels\PythonInstallationViewModel.cs" />
     <Compile Include="Views\Converters\ArrayPixelConverter.cs" />
+    <Compile Include="Views\DialogBoxes\CloseSoftwareWindow.xaml.cs">
+      <DependentUpon>CloseSoftwareWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainView\TabViewPlaceholder.xaml.cs">
       <DependentUpon>TabViewPlaceholder.xaml</DependentUpon>
     </Compile>
@@ -366,7 +372,7 @@
       <LastGenOutput>LoadingDialogBoxResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\MainWindowResource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MainWindowResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
