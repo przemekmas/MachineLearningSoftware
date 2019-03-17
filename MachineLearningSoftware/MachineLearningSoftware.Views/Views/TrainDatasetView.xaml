@@ -1,0 +1,97 @@
+﻿<UserControl x:Class="MachineLearningSoftware.Views.Views.TrainDatasetView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Grid.ColumnSpan="3" Header="Properties" Margin="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Margin="5" VerticalAlignment="Center" Text="Select Dataset File"/>
+                <Button Margin="5" Grid.Column="1" Content="Browse" Command="{Binding OpenFileDialogCommand}"
+                        HorizontalAlignment="Stretch"/>
+                <TextBlock Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center" Text="{Binding SelectedFile}"/>
+
+                <CheckBox Grid.Row="1" Grid.Column="0" Margin="5" Content="Split Up Validation and Train Data" IsChecked="{Binding CanSplitUpData}"/>
+                <ComboBox Grid.Row="1" Grid.Column="1" Margin="5" SelectedItem="{Binding SelectedDataSplitPercentage}" 
+                          ItemsSource="{Binding DataSplitPercentages}"/>
+                <TextBlock Grid.Row="1" Grid.Column="2" Margin="5" Text="Seed"/>
+                <TextBox Grid.Row="1" Grid.Column="3" Margin="5" Text="{Binding SplitDataSeed}"/>
+
+                <ItemsControl Grid.Row="2" Grid.ColumnSpan="4" ItemsSource="{Binding ColumnNames, Mode=TwoWay}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="4" Margin="1"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Margin="5" Text="{Binding GeneratedColumnName}"/>
+                                <TextBox Grid.Column="1" Margin="5" Text="{Binding NewColumnName}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <TextBlock Grid.Row="3" Text="Select Prediction Column" VerticalAlignment="Center" Margin="5"/>
+                <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding ColumnNames, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="NewColumnName"
+                          SelectedIndex="{Binding SelectedPredictionColumn}" Margin="5"/>
+
+                <TextBlock Grid.Row="3" Grid.Column="2" Text="Select Model" VerticalAlignment="Center" Margin="5"/>
+                <ComboBox Grid.Row="3" Grid.Column="3" ItemsSource="{Binding Models}"
+                          SelectedItem="{Binding SelectedModel}" Margin="5"/>
+
+                <TextBlock Grid.Row="4" Text="Train Data File Path" VerticalAlignment="Center" Margin="5"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Margin="5" Text="{Binding TrainDataFilePath}"/>
+
+                <TextBlock Grid.Row="4" Grid.Column="2" Text="Validation Data File Path" VerticalAlignment="Center" Margin="5"/>
+                <TextBox Grid.Row="4" Grid.Column="3" Margin="5" Text="{Binding ValidationDataFilePath}"/>
+
+                <TextBlock Grid.Row="5" Text="Predict Value" VerticalAlignment="Center" Margin="5"/>
+                <TextBox Grid.Row="5" Grid.Column="1" Margin="5" Text="{Binding PredictValue}"/>
+                <CheckBox Grid.Row="5" Grid.Column="2" Content="Predict All Classes" Margin="5" IsChecked="{Binding PredictAllClasses}"
+                          VerticalAlignment="Center"/>
+                <TextBox Grid.Row="5" Grid.Column="3" Margin="5" Text="{Binding NumberOfClasses}"/>
+            </Grid>
+        </GroupBox>
+        <RichTextBox Grid.Row="1" Grid.ColumnSpan="3" Margin="5">
+            <FlowDocument>
+                <Paragraph>
+                    <Run x:Name="TextBoxArea" Text="{Binding GeneratedPythonCode}"/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <Button Grid.Row="2" Content="Generate Script" Margin="5" Height="30" Width="120" Command="{Binding GeneratePythonScript}"/>
+    </Grid>
+</UserControl>

@@ -297,13 +297,14 @@ namespace MachineLearningSoftware.Views.ViewModels
         private void Predict(object context)
         {
             IsModalVisible = true;
-            Task.Run(() => predict());
+            Task.Run(() => Predict());
         }
 
-        private void predict()
+        private void Predict()
         {
             ModifyModelType();
-            var commands = new List<string>() { string.Format("cd {0}", CurrentDirectory.GetPythonAssetsDirectory("WideDeep")), @"python WideDeepPredict.py" };
+            var commands = new List<string>() { string.Format("cd {0}", 
+                CurrentDirectory.GetPythonAssetsDirectory("WideDeep")), @"python WideDeepPredict.py" };
             ExecuteCMDCommands.RunMultipleCommands(commands, false);
             GetPredictionResults();
             IsModalVisible = false;

@@ -453,7 +453,7 @@
                                     <ContentPresenter/>
                                 </AdornerDecorator>
                                 <Button Name="PART_ResizeButton" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="15" Height="15"
-                                        BorderThickness="0" Background="Transparent" Cursor="Arrow" 
+                                        BorderThickness="0" Background="Transparent" Cursor="SizeNWSE" 
                                         Visibility="{TemplateBinding CanResizeWindow, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <Viewbox Stretch="Uniform">
                                         <Canvas Width="25" Height="25" Opacity="0.2">

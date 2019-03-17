@@ -41,7 +41,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="MainMenuButtonStyle" TargetType="{x:Type Button}">
+    <Style x:Key="MainMenuButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource BaseMainMenuButtonStyle}">
         <Setter Property="Background" Value="#3f525b"/>
         <Setter Property="BorderBrush" Value="Black"/>
     </Style>

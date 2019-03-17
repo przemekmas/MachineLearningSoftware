@@ -61,11 +61,29 @@ namespace MachineLearningSoftware.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}% out of 100%.
+        /// </summary>
+        public static string EstimatedTimeMessage {
+            get {
+                return ResourceManager.GetString("EstimatedTimeMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading.
         /// </summary>
         public static string LoadingMessage {
             get {
                 return ResourceManager.GetString("LoadingMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operation {0} out of {1}.
+        /// </summary>
+        public static string OperationCountMessage {
+            get {
+                return ResourceManager.GetString("OperationCountMessage", resourceCulture);
             }
         }
         

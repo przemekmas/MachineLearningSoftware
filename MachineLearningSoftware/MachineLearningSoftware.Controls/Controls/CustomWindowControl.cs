@@ -103,7 +103,7 @@ namespace MachineLearningSoftware.Controls
             maximiseButton.Click += new RoutedEventHandler(OnMaximiseWindowClick);
             resizeButton.PreviewMouseMove += new MouseEventHandler(OnResizeButtonMouseMove);
             ExitWindowCommand = ExitDialogCommand;
-            Title = WindowTitle;
+            Title = WindowTitle == null ? Title : WindowTitle;
         }
 
         private void CloseWindowButtonCommand(object parameter)

@@ -139,6 +139,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\DialogBoxes\InformationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DialogBoxes\LoadingProgressDialogModal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\MainView\MainWindowDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -247,6 +255,12 @@
     <Compile Include="Views\Converters\ArrayPixelConverter.cs" />
     <Compile Include="Views\DialogBoxes\CloseSoftwareWindow.xaml.cs">
       <DependentUpon>CloseSoftwareWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogBoxes\InformationWindow.xaml.cs">
+      <DependentUpon>InformationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogBoxes\LoadingProgressDialogModal.xaml.cs">
+      <DependentUpon>LoadingProgressDialogModal.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainView\TabViewPlaceholder.xaml.cs">
       <DependentUpon>TabViewPlaceholder.xaml</DependentUpon>

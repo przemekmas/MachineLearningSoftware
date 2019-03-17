@@ -42,5 +42,20 @@
                 </Style>                
             </controls:LoadingDialogModal.Style>
         </controls:LoadingDialogModal>
+        <controls:LoadingProgressDialogModal Panel.ZIndex="1" Grid.RowSpan="2">
+            <controls:LoadingProgressDialogModal.Style>
+                <Style TargetType="controls:LoadingProgressDialogModal">
+                    <Setter Property="Visibility" Value="{Binding IsProgressModalVisible}"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=IsProgressModalVisible, FallbackValue=False, TargetNullValue=False}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=IsProgressModalVisible}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </controls:LoadingProgressDialogModal.Style>
+        </controls:LoadingProgressDialogModal>
     </Grid>
 </UserControl>

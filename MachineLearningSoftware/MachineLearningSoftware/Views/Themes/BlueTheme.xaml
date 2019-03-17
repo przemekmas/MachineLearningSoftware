@@ -19,8 +19,8 @@
     <Style x:Key="BorderStyle" TargetType="{x:Type Border}">
         <Setter Property="Background" Value="#FF50A4F7"/>
     </Style>
-    
-    <Style x:Key="MainMenuButtonStyle" TargetType="{x:Type Button}">
+
+    <Style x:Key="MainMenuButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource BaseMainMenuButtonStyle}">
         <Setter Property="Background" Value="#FF00C7F3"/>
         <Setter Property="BorderBrush" Value="#FF010D36"/>
     </Style>

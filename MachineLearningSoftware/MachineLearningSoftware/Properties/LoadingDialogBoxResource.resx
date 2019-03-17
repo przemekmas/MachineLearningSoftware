@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="EstimatedTimeMessage" xml:space="preserve">
+    <value>{0}% out of 100%</value>
+  </data>
   <data name="LoadingMessage" xml:space="preserve">
     <value>Loading</value>
+  </data>
+  <data name="OperationCountMessage" xml:space="preserve">
+    <value>Operation {0} out of {1}</value>
   </data>
   <data name="OperationTimeMessage" xml:space="preserve">
     <value>This operation might take a while</value>

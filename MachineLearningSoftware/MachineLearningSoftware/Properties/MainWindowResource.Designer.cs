@@ -88,6 +88,15 @@ namespace MachineLearningSoftware.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string Ok {
+            get {
+                return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The machine learning software has been developed by Przemyslaw Maslowski..
         /// </summary>
         public static string SoftwareInformation {

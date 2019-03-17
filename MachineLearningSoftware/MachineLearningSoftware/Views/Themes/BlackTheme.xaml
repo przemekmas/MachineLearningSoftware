@@ -21,9 +21,9 @@
         <Setter Property="Background" Value="DimGray"/>
     </Style>
 
-    <Style x:Key="MainMenuButtonStyle" TargetType="{x:Type Button}">
+    <Style x:Key="MainMenuButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource BaseMainMenuButtonStyle}">
         <Setter Property="Background" Value="#8A8D91"/>
-        <Setter Property="BorderBrush" Value="#1B2432"/>
+        <Setter Property="BorderBrush" Value="#1B2432"/>        
     </Style>
 
     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseButtonStyle}">

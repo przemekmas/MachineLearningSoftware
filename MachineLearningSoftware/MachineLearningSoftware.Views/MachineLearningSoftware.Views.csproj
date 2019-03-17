@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\CleanDataEntity.cs" />
+    <Compile Include="Entities\ColumnName.cs" />
     <Compile Include="Enumerations\ModelType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -144,6 +145,7 @@
     <Compile Include="ViewModels\PeopleDetectionViewModel.cs" />
     <Compile Include="ViewModels\RetrainInceptionModelViewModel.cs" />
     <Compile Include="ViewModels\TensorBoardViewModel.cs" />
+    <Compile Include="ViewModels\TrainDatasetViewModel.cs" />
     <Compile Include="ViewModels\WideDeepViewModel.cs" />
     <Compile Include="Views\CleanData.xaml.cs">
       <DependentUpon>CleanData.xaml</DependentUpon>
@@ -189,6 +191,9 @@
     </Compile>
     <Compile Include="Views\TensorBoard.xaml.cs">
       <DependentUpon>TensorBoard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TrainDatasetView.xaml.cs">
+      <DependentUpon>TrainDatasetView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WideDeep.xaml.cs">
       <DependentUpon>WideDeep.xaml</DependentUpon>
@@ -302,6 +307,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\TrainDatasetView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\WideDeep.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -309,6 +318,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\ImagePlaceholder.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\PythonAssets\WideDeepTrain.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

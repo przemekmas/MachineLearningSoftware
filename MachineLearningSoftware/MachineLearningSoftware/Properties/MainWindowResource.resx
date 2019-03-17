@@ -126,6 +126,9 @@
   <data name="No" xml:space="preserve">
     <value>No</value>
   </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
   <data name="SoftwareInformation" xml:space="preserve">
     <value>The machine learning software has been developed by Przemyslaw Maslowski.</value>
   </data>
