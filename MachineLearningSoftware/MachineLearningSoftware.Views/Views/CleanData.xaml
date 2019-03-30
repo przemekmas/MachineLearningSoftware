@@ -23,12 +23,13 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -44,25 +45,30 @@
                           Margin="5" VerticalAlignment="Center"/>
                 <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding IsLimitRowsChecked}" Content="{x:Static resx:CleanDataResource.LimitRowRead}" Margin="5"
                           VerticalAlignment="Center"/>
-                <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding ColumnsDictionary, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Value"
+                <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding ColumnsDictionary, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Value"
                           Margin="5" SelectedIndex="{Binding SelectedColumnIndex}"/>
-                
-                <Button Grid.Row="4" Grid.Column="1" Content="{x:Static resx:CleanDataResource.PredictionValues}" Command="{Binding ShowPredictionValues}" 
+
+                <Button Grid.Row="5" Grid.Column="1" Content="{x:Static resx:CleanDataResource.PredictionValues}" Command="{Binding ShowPredictionValues}" 
                         Margin="5" Padding="5" Height="25"/>
-                <Button Grid.Row="4" Grid.Column="2" Content="{x:Static resx:CleanDataResource.VisualiseData}" Command="{Binding ShowVisualisationCommand}"
+                <Button Grid.Row="5" Grid.Column="2" Content="{x:Static resx:CleanDataResource.VisualiseData}" Command="{Binding ShowVisualisationCommand}"
                         Margin="5" Padding="5" Height="25"/>
-                <Button Grid.Row="3" Grid.Column="2" Content="{x:Static resx:CleanDataResource.Delete}" Margin="5" Command="{Binding DeleteColumnCommand}"
+                <Button Grid.Row="4" Grid.Column="2" Content="{x:Static resx:CleanDataResource.Delete}" Margin="5" Command="{Binding DeleteColumnCommand}"
                         CommandParameter="{Binding ElementName=DataGrid}" Height="25"/>
-                
+                <Button Grid.Row="3" Grid.Column="2" Content="{x:Static resx:CleanDataResource.Execute}" Margin="5" Command="{Binding ExecuteDynamicFunction}"
+                        CommandParameter="{Binding ElementName=DataGrid}" Height="25"/>
+
                 <TextBlock Grid.Row="1" Grid.Column="2" Text="{x:Static resx:CleanDataResource.RegexFilter}" VerticalAlignment="Center" Margin="10, 0"/>
-                
                 <TextBlock Grid.Row="1" Grid.Column="4" Text="{Binding CorruptValueCount}" TextAlignment="Right" Margin="5"
                            VerticalAlignment="Center"/>
                 <TextBlock Grid.Row="0" Grid.Column="4" Text="{Binding DuplicateCount}" TextAlignment="Right" Margin="5"
                            VerticalAlignment="Center"/>
-                <TextBlock Grid.Row="3" Text="{x:Static resx:CleanDataResource.Columns}" TextAlignment="Left" Margin="5"
+                <TextBlock Grid.Row="4" Text="{x:Static resx:CleanDataResource.Columns}" TextAlignment="Left" Margin="5"
                            VerticalAlignment="Center"/>
-                <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding RegularExpression}" Margin="2"/>
+                <TextBlock Grid.Row="3" Text="{x:Static resx:CleanDataResource.Function}" TextAlignment="Left" Margin="5"
+                           VerticalAlignment="Center"/>
+
+                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding DynamicFunction}" Margin="5" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding RegularExpression}" Margin="2" VerticalAlignment="Center"/>
                 <TextBox Grid.Row="2" Grid.Column="2" Margin="2" Text="{Binding RowReadLimit}" VerticalAlignment="Center"/>
             </Grid>
         </GroupBox>

@@ -1,4 +1,5 @@
-﻿using MachineLearningSoftware.Controls.Entities;
+﻿using MachineLearningSoftware.Common;
+using MachineLearningSoftware.Controls.Entities;
 using MachineLearningSoftware.DataAccess;
 using MachineLearningSoftware.ViewModels;
 using MachineLearningSoftware.Views.Entities;
@@ -23,6 +24,7 @@ namespace MachineLearningSoftware.Views.ViewModels
     [PartCreationPolicy(CreationPolicy.NonShared)]
     public class CleanDataViewModel : BaseViewModel
     {
+        private readonly DynamicFunctions _dynamicFunctions;
         private readonly ExceptionLogDataAccess _exceptionLogDataAccess;
         private bool _isCorruptValuesChecked;
         private bool _isShowDuplicatesChecked;
@@ -39,6 +41,7 @@ namespace MachineLearningSoftware.Views.ViewModels
         private Dictionary<int, string> _columnsDictionary = new Dictionary<int, string>();
         private List<Dictionary<int, string>> _predictionValues = new List<Dictionary<int, string>>();
         private ObservableCollection<KeyValuePair<string, int>> _selectedColumnItemsCount;
+        private string _dynamicFunction = "=IfEqualTo(Column 0, x, trueValue, falseValue)";
 
         private ObservableCollection<CleanDataEntity> CleanDataItems { get; } = new ObservableCollection<CleanDataEntity>();
 
@@ -224,6 +227,19 @@ namespace MachineLearningSoftware.Views.ViewModels
             }
         }
 
+        public string DynamicFunction
+        {
+            get { return _dynamicFunction; }
+            set
+            {
+                if (_dynamicFunction != value)
+                {
+                    _dynamicFunction = value;
+                    OnPropertyChanged(nameof(DynamicFunction));
+                }
+            }
+        }
+
         public ICommand BrowseFileCommand
         {
             get { return new CommandDelegate(OnBrowseFile, CanExecute); }
@@ -264,10 +280,16 @@ namespace MachineLearningSoftware.Views.ViewModels
             get { return new CommandDelegate((_) => ShowNewWindow<CleanDataVisualizationView>(this), CanExecute); }
         }
 
+        public ICommand ExecuteDynamicFunction
+        {
+            get { return new CommandDelegate(ExecuteFunction, CanExecute); }
+        }
+
         [ImportingConstructor]
-        public CleanDataViewModel(ExceptionLogDataAccess exceptionLogDataAccess)
+        public CleanDataViewModel(ExceptionLogDataAccess exceptionLogDataAccess, DynamicFunctions dynamicFunctions)
         {
             _exceptionLogDataAccess = exceptionLogDataAccess;
+            _dynamicFunctions = dynamicFunctions;
         }
 
         private void OnVisualiseColumnn()
@@ -432,7 +454,7 @@ namespace MachineLearningSoftware.Views.ViewModels
                 }
 
                 CheckAndSetDuplicates();
-                CreateeColumnsAndBindings(dataGrid, columnCount);
+                CreateColumnsAndBindings(dataGrid, columnCount);
             }
         }
 
@@ -470,7 +492,7 @@ namespace MachineLearningSoftware.Views.ViewModels
                         }
 
                         CheckAndSetDuplicates();
-                        CreateeColumnsAndBindings(dataGrid, worksheet.Dimension.Columns);
+                        CreateColumnsAndBindings(dataGrid, worksheet.Dimension.Columns);
                     }
                 }
             }
@@ -495,7 +517,7 @@ namespace MachineLearningSoftware.Views.ViewModels
             }
         }
 
-        private void CreateeColumnsAndBindings(DataGrid dataGrid, int columnCount)
+        private void CreateColumnsAndBindings(DataGrid dataGrid, int columnCount)
         {
             var columnsDictionary = new Dictionary<int, string>();
             Application.Current.Dispatcher.Invoke(() => dataGrid.ItemsSource = CleanDataItems);
@@ -557,6 +579,26 @@ namespace MachineLearningSoftware.Views.ViewModels
                             streamWriter.Write("\n");
                         }
                     }
+
+                    foreach (var duplicate in CleanDataItems.Where(x => x.IsDuplicate).Distinct())
+                    {
+                        var count = 0;
+                        var colCount = duplicate.Data.Count;
+                        foreach (var column in duplicate.Data)
+                        {
+                            if (count == (colCount - 1))
+                            {
+                                streamWriter.Write(column.Value);
+                            }
+                            else
+                            {
+                                streamWriter.Write(column.Value);
+                                streamWriter.Write(",");
+                            }
+                            count++;
+                        }
+                        streamWriter.Write("\n");
+                    }
                 }
             }
             IsModalVisible = false;
@@ -571,6 +613,52 @@ namespace MachineLearningSoftware.Views.ViewModels
             if (!string.IsNullOrEmpty(filename))
             {
                 FileName = filename;
+            }
+        }
+
+        private void ExecuteFunction(object parameter)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(DynamicFunction)
+                && parameter is DataGrid dataGrid)
+                {
+                    var replaceColumnIndex = 0;
+                    var replaceColumnValue = string.Empty;
+                    foreach (var column in ColumnsDictionary)
+                    {
+                        if (DynamicFunction.Contains(column.Value))
+                        {
+                            replaceColumnValue = column.Value;
+                            replaceColumnIndex = column.Key;
+                        }
+                    }
+
+                    var ingnoreFirstRow = false;
+                    foreach (var row in CleanDataItems)
+                    {
+                        if (ingnoreFirstRow)
+                        {
+                            var newFunction = DynamicFunction.Replace(replaceColumnValue, row.Data[replaceColumnIndex]);
+                            var returnValue = _dynamicFunctions.InvokeDynamicFunction(newFunction);
+                            if (returnValue is Exception exception)
+                            {
+                                throw exception;
+                            }
+                            else
+                            {
+                                row.Data[replaceColumnIndex] = returnValue.ToString();
+                            }
+                        }
+                        ingnoreFirstRow = true;
+                    }
+
+                    CreateColumnsAndBindings(dataGrid, CleanDataItems.FirstOrDefault().Data.Count);
+                }
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogDataAccess.LogException(ex.ToString());
             }
         }
     }

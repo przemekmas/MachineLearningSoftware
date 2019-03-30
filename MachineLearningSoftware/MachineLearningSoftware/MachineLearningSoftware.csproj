@@ -186,6 +186,7 @@
     <Compile Include="Common\BitmapConverter.cs" />
     <Compile Include="Common\DependencyInjection.cs" />
     <Compile Include="Common\CurrentDirectory.cs" />
+    <Compile Include="Common\DynamicFunctions.cs" />
     <Compile Include="DataAccess\BaseDataAccess.cs" />
     <Compile Include="DataAccess\ExceptionLogDataAccess.cs" />
     <Compile Include="Common\ExecuteCMDCommands.cs" />

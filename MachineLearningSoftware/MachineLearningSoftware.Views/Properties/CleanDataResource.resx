@@ -138,8 +138,14 @@
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="Execute" xml:space="preserve">
+    <value>Execute</value>
+  </data>
   <data name="ExportData" xml:space="preserve">
     <value>Export Data</value>
+  </data>
+  <data name="Function" xml:space="preserve">
+    <value>Function</value>
   </data>
   <data name="LimitRowRead" xml:space="preserve">
     <value>Limit Row Read</value>

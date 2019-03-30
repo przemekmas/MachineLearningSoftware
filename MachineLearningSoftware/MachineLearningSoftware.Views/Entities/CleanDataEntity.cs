@@ -9,6 +9,17 @@ namespace MachineLearningSoftware.Views.Entities
         public Dictionary<int, string> Data { get; set; } = new Dictionary<int, string>();
         public bool ContainsSpecialCharacter { get; set; }
         public bool IsDuplicate { get; set; }
+        public bool IsDuplicateExported { get; set; }
+
+        public override bool Equals(object other)
+        {
+            if (other is CleanDataEntity cleanDataEntity)
+            {
+                return cleanDataEntity.GetHashCode() == GetHashCode();
+            }
+            return false;
+        }
+
         public override int GetHashCode() { return GenerateHashCode(); }
 
         private int GenerateHashCode()
