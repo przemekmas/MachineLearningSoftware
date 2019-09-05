@@ -90,6 +90,7 @@
   <ItemGroup>
     <Compile Include="Entities\CleanDataEntity.cs" />
     <Compile Include="Entities\ColumnName.cs" />
+    <Compile Include="Entities\PerformanceIndicatorEntity.cs" />
     <Compile Include="Enumerations\ModelType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -113,6 +114,11 @@
       <DependentUpon>PeopleDetectionResource.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Properties\PerformanceIndicatorResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PerformanceIndicatorResource.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -143,6 +149,7 @@
     <Compile Include="ViewModels\MNISTViewModel.cs" />
     <Compile Include="ViewModels\ObjectRecognitionViewModel.cs" />
     <Compile Include="ViewModels\PeopleDetectionViewModel.cs" />
+    <Compile Include="ViewModels\PerformanceIndicatorViewModel.cs" />
     <Compile Include="ViewModels\RetrainInceptionModelViewModel.cs" />
     <Compile Include="ViewModels\TensorBoardViewModel.cs" />
     <Compile Include="ViewModels\TrainDatasetViewModel.cs" />
@@ -195,6 +202,9 @@
     <Compile Include="Views\TrainDatasetView.xaml.cs">
       <DependentUpon>TrainDatasetView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PerformanceIndicator.xaml.cs">
+      <DependentUpon>PerformanceIndicator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WideDeep.xaml.cs">
       <DependentUpon>WideDeep.xaml</DependentUpon>
     </Compile>
@@ -214,6 +224,10 @@
     <EmbeddedResource Include="Properties\PeopleDetectionResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PeopleDetectionResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\PerformanceIndicatorResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PerformanceIndicatorResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -239,6 +253,9 @@
     <EmbeddedResource Include="Views\DialogBoxes\WideDeepHelpDialog.resx">
       <DependentUpon>WideDeepHelpDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="Assets\CSVFiles\ExperimentResults.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -311,6 +328,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\PerformanceIndicator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\WideDeep.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -324,6 +345,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -11,6 +11,12 @@ namespace MachineLearningSoftware.Common
             return Directory.GetCurrentDirectory();
         }
 
+        public static string GetAssetsDirectoryFolder(string folder)
+        {
+            var currentPath = Directory.GetCurrentDirectory();
+            return Path.GetFullPath(Path.Combine(currentPath, string.Format(@"Assets\{0}", folder)));
+        }
+
         public static string GetPythonAssetsDirectory(string folder)
         {
             var currentPath = Directory.GetCurrentDirectory();
