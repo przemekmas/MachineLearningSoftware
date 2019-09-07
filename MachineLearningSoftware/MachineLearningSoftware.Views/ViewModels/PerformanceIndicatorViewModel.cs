@@ -4,6 +4,7 @@ using MachineLearningSoftware.DataAccess;
 using MachineLearningSoftware.ViewModels;
 using MachineLearningSoftware.Views.Entities;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.IO;
@@ -69,37 +70,13 @@ namespace MachineLearningSoftware.Views.ViewModels
             _exceptionLogDataAccess = exceptionLogging;
             ConfigureHeaderControl(true, true, Properties.PerformanceIndicatorResource.Title, true,
                 Properties.PerformanceIndicatorResource.Description);
-            WeightConfiguration = new ObservableCollection<PerformanceIndicatorEntity>()
+            var configuration = XMLWriterReader.DeserialiseObject(CurrentDirectory.GetAssetsDirectoryFolder(@"XMLFiles\PIWeightConfiguration.xml"), 
+                typeof(List<PerformanceIndicatorEntity>));
+            if (configuration != null)
             {
-                new PerformanceIndicatorEntity()
-                {
-                    Accuracy = 1,
-                    AccuracyBaseline = 2,
-                    AUC = 1,
-                    AUCPrecisionRecall = 2,
-                    AverageLoss = 1,
-                    LabelMean = 1,
-                    Loss = 1,
-                    Precision = 1,
-                    PredictionMean = 1,
-                    Recall = 1,
-                    TrainTime = 1,
-                },
-                new PerformanceIndicatorEntity()
-                {
-                    Accuracy = -1,
-                    AccuracyBaseline = -2,
-                    AUC = -1,
-                    AUCPrecisionRecall = -2,
-                    AverageLoss = -1,
-                    LabelMean = -1,
-                    Loss = -1,
-                    Precision = -1,
-                    PredictionMean = -1,
-                    Recall = -1,
-                    TrainTime = -1,
-                }
-            };
+                WeightConfiguration = new ObservableCollection<PerformanceIndicatorEntity>((ICollection<PerformanceIndicatorEntity>)configuration);
+            }
+
             GetSavedExperimentResults();
         }
 
@@ -120,6 +97,7 @@ namespace MachineLearningSoftware.Views.ViewModels
             }
 
             SaveExperimentResults(ExperimentResults);
+            SaveWeightConfiguration();
         }
 
         private void SaveExperimentResults(ObservableCollection<PerformanceIndicatorEntity> experimentResults)
@@ -131,6 +109,12 @@ namespace MachineLearningSoftware.Views.ViewModels
                     file.WriteLine(experiment.ToCSV());
                 }
             }
+        }
+
+        private void SaveWeightConfiguration()
+        {
+            XMLWriterReader.SerialiseAndWriteObject(CurrentDirectory.GetAssetsDirectoryFolder(@"XMLFiles\PIWeightConfiguration.xml"), 
+                WeightConfiguration, typeof(Collection<PerformanceIndicatorEntity>));
         }
 
         private void GetSavedExperimentResults()

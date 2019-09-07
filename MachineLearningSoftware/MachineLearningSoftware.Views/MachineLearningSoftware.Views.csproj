@@ -208,6 +208,9 @@
     <Compile Include="Views\WideDeep.xaml.cs">
       <DependentUpon>WideDeep.xaml</DependentUpon>
     </Compile>
+    <Content Include="Assets\XMLFiles\PIWeightConfiguration.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Properties\CleanDataResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CleanDataResource.Designer.cs</LastGenOutput>
