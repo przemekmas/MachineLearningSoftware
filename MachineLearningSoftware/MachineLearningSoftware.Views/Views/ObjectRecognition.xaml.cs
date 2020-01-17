@@ -33,15 +33,5 @@ namespace MachineLearningSoftware.Views
         {
             _viewModel.OpenWindowsDialog(FileDialogOption.ChooseImage);
         }
-
-        private void ChooseInceptionGraphButton1_Click(object sender, RoutedEventArgs e)
-        {
-            _viewModel.OpenWindowsDialog(FileDialogOption.ChooseInceptionGraph);
-        }
-        
-        private void ChooseOutputLabelButton1_Click(object sender, RoutedEventArgs e)
-        {
-            _viewModel.OpenWindowsDialog(FileDialogOption.ChooseOutputLabels);
-        }
     }
 }

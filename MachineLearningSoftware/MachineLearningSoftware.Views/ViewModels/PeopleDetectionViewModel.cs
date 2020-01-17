@@ -1,6 +1,10 @@
-﻿using Emgu.TF.Models;
+﻿using Emgu.Models;
+using Emgu.TF.Models;
 using MachineLearningSoftware.Common;
+using MachineLearningSoftware.DataAccess;
 using MachineLearningSoftware.ViewModels;
+using System;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Drawing;
 using System.Threading.Tasks;
@@ -13,8 +17,11 @@ namespace MachineLearningSoftware.Views.ViewModels
     [PartCreationPolicy(CreationPolicy.NonShared)]
     public class PeopleDetectionViewModel : BaseViewModel
     {
+        private readonly ExceptionLogDataAccess _exceptionLogDataAccess;
         private BitmapImage _imageSource;
         private string _imageSourceDirectory;
+        private string _fileName;
+        private MultiboxGraph _graph;
 
         public BitmapImage ImageSource
         {
@@ -36,10 +43,12 @@ namespace MachineLearningSoftware.Views.ViewModels
             }
         }
 
-        public PeopleDetectionViewModel()
+        [ImportingConstructor]
+        public PeopleDetectionViewModel(ExceptionLogDataAccess exceptionLogDataAccess)
         {
             ConfigureHeaderControl(true, true, Properties.PeopleDetectionResource.Title);
             ImageSource = BitmapConverter.ConvertBitmap(Properties.Resources.ImagePlaceholder);
+            _exceptionLogDataAccess = exceptionLogDataAccess;
         }
 
         public void ChooseImage()
@@ -58,14 +67,34 @@ namespace MachineLearningSoftware.Views.ViewModels
 
         private void DetectImage(string fileName)
         {
-            var graph = new MultiboxGraph();
-            var imageTensor = ImageIO.ReadTensorFromImageFile(fileName, 224, 224, 128.0f, 1.0f / 128.0f);
-            var result = graph.Detect(imageTensor);
+            using(_graph = new MultiboxGraph())
+            {
+                _fileName = fileName;
+                _graph.OnDownloadCompleted += OnDownloadComplete;
+                _graph.Init();
+            }
+        }
 
-            var bmp = new Bitmap(fileName);
-            MultiboxGraph.DrawResults(bmp, result, 0.1f);
-            ImageSource = BitmapConverter.ConvertBitmap(bmp);
-            IsModalVisible = false;
-        }              
+        private void OnDownloadComplete(object sender, AsyncCompletedEventArgs e)
+        {
+            try
+            {
+                using (var imageTensor = ImageIO.ReadTensorFromImageFile<float>(_fileName, 224, 224, 128.0f, 1.0f / 128.0f))
+                {
+                    var detectionResult = _graph.Detect(imageTensor);
+                    var detectionAnnotations = MultiboxGraph.FilterResults(detectionResult, 0.1f);
+                    var detectionImage = NativeImageIO.ImageFileToJpeg(_fileName, detectionAnnotations);
+                    var typeConverter = TypeDescriptor.GetConverter(typeof(Bitmap));
+                    var detectionBmpImage = (Bitmap)typeConverter.ConvertFrom(detectionImage.Raw);
+                    ImageSource = BitmapConverter.ConvertBitmap(detectionBmpImage);
+                }
+                IsModalVisible = false;
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogDataAccess.LogException(ex.ToString());
+                IsModalVisible = false;
+            }
+        }
     }
 }

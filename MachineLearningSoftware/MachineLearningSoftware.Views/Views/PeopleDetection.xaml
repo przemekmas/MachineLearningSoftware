@@ -9,7 +9,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -17,9 +17,9 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Image HorizontalAlignment="Left" x:Name="ChooseImage1" Source="{Binding ImageSource}" Grid.Row="0" Grid.ColumnSpan="2" Margin="6"/>
-        <Button Grid.Row="1" x:Name="ChooseImageButton1" Content="Choose Image" Click="ChooseImageButton1_Click" Margin="5"
-                Height="20"/>
+        <Image HorizontalAlignment="Left" x:Name="ChooseImage1" Source="{Binding ImageSource}" Grid.Row="0" Grid.ColumnSpan="2" Margin="6,5,0,5"/>
+        <Button Grid.Row="1" x:Name="ChooseImageButton1" Content="Choose Image" Click="ChooseImageButton1_Click" Margin="6,0,0,5"
+                Height="25" Width="110" HorizontalAlignment="Left"/>
         <TextBlock Grid.Row="1" Grid.Column="1" x:Name="ChooseImageLabel1" Text="{Binding ImageSourceDirectory}" 
                    VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap"/>
     </Grid>

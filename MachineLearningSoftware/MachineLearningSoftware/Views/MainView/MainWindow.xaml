@@ -13,7 +13,7 @@
                                   IsMinimiseButtonVisible="True"
                                   IsMaximiseButtonVisible="True"
                                   IsCloseButtonVisible="True"
-                                  WindowTitle="Machine Learning Software"
+                                  WindowTitle="Pre-processing Assistant"
                                   CanResizeWindow="True">
     <Window.Resources>
         <ResourceDictionary>

@@ -1,11 +1,14 @@
 ﻿using Emgu.TF;
 using Emgu.TF.Models;
 using MachineLearningSoftware.Common;
+using MachineLearningSoftware.DataAccess;
 using MachineLearningSoftware.Entities;
 using MachineLearningSoftware.ViewModels;
 using System;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
-using System.IO;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
@@ -18,11 +21,15 @@ namespace MachineLearningSoftware.Views.ViewModels
     {
         #region
 
-        private string _inceptionGraphFileLocation;
-        private string _outputLabelsFileLocation;
+        private readonly ExceptionLogDataAccess _exceptionLogDataAccess;
         private string _informationText;
         private string _imageFileName;
         private BitmapFrame _fileSource;
+        private Inception _inceptionGraph;
+        private string _fileName;
+        private string _inceptionGraphURL;
+        private string _outputLabelsURL;
+        private string _downloadURL;
 
         #endregion
 
@@ -57,15 +64,47 @@ namespace MachineLearningSoftware.Views.ViewModels
                 OnPropertyChanged(nameof(ImageFileName));
             }
         }
-        
+
+        public string InceptionGraphFileName
+        {
+            get { return _inceptionGraphURL; }
+            set
+            {
+                _inceptionGraphURL = value;
+                OnPropertyChanged(nameof(InceptionGraphFileName));
+            }
+        }
+
+        public string OutputLabelsFileName
+        {
+            get { return _outputLabelsURL; }
+            set
+            {
+                _outputLabelsURL = value;
+                OnPropertyChanged(nameof(OutputLabelsFileName));
+            }
+        }
+
+        public string DownloadURL
+        {
+            get { return _downloadURL; }
+            set
+            {
+                _downloadURL = value;
+                OnPropertyChanged(nameof(DownloadURL));
+            }
+        }
+
         #endregion
 
         #region Constructor
 
-        public ObjectRecognitionViewModel()
+        [ImportingConstructor]
+        public ObjectRecognitionViewModel(ExceptionLogDataAccess exceptionLogDataAccess)
         {
             ConfigureHeaderControl(true, true, Properties.ObjectRecognitionResource.Title);
             FileSource = BitmapFrame.Create(BitmapConverter.CreateBitmapSourceFromBitmap(Properties.Resources.ImagePlaceholder));
+            _exceptionLogDataAccess = exceptionLogDataAccess;
         }
 
         #endregion
@@ -74,53 +113,61 @@ namespace MachineLearningSoftware.Views.ViewModels
         
         public void Recognise(string fileName)
         {
-            var imageSource = new BitmapImage(new Uri(fileName));
-            Inception inceptionGraph = null;
             FileSource = BitmapFrame.Create(new Uri(fileName));
             ImageFileName = fileName;
 
-            //Use the following code for the full inception model
-            //Inception inceptionGraph = new Inception();
-            //Tensor imageTensor = ImageIO.ReadTensorFromImageFile(fileName, 224, 224, 128.0f, 1.0f / 128.0f);
-
-            //Uncomment the following code to use a retrained model to recognize followers, downloaded from the internet
-            //Inception inceptionGraph = new Inception(null, new string[] {"optimized_graph.pb", "output_labels.txt"}, "https://github.com/emgucv/models/raw/master/inception_flower_retrain/", "Mul", "final_result");
-            //Tensor imageTensor = ImageIO.ReadTensorFromImageFile(fileName, 299, 299, 128.0f, 1.0f / 128.0f);
-
-            //Uncomment the following code to use a retrained model to recognize followers, if you deployed the models with the application
-            //For ".pb" and ".txt" bundled with the application, set the url to null
-            byte[] model = File.ReadAllBytes(@"C:\Users\Przem\Downloads\flowers.jpg");
-
-            if (_inceptionGraphFileLocation != null && _outputLabelsFileLocation != null)
+            try
             {
-                inceptionGraph = new Inception(null, new string[] { _inceptionGraphFileLocation, _outputLabelsFileLocation }, null, "Mul", "final_result");
-            }
-            else
-            {
-                inceptionGraph = new Inception(null, new string[] { "optimized_graph.pb", "output_labels.txt" }, "https://github.com/emgucv/models/raw/master/inception_flower_retrain/", "Mul", "final_result");
-            }
-
-            Tensor imageTensor = ImageIO.ReadTensorFromImageFile(fileName, 299, 299, 128.0f, 1.0f / 128.0f);
-
-            float[] probability = inceptionGraph.Recognize(imageTensor);
-            String resStr = String.Empty;
-            if (probability != null)
-            {
-                String[] labels = inceptionGraph.Labels;
-                float maxVal = 0;
-                int maxIdx = 0;
-                for (int i = 0; i < probability.Length; i++)
+                using (_inceptionGraph = new Inception())
                 {
-                    if (probability[i] > maxVal)
+                    _fileName = fileName;
+                    _inceptionGraph.OnDownloadCompleted += OnDownloadComplete;
+                    if (!string.IsNullOrEmpty(DownloadURL)
+                        && !string.IsNullOrEmpty(InceptionGraphFileName)
+                        && !string.IsNullOrEmpty(OutputLabelsFileName))
                     {
-                        maxVal = probability[i];
-                        maxIdx = i;
+                        _inceptionGraph.Init(new string[] { InceptionGraphFileName, OutputLabelsFileName }, DownloadURL);
+                    }
+                    else
+                    {
+                        _inceptionGraph.Init();
                     }
                 }
-                resStr = String.Format("Object is {0} with {1}% probability.", labels[maxIdx], maxVal * 100);
             }
-            InformationText = resStr;
-            DisposeObjects(inceptionGraph, imageTensor);
+            catch (Exception ex)
+            {
+                _exceptionLogDataAccess.LogException(ex.ToString());
+                IsModalVisible = false;
+            }
+        }
+
+        private void OnDownloadComplete(object sender, AsyncCompletedEventArgs e)
+        {
+            try
+            {
+                var stringResult = new StringBuilder();
+
+                using (var imageTensor = ImageIO.ReadTensorFromImageFile<float>(_fileName, 256, 256))
+                {
+                    var results = _inceptionGraph.Recognize(imageTensor);
+
+                    foreach (var recognitionResult in results.OrderByDescending(x => x.Probability).Take(5))
+                    {
+                        if (decimal.TryParse(recognitionResult.Probability.ToString(), out decimal resultResult))
+                        {
+                            stringResult.Append($"Object is {recognitionResult.Label} with {resultResult}% probability.")
+                                .AppendLine();
+                        }
+                    }
+                }
+
+                InformationText = stringResult.ToString();
+                IsModalVisible = false;
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogDataAccess.LogException(ex.ToString());
+            }
             IsModalVisible = false;
         }
 
@@ -140,35 +187,7 @@ namespace MachineLearningSoftware.Views.ViewModels
                     IsModalVisible = true;                    
                     Task.Run(() => Recognise(filename));
                 }
-                else if (option == FileDialogOption.ChooseInceptionGraph)
-                {
-                    SetInceptionGraph(filename);
-                }
-                else if (option == FileDialogOption.ChooseOutputLabels)
-                {
-                    SetOutputLabels(filename);
-                }
             }
-        }
-
-        #endregion
-
-        #region Private Methods
-        
-        private void SetOutputLabels(string filename)
-        {
-            _outputLabelsFileLocation = filename;
-        }
-
-        private void SetInceptionGraph(string filename)
-        {
-            _inceptionGraphFileLocation = filename;
-        }
-        
-        private void DisposeObjects(Inception graph, Tensor tensor)
-        {
-            graph.Dispose();
-            tensor.Dispose();
         }
 
         #endregion

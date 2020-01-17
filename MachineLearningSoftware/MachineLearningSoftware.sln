@@ -5,25 +5,11 @@ VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachineLearningSoftware", "MachineLearningSoftware\MachineLearningSoftware.csproj", "{4E287989-BC72-4EEE-AD9A-8C605DDC2045}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Emgu.TF.Util", "Emgu.TF.Util\Emgu.TF.Util.shproj", "{98561642-5EC3-4244-BAF9-6876D9BA5527}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Emgu.TF.Models", "Emgu.TF.Models\Emgu.TF.Models.shproj", "{752279F0-17EF-4EC8-857C-8F5F897AF0E8}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Emgu.TF", "Emgu.TF\Emgu.TF.shproj", "{D47D776E-9970-4552-BC8A-24CADCBEA009}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachineLearningSoftware.Views", "MachineLearningSoftware.Views\MachineLearningSoftware.Views.csproj", "{45109E69-C8A6-4F30-BFA5-DA99C6E398B5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachineLearningSoftware.Controls", "MachineLearningSoftware.Controls\MachineLearningSoftware.Controls.csproj", "{A97A106B-802B-4DB4-86F3-1F3324F9E7D5}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Emgu.TF.Models\Emgu.TF.Models.projitems*{4e287989-bc72-4eee-ad9a-8c605ddc2045}*SharedItemsImports = 4
-		Emgu.TF.Util\Emgu.TF.Util.projitems*{4e287989-bc72-4eee-ad9a-8c605ddc2045}*SharedItemsImports = 4
-		Emgu.TF\Emgu.TF.projitems*{4e287989-bc72-4eee-ad9a-8c605ddc2045}*SharedItemsImports = 4
-		Emgu.TF.Models\Emgu.TF.Models.projitems*{752279f0-17ef-4ec8-857c-8f5f897af0e8}*SharedItemsImports = 13
-		Emgu.TF.Util\Emgu.TF.Util.projitems*{98561642-5ec3-4244-baf9-6876d9ba5527}*SharedItemsImports = 13
-		Emgu.TF\Emgu.TF.projitems*{d47d776e-9970-4552-bc8a-24cadcbea009}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
