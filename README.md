@@ -30,7 +30,7 @@ The purpose of this repository is to provide software which allows to understand
 ![](https://raw.githubusercontent.com/przemekmas/MachineLearningSoftware/GithubImages/Wide_Deep_Screen.png "")
 
 * Performance Indication Tool - The performance indicator tool can be used to measure the performance of a data pre-processing that has been applied to a predictive model.
-![](https://raw.githubusercontent.com/przemekmas/MachineLearningSoftware/GithubImages/Performance_Indicator_Tool.png ""){:height="600px" width="800px"}
+![](https://raw.githubusercontent.com/przemekmas/MachineLearningSoftware/GithubImages/Performance_Indicator_Tool.png "")
 
 * TensorBoard Tool - The TensorBoard tool can be used to analyse the performance of a predictive model.
 ![](https://raw.githubusercontent.com/przemekmas/MachineLearningSoftware/GithubImages/TensorBoard_Tool.png "")
