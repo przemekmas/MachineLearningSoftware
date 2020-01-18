@@ -1,16 +1,10 @@
-# Tensorflow Machine learning software
+# Tensorflow Machine learning software/Pre-processing Assistant
 
-The purpose of this repository is to provide software which allows to understand and use object recognition and training by the use of the Tensorflow framework. The open source software has been created for windows and it has been written within C#. However, the Tensorflow framework works best with python which is why most the tutorials on the internet will be using Linux and python with the use of the Tensorflow framework.
+The purpose of this repository is to provide software which allows to understand and use object recognition/detection by the use of the Emgu TF library. The open-source software is a windows application that has been written in C#. The software takes advantage of the Emgu TF library which is a C# wrapper for TensorFlow. However, the software also utilises the raw Python TensorFlow framework due to the limitations of the Emgu TF library. Also, the purpose of the software is to provide tools that can be used to apply data pre-processing techniques to CSV/XLSX type datasets that can later be trained with TensorFlow. The software also contains a performance indicator tool that can be used to measure the performance of a predictive model based on the output of the model metrics.
 
-### .NET Framework
+### .NET Framework Version
 
-* The .NET Framework required to build the project and execute the software is .NET Framework 4.6.1
-
-### Download Link
-
-Below is the download link to the latest build of the software.
-
-* https://drive.google.com/open?id=1jEFOrdyHmiD5SHJs2pyYhYpL6tyk5_k4
+* The .NET Framework version that is required to build the project is .NET Framework 4.6.1
 
 ### Software Screens/Pages
 
@@ -23,20 +17,20 @@ Below is the download link to the latest build of the software.
 * MNIST - The MNIST page shows a visual representation of the MNIST dataset. It demonstrates how the 28 by 28 images and the corresponding labels are stored as an array within the dataset on a 28 by 28 grid.
 ![](https://raw.githubusercontent.com/przemekmas/MachineLearningSoftware/GithubImages/MNIST_Screen.png "")
 
-* Object Recognition - The object recognition screen uses Tensorflow to recognise the images. The default retrained model is used, which will be able to recognise flowers. However, the user can also provide their own model to recognise any other objects.
+* Object Recognition - The object recognition screen uses Tensorflow to recognise the images. The default retrained model is used, which will be able to recognise flowers. However, the user can also provide their model to recognise any other objects.
 ![](https://raw.githubusercontent.com/przemekmas/MachineLearningSoftware/GithubImages/Object_Recognition_Screen.png "")
 
 * People Detection - The people detection screen uses Tensorflow to recognise people within a provided image.
 ![](https://raw.githubusercontent.com/przemekmas/MachineLearningSoftware/GithubImages/People_Detection_Screen.png "")
 
-* Retrain Inception Model - The retrain inception model screen can be used to create a trained inception model for object recognition. The screen uses pip and python to install or update Tensorflow on your machine. After Tensorflow is successfully installed, the user can then choose a folder which should contain subfolders with images that correspond to the folder name. In the end the user will press the build tensorflow button to create a trained model that can used for object recognition.
+* Retrain Inception Model - The retrain inception model screen can be used to create a trained inception model for object recognition. The screen uses pip and python to install or update Tensorflow on your machine. After Tensorflow is successfully installed, the user can then choose a folder which should contain subfolders with images that correspond to the folder name. In the end, the user will press the build TensorFlow button to create a trained model that can be used for object recognition.
 ![](https://raw.githubusercontent.com/przemekmas/MachineLearningSoftware/GithubImages/Retrain_Inception_Model_Screen.png "")
 
-* Wide Deep - This screen uses a wide deep model to predict if an individual earns more than a $50k a year. 
+* Wide Deep - This screen uses a wide deep model to predict if an individual earns more than $50k a year. 
 ![](https://raw.githubusercontent.com/przemekmas/MachineLearningSoftware/GithubImages/Wide_Deep_Screen.png "")
 
 * Performance Indication Tool - The performance indicator tool can be used to measure the performance of a data pre-processing that has been applied to a predictive model.
-![](https://raw.githubusercontent.com/przemekmas/MachineLearningSoftware/GithubImages/Performance_Indicator_Tool.png "")
+![](https://raw.githubusercontent.com/przemekmas/MachineLearningSoftware/GithubImages/Performance_Indicator_Tool.png ""){:height="600px" width="800px"}
 
 * TensorBoard Tool - The TensorBoard tool can be used to analyse the performance of a predictive model.
 ![](https://raw.githubusercontent.com/przemekmas/MachineLearningSoftware/GithubImages/TensorBoard_Tool.png "")
@@ -57,4 +51,5 @@ Below is the download link to the latest build of the software.
 ### References
 
 * http://www.emgu.com/wiki/index.php/Emgu_TF
+* https://github.com/emgucv/emgutf
 * https://jamesmccaffrey.wordpress.com/2013/11/23/reading-the-mnist-data-set-with-c/
